@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none';">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>FluentPath Spanish | Practical Fluency for Professionals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1A5F7A">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#E8F4F5',   // Mist Teal bg
+                            100: '#C5E3E6',
+                            200: '#8CC8CE',
+                            500: '#1A6B7A',   // Ocean Teal
+                            700: '#0F4F5C',
+                            900: '#0B3B4C',   // Deep Teal
+                        },
+                        coral: {
+                            50: '#FDF0EA',   // Coral Tint
+                            100: '#FADBCA',
+                            500: '#E8612B',   // Coral Orange
+                            700: '#C94D1E',
+                        },
+                        gold: {
+                            50: '#FFF8E0',   // Golden Glow
+                            500: '#F0B429',   // Golden Sun
+                            600: '#D4951A',
+                        },
+                        pink: {
+                            500: '#D94564',   // Flamenco Pink
+                        },
+                        purple: {
+                            500: '#8B5CF6',   // Jacaranda Purple
+                        },
+                        green: {
+                            500: '#4CAF50',   // Verde Alegre
+                        },
+                        slate: {
+                            800: '#2B2D42',
+                        },
+                        background: '#FAFAFA'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-hero {
+            background: linear-gradient(135deg, #0B3B4C 0%, #1A6B7A 50%, #E8612B 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .gradient-hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.06;
+            background-size: 60px 60px;
+        }
+        .gradient-cta {
+            background: linear-gradient(135deg, #E8612B 0%, #D94564 100%);
+            box-shadow: 0 4px 12px rgba(232, 97, 43, 0.3);
+            transition: all 0.3s ease;
+            color: white !important;
+            border: none !important;
+        }
+        .gradient-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 97, 43, 0.4);
+            color: white !important;
+        }
+        .gradient-card-accent {
+            background: linear-gradient(180deg, #FDF0EA 0%, transparent 100%);
+        }
+        .gradient-divider {
+            height: 4px;
+            background: linear-gradient(90deg, transparent 0%, #E8612B 50%, transparent 100%);
+            opacity: 0.3;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+        .card-base {
+            transition: all 0.3s ease;
+        }
+        .card-base:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+        }
+        .card-accent-left {
+            border-left: 4px solid #1A6B7A;
+        }
+        .form-input:focus {
+            border-color: #1A6B7A;
+            box-shadow: 0 0 0 3px rgba(26,107,122,0.15);
+            outline: none;
+        }
+        /* Flashcard flip animation */
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #1a5f7a 0%, #154c62 100%);
+            color: white;
+        }
+        .flashcard-back {
+            background: white;
+            color: #2B2D42;
+            border: 2px solid #1a5f7a;
+            transform: rotateY(180deg);
+        }
+        .flashcard-back p {
+            margin-bottom: 0.75rem;
+        }
+        .flashcard-back .example {
+            font-style: italic;
+            color: #6b7280;
+        }
+    </style>
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("service-worker.js");
+        }
+    </script>
+    <script src="booking.js"></script>
+    <script src="quiz.js"></script>
+    <script src="flashcards.js"></script>
+    <script src="assessment.js"></script>
+</head>
+<body class="font-sans text-slate-800 antialiased bg-background">
+
+    <!-- Announcement Bar -->
+    <div id="announcement-bar" class="bg-accent-500 text-slate-800 py-2 text-center text-sm font-medium relative transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 pr-10">
+            <span id="announcement-text">🎉 7-Day Free Trial - Start Today!</span>
+        </div>
+        <button id="announcement-close" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-800 hover:text-slate-900 text-lg leading-none" aria-label="Close">&times;</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav py-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img src="fluentpath-logo-premium.svg" alt="FluentPath Spanish" class="h-10">
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-primary-600 font-medium">Why Us</a>
+                <a href="#students" class="text-gray-600 hover:text-primary-600 font-medium">Who It's For</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-primary-600 font-medium">Testimonials</a>
+                <a href="#pricing" class="text-gray-600 hover:text-primary-600 font-medium">Pricing</a>
+                <a href="#faq" class="text-gray-600 hover:text-primary-600 font-medium">FAQ</a>
+                <a href="#flashcards" class="text-gray-600 hover:text-primary-600 font-medium">Flashcards</a>
+                <a href="#ai-teachers" class="text-gray-600 hover:text-primary-600 font-medium">AI Teachers</a>
+                <a href="#assessment" class="text-gray-600 hover:text-primary-600 font-medium">Assessment</a>
+                <a href="#roadmap" class="text-gray-600 hover:text-primary-600 font-medium">Roadmap</a>
+                <a href="#blog" class="text-gray-600 hover:text-primary-600 font-medium">Blog</a>
+                <a href="#pronunciation" class="text-gray-600 hover:text-primary-600 font-medium">Pronunciation</a>
+                <a href="#dashboard" class="text-gray-600 hover:text-primary-600 font-medium">Dashboard</a>
+                <a href="#referral" class="text-gray-600 hover:text-primary-600 font-medium">Referral</a>
+                <a href="#community" class="text-gray-600 hover:text-primary-600 font-medium">Community</a>
+                <a href="#library" class="text-gray-600 hover:text-primary-600 font-medium">Library</a>
+                <a href="#sponsor" class="text-gray-600 hover:text-primary-600 font-medium">Sponsor Us</a>
+            </div>
+            <a href="#contact" class="gradient-cta px-5 py-2 rounded-lg font-medium">Book a Session</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-hero text-white py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">Real-world Spanish for Real-world Success</h1>
+            <p class="text-xl md:text-2xl text-primary-100 mb-10 max-w-3xl mx-auto">Master practical fluency and professional communication. Skip the grammar drills and start speaking with confidence.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#contact" class="gradient-cta px-8 py-3 rounded-lg font-bold text-lg">Start Your Journey</a>
+                <a href="#about" class="border-2 border-white text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-white hover:text-primary-900 transition">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <div class="gradient-divider"></div>
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Fluency Over Formulas</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Traditional classes focus on memorization. We focus on getting you ready for that important meeting, your next date, or your new life abroad.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="card-base card-accent-left bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-6 text-2xl">🗣️</div>
+                    <h3 class="text-xl font-heading font-bold mb-3">Conversational Fluency</h3>
+                    <p class="text-gray-600">Speak naturally from day one. We simulate real conversations so you aren't lost when you step outside the classroom.</p>
+                </div>
+                <div class="card-base card-accent-left bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-6 text-2xl">💼</div>
+                    <h3 class="text-xl font-heading font-bold mb-3">Professional Communication</h3>
+                    <p class="text-gray-600">Master the vocabulary that matters for your career. Learn how to negotiate, present, and build relationships in Spanish.</p>
+                </div>
+                <div class="card-base card-accent-left bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-6 text-2xl">🌎</div>
+                    <h3 class="text-xl font-heading font-bold mb-3">Real-world Application</h3>
+                    <p class="text-gray-600">Roleplay scenarios tailored to your life: ordering at a local cafe, handling a bureaucratic office, or chatting with in-laws.</p>
+                </div>
+                <div class="card-base card-accent-left bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-6 text-2xl">🗺️</div>
+                    <h3 class="text-xl font-heading font-bold mb-3">Specialized Dialects</h3>
+                    <p class="text-gray-600">We offer specialized dialect coaching so students can learn the exact Spanish they need — including Argentinian, Chilean, Mexican, European Spanish (Castilian), and more.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <div class="gradient-divider"></div>
+    <section id="students" class="py-20 bg-primary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6">Who is FluentPath For?</h2>
+                    <p class="text-lg text-gray-600 mb-8">Our coaching is designed specifically for intermediate-to-advanced learners who need to bridge the gap between "knowing Spanish" and actually using it confidently.</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-secondary-500 mr-3 text-xl">✓</span>
+                            <span class="text-slate-800"><strong>Expats & Remote Workers:</strong> Feel at home in LATAM or Spain.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary-500 mr-3 text-xl">✓</span>
+                            <span class="text-slate-800"><strong>Relocating Professionals:</strong> Hit the ground running in your new office.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary-500 mr-3 text-xl">✓</span>
+                            <span class="text-slate-800"><strong>Business Developers:</strong> Close deals in Spanish-speaking markets.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary-500 mr-3 text-xl">✓</span>
+                            <span class="text-slate-800"><strong>Partners & Spouses:</strong> Connect deeply with Spanish-speaking loved ones.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-secondary-500 mr-3 text-xl">✓</span>
+                            <span class="text-slate-800"><strong>Rusty Learners:</strong> Reactivate the Spanish you learned years ago.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/2 bg-white p-8 rounded-2xl shadow-lg border border-gray-100 relative">
+                    <div class="absolute -top-6 -left-6 text-6xl text-accent-500">"</div>
+                    <p class="text-xl text-slate-800 italic mb-6 relative z-10">"I studied Spanish for years but always froze when trying to speak at work. After 10 sessions with FluentPath, I confidently run our weekly LATAM strategy meetings entirely in Spanish."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-xl mr-4">S</div>
+                        <div>
+                            <div class="font-bold text-slate-800">Sarah Jenkins</div>
+                            <div class="text-sm text-gray-500">Director of Expansion, TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Level Assessment -->
+    <div class="gradient-divider"></div>
+    <section id="assessment" class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Level Assessment Quiz</h2>
+                <p class="text-lg text-gray-600">Not sure where to start? Take our placement quiz to find your level and get a personalized recommendation. 5 beginner, 5 intermediate, and 5 advanced questions.</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl shadow-sm border border-gray-200 p-8">
+                <!-- Setup Area -->
+                <div id="assess-setup" class="text-center">
+                    <div id="assess-completed-notice" class="hidden bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 mb-6">
+                        📋 You've already completed the assessment. Take it again to see if you've improved!
+                    </div>
+                    <p class="text-gray-600 mb-6">This assessment covers grammar, vocabulary, and comprehension across 3 levels. It takes about 5-8 minutes.</p>
+                    <button id="start-assess-btn" class="gradient-cta font-bold py-3 px-8 rounded-lg text-lg">Start Assessment</button>
+                </div>
+
+                <!-- Assessment Area -->
+                <div id="assess-area" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <span id="assess-progress" class="text-sm font-medium text-gray-500"></span>
+                        <span id="assess-level-tag" class="text-xs font-bold px-3 py-1 rounded-full"></span>
+                    </div>
+                    <h3 id="assess-question" class="text-xl font-bold text-slate-800 mb-6"></h3>
+                    <div id="assess-options" class="space-y-3">
+                        <!-- Options injected here -->
+                    </div>
+                    <div id="assess-feedback" class="font-bold mt-4 text-center hidden"></div>
+                    <div class="mt-6 text-center">
+                        <button id="assess-next-btn" class="hidden bg-primary-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-primary-600 transition shadow-md">Next Question</button>
+                    </div>
+                </div>
+
+                <!-- Results Area -->
+                <div id="assess-result" class="hidden text-center">
+                    <h3 class="text-2xl font-heading font-bold text-slate-800 mb-2">Assessment Complete</h3>
+                    <p class="text-gray-600 mb-4">Here's your fluency profile and recommendation.</p>
+                    <div class="bg-white rounded-xl border border-primary-200 p-6 mb-6 text-left">
+                        <p class="text-gray-500 text-sm uppercase font-bold mb-1">Your Level</p>
+                        <p id="assess-your-level" class="text-2xl font-bold text-primary-700 mb-4"></p>
+                        <p class="text-gray-500 text-sm uppercase font-bold mb-1">Score Breakdown</p>
+                        <p id="assess-score-detail" class="text-gray-700 mb-4"></p>
+                        <div id="assess-recommendation"></div>
+                    </div>
+                    <button id="restart-assess-btn" class="bg-primary-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-600 transition shadow-md">Retake Assessment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quizzes -->
+    <div class="gradient-divider"></div>
+    <section id="quizzes" class="py-20 bg-gray-100">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Test Your Dialect Knowledge</h2>
+                <p class="text-lg text-gray-600">Select a dialect to see how well you know regional vocabulary. This is exactly what our specialized coaching prepares you for.</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl shadow-sm border border-gray-200 p-8">
+                <!-- Setup Area -->
+                <div id="quiz-setup" class="text-center">
+                    <label for="dialect-select" class="block text-sm font-medium text-gray-700 mb-4">Choose your target dialect:</label>
+                    <select id="dialect-select" class="w-full max-w-xs mx-auto px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition bg-white mb-6 block">
+                        <option value="" disabled selected>Select Dialect</option>
+                        <option value="mexican">Mexican Spanish</option>
+                        <option value="cuban">Cuban Spanish</option>
+                        <option value="rioplatense">Rioplatense Spanish</option>
+                        <option value="chilean">Chilean Spanish</option>
+                        <option value="colombian">Colombian Spanish</option>
+                        <option value="european">European Peninsular Spanish</option>
+                    </select>
+                    <button id="start-quiz-btn" class="gradient-cta font-bold py-3 px-8 rounded-lg">Start Quiz</button>
+                </div>
+
+                <!-- Quiz Area -->
+                <div id="quiz-area" class="hidden">
+                    <h3 id="question-text" class="text-xl font-bold text-slate-800 mb-6 text-center"></h3>
+                    <div id="options-container" class="space-y-3">
+                        <!-- Options injected here -->
+                    </div>
+                    <div id="feedback-text" class="font-bold mt-4 text-center"></div>
+                    <div class="mt-6 text-center">
+                        <button id="next-question-btn" class="hidden bg-secondary-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-secondary-600 transition shadow-md">Next Question</button>
+                    </div>
+                </div>
+
+                <!-- Results Area -->
+                <div id="quiz-result" class="hidden text-center">
+                    <h3 class="text-2xl font-heading font-bold text-slate-800 mb-4">Quiz Complete!</h3>
+                    <p id="score-display" class="text-xl text-primary-600 font-bold mb-8"></p>
+                    <button id="restart-quiz-btn" class="bg-primary-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-600 transition shadow-md">Try Another Dialect</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Flashcards -->
+    <div class="gradient-divider"></div>
+    <section id="flashcards" class="py-20 bg-coral-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Dialect Vocabulary Flashcards</h2>
+                <p class="text-lg text-gray-600">Master regional vocabulary with our interactive flashcards. Click to flip, swipe through the deck, and learn at your own pace.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                <!-- Setup Area -->
+                <div id="flash-setup" class="text-center">
+                    <label for="flash-dialect-select" class="block text-sm font-medium text-gray-700 mb-4">Choose a dialect deck:</label>
+                    <select id="flash-dialect-select" class="w-full max-w-xs mx-auto px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition bg-white mb-6 block">
+                        <option value="" disabled selected>Select Dialect</option>
+                        <option value="mexican">Mexican Spanish</option>
+                        <option value="cuban">Cuban Spanish</option>
+                        <option value="rioplatense">Rioplatense Spanish</option>
+                        <option value="chilean">Chilean Spanish</option>
+                        <option value="colombian">Colombian Spanish</option>
+                        <option value="european">European Peninsular Spanish</option>
+                    </select>
+                    <button id="start-flashcards-btn" class="gradient-cta font-bold py-3 px-8 rounded-lg">Start Learning</button>
+                </div>
+
+                <!-- Flashcard Area -->
+                <div id="flash-area" class="hidden">
+                    <div class="flashcard-container mx-auto mb-6" style="max-width: 480px;">
+                        <div id="flash-card-inner" class="flashcard-inner">
+                            <!-- Front -->
+                            <div class="flashcard-front">
+                                <p class="text-sm uppercase tracking-wider opacity-75 mb-2">Click to flip</p>
+                                <h3 id="flash-word" class="text-3xl font-heading font-bold text-center"></h3>
+                            </div>
+                            <!-- Back -->
+                            <div class="flashcard-back text-left">
+                                <p class="text-sm uppercase tracking-wider text-primary-500 font-bold mb-2">Definition</p>
+                                <p id="flash-definition" class="text-xl font-bold"></p>
+                                <hr class="my-3 border-gray-200">
+                                <p class="text-sm uppercase tracking-wider text-primary-500 font-bold mb-1">Example</p>
+                                <p id="flash-example" class="example text-base"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Counter -->
+                    <p id="flash-counter" class="text-center text-gray-500 font-medium mb-6"></p>
+
+                    <!-- Controls -->
+                    <div class="flex justify-center items-center space-x-4 mb-4">
+                        <button id="prev-card-btn" class="bg-gray-200 text-slate-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition disabled:opacity-50">‹ Prev</button>
+                        <button id="shuffle-btn" class="bg-accent-500 text-slate-800 font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition shadow-sm">🔀 Shuffle</button>
+                        <button id="next-card-btn" class="bg-gray-200 text-slate-800 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition disabled:opacity-50">Next ›</button>
+                    </div>
+                </div>
+
+                <!-- Results / Done Area -->
+                <div id="flash-result" class="hidden text-center">
+                    <h3 class="text-2xl font-heading font-bold text-slate-800 mb-4">Great job!</h3>
+                    <p class="text-gray-600 mb-8">You've reviewed this deck. Try another dialect or shuffle to test yourself again.</p>
+                    <button id="restart-flash-btn" class="bg-primary-500 text-white font-bold py-3 px-8 rounded-lg hover:bg-primary-600 transition shadow-md">Choose Another Dialect</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- AI Spanish Teachers -->
+    <div class="gradient-divider"></div>
+    <section id="ai-teachers" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="inline-block bg-yellow-100 text-yellow-800 text-sm font-bold px-3 py-1 rounded-full mb-4">New Feature</div>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Meet Your AI Spanish Teachers</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Practice 24/7 with specialized AI personas. Choose your target dialect to find the perfect coach for your goals.</p>
+            </div>
+
+            <div class="bg-primary-50 rounded-3xl p-8 border border-primary-100 shadow-lg">
+                <!-- Step 1: Select Dialect -->
+                <div id="ai-step-1" class="text-center max-w-xl mx-auto">
+                    <h3 class="text-xl font-heading font-bold text-slate-800 mb-6">1. Choose your target dialect</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                        <button onclick="selectAiDialect('mexican')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇲🇽 Mexican</button>
+                        <button onclick="selectAiDialect('european')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇪🇸 Castilian</button>
+                        <button onclick="selectAiDialect('rioplatense')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇦🇷 Rioplatense</button>
+                        <button onclick="selectAiDialect('colombian')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇨🇴 Colombian</button>
+                        <button onclick="selectAiDialect('chilean')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇨🇱 Chilean</button>
+                        <button onclick="selectAiDialect('cuban')" class="bg-white border-2 border-primary-200 hover:border-primary-500 rounded-xl p-4 text-center transition font-bold text-slate-700 hover:shadow-md">🇨🇺 Cuban</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Select Teacher -->
+                <div id="ai-step-2" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-heading font-bold text-slate-800">2. Choose your coach</h3>
+                        <button onclick="resetAiSelection()" class="text-sm text-primary-600 hover:underline font-medium">← Back to dialects</button>
+                    </div>
+                    <div id="ai-teachers-container" class="grid md:grid-cols-2 gap-6 mb-8">
+                        <!-- Teachers injected here -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Chat Preview -->
+                <div id="ai-step-3" class="hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-heading font-bold text-slate-800">3. Start Practicing!</h3>
+                        <button onclick="backToTeachers()" class="text-sm text-primary-600 hover:underline font-medium">← Change coach</button>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 relative">
+                        <div class="flex items-center space-x-4 mb-6 border-b border-gray-100 pb-4">
+                            <div id="chat-emoji" class="w-14 h-14 bg-primary-50 rounded-full flex items-center justify-center text-3xl shadow-sm border border-primary-100">🤖</div>
+                            <div>
+                                <h4 id="chat-name" class="font-bold text-slate-800 text-lg">Mateo - AI Coach</h4>
+                                <p class="text-sm text-green-500 flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Online now</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4 mb-6" id="chat-messages">
+                            <div class="bg-gray-50 p-4 rounded-xl rounded-tl-none shadow-sm text-gray-700 max-w-md" id="msg-1">¡Hola! Ready to practice your presentation?</div>
+                            <div class="bg-primary-500 text-white p-4 rounded-xl rounded-tr-none shadow-sm max-w-md ml-auto" id="msg-2">Sí, empecemos.</div>
+                            <div class="bg-gray-50 p-4 rounded-xl rounded-tl-none shadow-sm text-gray-700 max-w-md" id="msg-3">Perfecto. Let's focus on your pronunciation.</div>
+                        </div>
+                        <div class="flex gap-3">
+                            <input type="text" placeholder="Type a message to practice..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none bg-gray-50 cursor-not-allowed" disabled>
+                            <button class="gradient-cta font-bold px-6 py-3 rounded-xl shadow-md cursor-not-allowed" disabled>Send</button>
+                        </div>
+                        
+                        <div class="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-6 text-center">
+                            <h4 class="text-2xl font-bold text-slate-800 mb-2">Unlock Full Access</h4>
+                            <p class="text-gray-600 mb-6 max-w-md">Get 24/7 unlimited access to all AI dialect coaches with our subscription plan.</p>
+                            <a href="#pricing" class="gradient-cta px-8 py-3 rounded-lg font-bold text-lg inline-block shadow-lg">Start 7-Day Free Trial</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const aiTeachersData = {
+            mexican: [
+                { id: 'mateo', name: 'Mateo', emoji: '🌮', title: 'Business & Slang Expert', desc: 'Specializes in professional Mexican Spanish and everyday chilango slang.', m1: '¡Qué onda! Ready to practice for your meeting in CDMX?', m2: 'Sí, estoy listo.', m3: '¡Órale! Empecemos con la presentación.' },
+                { id: 'sofia', name: 'Sofía', emoji: '🌵', title: 'Conversational Coach', desc: 'Patient and encouraging. Perfect for building your speaking confidence.', m1: '¡Hola! ¿Cómo estás hoy? Let\'s practice natural conversation.', m2: 'Muy bien, gracias. Quiero hablar más fluido.', m3: '¡Claro que sí! No te preocupes por los errores.' }
+            ],
+            european: [
+                { id: 'carlos', name: 'Carlos', emoji: '🇪🇸', title: 'Formal Castilian', desc: 'Master the "vosotros" form and formal business etiquette in Spain.', m1: '¡Hola! ¿Estáis listos para la lección de hoy?', m2: 'Sí, queremos empezar.', m3: '¡Vale! Vamos a repasar el uso de vosotros.' },
+                { id: 'lucia', name: 'Lucía', emoji: '🥘', title: 'Everyday Spanish', desc: 'Learn to chat like a local in Madrid. Focuses on natural flow and idioms.', m1: '¡Qué tal! Let\'s learn some real madrileño expressions.', m2: '¡Me mola la idea!', m3: '¡Qué guay! Empezamos entonces.' }
+            ],
+            rioplatense: [
+                { id: 'facundo', name: 'Facundo', emoji: '🧉', title: 'Lunfardo Master', desc: 'Get comfortable with "voseo" and Argentine expressions.', m1: '¡Che! ¿Cómo andás? ¿Practicamos un poco?', m2: 'Dale, me parece bárbaro.', m3: '¡Buenísimo! Arrancamos con el voseo.' }
+            ],
+            colombian: [
+                { id: 'valentina', name: 'Valentina', emoji: '☕', title: 'Clear & Neutral', desc: 'Renowned for clear pronunciation. Great for beginners.', m1: '¡Hola! ¿Qué más? How can I help you improve today?', m2: 'Quiero sonar más natural.', m3: '¡Listo! Te voy a dar unos tips muy chéveres.' }
+            ],
+            chilean: [
+                { id: 'diego', name: 'Diego', emoji: '🏔️', title: 'Fast-Paced Practice', desc: 'Challenge yourself with fast-paced Chilean Spanish and local idioms.', m1: '¡Hola po! ¿Estái preparado para hablar rápido?', m2: '¡Sí, obvio!', m3: '¡Bacán! Vamos a ver si me cachái.' }
+            ],
+            cuban: [
+                { id: 'camila', name: 'Camila', emoji: '🌴', title: 'Caribbean Flow', desc: 'Practice understanding aspirated sounds and Caribbean rhythm.', m1: '¡Asere, qué bolá! Ready for some Caribbean Spanish?', m2: '¡Claro que sí!', m3: '¡Chévere! Vamos a soltar la lengua.' }
+            ]
+        };
+
+        let currentDialect = '';
+
+        function selectAiDialect(dialect) {
+            currentDialect = dialect;
+            const teachers = aiTeachersData[dialect];
+            const container = document.getElementById('ai-teachers-container');
+            
+            container.innerHTML = teachers.map(t => `
+                <div onclick="selectAiTeacher('${t.id}')" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 hover:border-primary-500 hover:shadow-md cursor-pointer transition card-base card-accent-left">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-14 h-14 bg-primary-50 rounded-full flex items-center justify-center text-3xl shrink-0">${t.emoji}</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-lg mb-1">${t.name} <span class="text-sm font-normal text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full ml-2">${t.title}</span></h4>
+                            <p class="text-sm text-gray-600">${t.desc}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('ai-step-1').classList.add('hidden');
+            document.getElementById('ai-step-2').classList.remove('hidden');
+        }
+
+        function resetAiSelection() {
+            document.getElementById('ai-step-2').classList.add('hidden');
+            document.getElementById('ai-step-1').classList.remove('hidden');
+        }
+
+        function backToTeachers() {
+            document.getElementById('ai-step-3').classList.add('hidden');
+            document.getElementById('ai-step-2').classList.remove('hidden');
+        }
+
+        function selectAiTeacher(teacherId) {
+            const teachers = aiTeachersData[currentDialect];
+            const teacher = teachers.find(t => t.id === teacherId);
+            
+            if (teacher) {
+                document.getElementById('chat-emoji').textContent = teacher.emoji;
+                document.getElementById('chat-name').textContent = teacher.name + ' - AI Coach';
+                document.getElementById('msg-1').textContent = teacher.m1;
+                document.getElementById('msg-2').textContent = teacher.m2;
+                document.getElementById('msg-3').textContent = teacher.m3;
+                
+                document.getElementById('ai-step-2').classList.add('hidden');
+                document.getElementById('ai-step-3').classList.remove('hidden');
+            }
+        }
+    </script>
+
+    <!-- Testimonials -->
+    <div class="gradient-divider"></div>
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Success Stories</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Hear from professionals who have transformed their Spanish and their careers.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="gradient-card-accent p-8 rounded-2xl shadow-sm border border-coral-100 card-base">
+                    <p class="text-gray-700 italic mb-6">"The dialect coaching was a game-changer. I needed Argentinian Spanish for my new role in Buenos Aires, and FluentPath delivered exactly what I needed."</p>
+                    <div class="font-bold text-slate-800">Mark T.</div>
+                    <div class="text-sm text-gray-500">Software Engineer</div>
+                </div>
+                <div class="gradient-card-accent p-8 rounded-2xl shadow-sm border border-coral-100 card-base">
+                    <p class="text-gray-700 italic mb-6">"I finally feel confident speaking up in meetings. The focus on professional communication rather than just grammar made all the difference."</p>
+                    <div class="font-bold text-slate-800">Elena R.</div>
+                    <div class="text-sm text-gray-500">Marketing Director</div>
+                </div>
+                <div class="gradient-card-accent p-8 rounded-2xl shadow-sm border border-coral-100 card-base">
+                    <p class="text-gray-700 italic mb-6">"The flexible scheduling and 1-on-1 attention were perfect for my busy lifestyle. My Spanish improved dramatically in just a few months."</p>
+                    <div class="font-bold text-slate-800">David L.</div>
+                    <div class="text-sm text-gray-500">Consultant</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog & Learning Resources -->
+    <div class="gradient-divider"></div>
+    <section id="blog" class="py-20 bg-primary-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Blog & Learning Resources</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Tips, guides, and deep dives to accelerate your Spanish fluency journey.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <span class="inline-block bg-primary-100 text-primary-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Dialect Deep Dives</span>
+                        <h3 class="text-lg font-heading font-bold text-slate-800 mb-2">Mexican vs. Castilian Spanish: Key Differences</h3>
+                        <p class="text-gray-600 text-sm mb-4">From 'vosotros' to 'ustedes', and 'coche' to 'carro' — learn the essential vocabulary and grammar distinctions between Spain and Mexico.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>📅 March 15, 2024</span>
+                            <span class="mx-2">·</span>
+                            <span>📖 8 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Fluency Tips</span>
+                        <h3 class="text-lg font-heading font-bold text-slate-800 mb-2">5 Daily Habits for Busy Professionals</h3>
+                        <p class="text-gray-600 text-sm mb-4">How to maintain and improve your Spanish with just 15 minutes a day — from podcast recommendations to journaling techniques.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>📅 March 10, 2024</span>
+                            <span class="mx-2">·</span>
+                            <span>📖 6 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <span class="inline-block bg-secondary-100 text-secondary-600 text-xs font-bold px-3 py-1 rounded-full mb-3">Culture</span>
+                        <h3 class="text-lg font-heading font-bold text-slate-800 mb-2">Navigating Business Culture in LATAM</h3>
+                        <p class="text-gray-600 text-sm mb-4">Understanding formality levels, meeting etiquette, and relationship-building across Mexico, Argentina, Colombia, and Chile.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>📅 March 5, 2024</span>
+                            <span class="mx-2">·</span>
+                            <span>📖 10 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <span class="inline-block bg-primary-100 text-primary-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Dialect Deep Dives</span>
+                        <h3 class="text-lg font-heading font-bold text-slate-800 mb-2">Rioplatense Spanish: The Voseo Revolution</h3>
+                        <p class="text-gray-600 text-sm mb-4">Why Argentinians say 'vos' instead of 'tú', the distinctive 'sh' pronunciation, and must-know lunfardo slang for Buenos Aires.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>📅 February 28, 2024</span>
+                            <span class="mx-2">·</span>
+                            <span>📖 7 min read</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6">
+                        <span class="inline-block bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Fluency Tips</span>
+                        <h3 class="text-lg font-heading font-bold text-slate-800 mb-2">From Classroom to Real Life: Bridging the Gap</h3>
+                        <p class="text-gray-600 text-sm mb-4">Why traditional Spanish classes leave you unprepared for real conversations, and how immersion-style practice changes everything.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <span>📅 February 20, 2024</span>
+                            <span class="mx-2">·</span>
+                            <span>📖 5 min read</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pronunciation Guide per Dialect -->
+    <div class="gradient-divider"></div>
+    <section id="pronunciation" class="py-20 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Pronunciation Guide by Dialect</h2>
+                <p class="text-lg text-gray-600">Learn the unique sounds and pronunciation patterns of each Spanish dialect. Select a dialect below.</p>
+            </div>
+
+            <!-- Tab Selector -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-primary-500 text-primary-500 hover:bg-primary-50" data-dialect="mexican" onclick="switchPronGuide('mexican')">🇲🇽 Mexican</button>
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-gray-200 text-gray-500 hover:border-primary-300" data-dialect="cuban" onclick="switchPronGuide('cuban')">🇨🇺 Cuban</button>
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-gray-200 text-gray-500 hover:border-primary-300" data-dialect="rioplatense" onclick="switchPronGuide('rioplatense')">🇦🇷 Rioplatense</button>
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-gray-200 text-gray-500 hover:border-primary-300" data-dialect="chilean" onclick="switchPronGuide('chilean')">🇨🇱 Chilean</button>
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-gray-200 text-gray-500 hover:border-primary-300" data-dialect="colombian" onclick="switchPronGuide('colombian')">🇨🇴 Colombian</button>
+                <button class="pron-tab px-5 py-2 rounded-full text-sm font-bold transition border-2 border-gray-200 text-gray-500 hover:border-primary-300" data-dialect="european" onclick="switchPronGuide('european')">🇪🇸 European Peninsular</button>
+            </div>
+
+            <!-- Guide Content -->
+            <div id="pron-guide-content" class="bg-gray-50 rounded-2xl border border-gray-200 p-8">
+                <p class="text-gray-500 text-center py-8">Select a dialect above to see its pronunciation guide.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const pronGuides = {
+            mexican: {
+                title: 'Mexican Spanish Pronunciation',
+                overview: 'Mexican Spanish is known for its clear, neutral pronunciation. It uses seseo (c/z pronounced as /s/) and yeísmo (ll/y pronounced as /ʝ/).',
+                features: [
+                    { label: 'Seseo', ipa: '/s/', desc: '"c" (before e/i) and "z" are pronounced as /s/, not /θ/ as in Spain. "Gracias" → /ˈɡɾasjas/', example: 'Gracias → /ˈɡɾasjas/' },
+                    { label: 'Yeísmo', ipa: '/ʝ/', desc: '"ll" and "y" are pronounced identically as /ʝ/ (like English "y" in "yes"). "Llama" → /ˈʝama/', example: 'Llama → /ˈʝama/' },
+                    { label: 'Final "s" aspiration', ipa: '(h)', desc: 'In coastal and Yucatán regions, final "s" is often aspirated or dropped. "Estos" → /ˈehtoh/', example: 'Estos → /ˈehtoh/' },
+                    { label: '"x" pronunciation', ipa: '/ks/ or /x/', desc: '"x" is /ks/ in most words but /x/ in indigenous words. "México" → /ˈmexiko/', example: 'México → /ˈmexiko/' }
+                ],
+                commonPhrases: [
+                    { phrase: '¿Qué onda?', pronunciation: '/ke ˈonda/', meaning: 'What\'s up?' },
+                    { phrase: '¡No manches!', pronunciation: '/no ˈmantʃes/', meaning: 'No way!' },
+                    { phrase: 'Está chido', pronunciation: '/esˈta ˈtʃido/', meaning: 'It\'s cool' }
+                ]
+            },
+            cuban: {
+                title: 'Cuban Spanish Pronunciation',
+                overview: 'Cuban Spanish features strong aspiration, elision of final consonants, and distinctive Caribbean intonation.',
+                features: [
+                    { label: 'Final consonant dropping', ipa: '(∅)', desc: 'Final "s", "d", "r" are often dropped. "Comer" → /koˈme/ ("comé"), "Nada" → /ˈna/ (na\')', example: 'Comer → /koˈme/' },
+                    { label: '"s" aspiration', ipa: '/h/', desc: '"s" at the end of syllables becomes /h/. "Costa" → /ˈkohta/', example: 'Costa → /ˈkohta/' },
+                    { label: '/r/ → /l/', ipa: '/l/', desc: 'Sometimes syllable-final /r/ becomes /l/. "Puerta" → /ˈpwelta/', example: 'Puerta → /ˈpwelta/' },
+                    { label: 'Intonation', ipa: '↗↘', desc: 'Distinctive rising-falling melody at the end of phrases, often described as "sing-songy."' }
+                ],
+                commonPhrases: [
+                    { phrase: '¿Qué bolá?', pronunciation: '/ke boˈla/', meaning: 'What\'s up?' },
+                    { phrase: 'Asere', pronunciation: '/aˈseɾe/', meaning: 'Buddy / friend' },
+                    { phrase: 'Chévere', pronunciation: '/ˈtʃeβeɾe/', meaning: 'Cool / great' }
+                ]
+            },
+            rioplatense: {
+                title: 'Rioplatense Spanish Pronunciation (Argentina/Uruguay)',
+                overview: 'Rioplatense Spanish is famous for its distinctive "sh" sound (sheísmo) and the use of voseo. The intonation is often compared to Italian.',
+                features: [
+                    { label: 'Sheísmo / Zeísmo', ipa: '/ʃ/ or /ʒ/', desc: '"ll" and "y" are pronounced as /ʃ/ (sh) or /ʒ/ (zh). "Calle" → /ˈkaʃe/ or /ˈkaʒe/', example: 'Calle → /ˈkaʃe/' },
+                    { label: 'Voseo verb stress', ipa: 'stress shift', desc: 'Vos forms stress the last syllable. "Vos hablás" → /bos aˈblas/ (not "tú hablas" /ˈaβlas/)', example: 'Vos hablás → /bos aˈblas/' },
+                    { label: '"s" aspiration', ipa: '/h/', desc: 'Like many coastal dialects, final "s" is aspirated. "Los chicos" → /loh ˈtʃikoh/', example: 'Los chicos → /loh ˈtʃikoh/' },
+                    { label: 'Italian-like intonation', ipa: 'melodic', desc: 'Rioplatense Spanish has a melodic, singsong quality heavily influenced by Italian immigration patterns.' }
+                ],
+                commonPhrases: [
+                    { phrase: 'Che, ¿cómo andás?', pronunciation: '/tʃe ˈkomo anˈdas/', meaning: 'Hey, how are you?' },
+                    { phrase: '¡Qué macana!', pronunciation: '/ke maˈkana/', meaning: 'What a shame!' },
+                    { phrase: 'Dale', pronunciation: '/ˈdale/', meaning: 'Okay / Go ahead' }
+                ]
+            },
+            chilean: {
+                title: 'Chilean Spanish Pronunciation',
+                overview: 'Chilean Spanish is known for its rapid pace, aspiration, and distinctive intonation. It\'s often considered one of the hardest dialects for learners.',
+                features: [
+                    { label: 'Aspiration of "s"', ipa: '/h/', desc: 'Final and syllable-final "s" becomes /h/ or is dropped entirely. "Las casas" → /lah ˈkasah/', example: 'Las casas → /lah ˈkasah/' },
+                    { label: '"ch" softening', ipa: '/tʃ/ → /ʃ/', desc: '"ch" is often pronounced more softly, closer to /ʃ/ (sh). "Chile" → /ˈʃile/', example: 'Chile → /ˈʃile/' },
+                    { label: 'Dropping of final "d"', ipa: '(∅)', desc: 'Past participles lose final "d". "Hablado" → /aˈblao/', example: 'Hablado → /aˈblao/' },
+                    { label: 'Rapid speech', ipa: 'fast', desc: 'Chileans speak very fast and cluster words together. "¿Cómo estái?" → /ˌkomo ˈstai/ (dropping the "es" sound)' }
+                ],
+                commonPhrases: [
+                    { phrase: '¿Cachai?', pronunciation: '/kaˈtʃai/', meaning: 'You know? / Get it?' },
+                    { phrase: '¡Bacán!', pronunciation: '/baˈkan/', meaning: 'Cool / awesome!' },
+                    { phrase: 'Po / Pues', pronunciation: '/po/', meaning: 'Well... (filler word, from "pues")' }
+                ]
+            },
+            colombian: {
+                title: 'Colombian Spanish Pronunciation',
+                overview: 'Colombian Spanish (especially Bogotá) is considered one of the clearest and most neutral dialects. The "paisa" accent from Medellín is also very distinct.',
+                features: [
+                    { label: 'Clear "s"', ipa: '/s/', desc: 'Unlike many dialects, Colombian Spanish (especially inland) fully pronounces all "s" sounds. "Estos" → /ˈestos/', example: 'Estos → /ˈestos/' },
+                    { label: '"ll" and "y"', ipa: '/ʝ/ or /dʒ/', desc: 'In most regions, "ll" and "y" are /ʝ/. In costal areas, sometimes /dʒ/. "Llamar" → /ʝaˈmaɾ/', example: 'Llamar → /ʝaˈmaɾ/' },
+                    { label: 'Paisa accent', ipa: '/s/ aspirated', desc: 'In Medellín/Antioquia, final "s" is sometimes aspirated. Also uses "vos" instead of "tú" in informal situations.', example: 'Gracias → /ˈɡɾasjas/ (Bogotá) vs /ˈɡɾahjas/ (Medellín)' },
+                    { label: 'Diminutives', ipa: '-ito/-ita', desc: 'Colombians frequently use the diminutive, even with adverbs. "Ahorita" → /aoˈɾita/, "Allacito" → /aʝaˈsito/' }
+                ],
+                commonPhrases: [
+                    { phrase: '¿Qué más?', pronunciation: '/ke ˈmas/', meaning: 'What\'s up? (lit. "What more?")' },
+                    { phrase: '¡Qué chimba!', pronunciation: '/ke ˈtʃimba/', meaning: 'How cool! / Awesome!' },
+                    { phrase: 'Listo', pronunciation: '/ˈlisto/', meaning: 'Okay / Ready / Done' }
+                ]
+            }
+european: {title: 'European Peninsular Spanish Pronunciation',overview: 'European Spanish (Castilian) is characterized by the distinctive /θ/ sound for "c/z", the use of "vosotros", and a generally clear, precise articulation.',features: [{label: 'Distinción', ipa: '/θ/', desc: '"c" (before e/i) and "z" are pronounced as /θ/ (like English "th" in "think"), not /s/ as in LATAM. "Zapato" → /θaˈpato/', example: 'Zapato → /θaˈpato/'},,{label: 'Ceceo vs Seseo', ipa: '/θ/ vs /s/', desc: 'Northern Spain distinguishes /θ/ and /s/. Southern Spain (Andalusia) uses seseo or ceceo. "Caza" (hunt) vs "Casa" (house) sound different.', example: 'Caza → /ˈkaθa/ vs Casa → /ˈkasa/'},{label: 'Vosotros', ipa: '/boˈsotɾos/', desc: 'The informal plural "you" uses unique verb forms: -áis, -éis, -ís. Not used in Latin America.', example: 'Vosotros habláis → /bosˈotɾos aˈblais/'},{label: 'Leísmo', ipa: '/ˈleismo/', desc: 'Using "le" instead of "lo" for masculine direct objects referring to people. "Le vi" (I saw him) instead of "lo vi".', example: 'Le vi ayer → /le ˈbi aˈʝeɾ/'}],commonPhrases: [{phrase: '¡Vale!', pronunciation: '/ˈbale/', meaning: 'Okay! / Alright!'},{phrase: '¿Qué tal?', pronunciation: '/ke ˈtal/', meaning: 'How are you? / How's it going?'},{phrase: 'De nada', pronunciation: '/de ˈnaða/', meaning: 'You're welcome'}]},
+european: {title: 'European Peninsular Spanish Pronunciation',overview: 'European Spanish (Castilian) is characterized by the distinctive /θ/ sound for "c/z", the use of "vosotros", and a generally clear, precise articulation.',features: [{label: 'Distinción', ipa: '/θ/', desc: '"c" (before e/i) and "z" are pronounced as /θ/ (like English "th" in "think"), not /s/ as in LATAM. "Zapato" → /θaˈpato/', example: 'Zapato → /θaˈpato/'},{label: 'Ceceo vs Seseo', ipa: '/θ/ vs /s/', desc: 'Northern Spain distinguishes /θ/ and /s/. Southern Spain (Andalusia) uses seseo or ceceo. "Caza" (hunt) vs "Casa" (house) sound different.', example: 'Caza → /ˈkaθa/ vs Casa → /ˈkasa/'},{label: 'Vosotros', ipa: '/boˈsotɾos/', desc: 'The informal plural "you" uses unique verb forms: -áis, -éis, -ís. Not used in Latin America.', example: 'Vosotros habláis → /bosˈotɾos aˈblais/'},{label: 'Leísmo', ipa: '/ˈleismo/', desc: 'Using "le" instead of "lo" for masculine direct objects referring to people. "Le vi" (I saw him) instead of "lo vi".', example: 'Le vi ayer → /le ˈbi aˈʝeɾ/'}],commonPhrases: [{phrase: '¡Vale!', pronunciation: '/ˈbale/', meaning: 'Okay! / Alright!'},{phrase: '¿Qué tal?', pronunciation: '/ke ˈtal/', meaning: "How's it going?"},{phrase: 'De nada', pronunciation: '/de ˈnaða/', meaning: 'You're welcome'}]},
+
+        function switchPronGuide(dialect) {
+            const data = pronGuides[dialect];
+            if (!data) return;
+
+            // Update tab styles
+            document.querySelectorAll('.pron-tab').forEach(tab => {
+                tab.classList.remove('border-primary-500', 'text-primary-500', 'bg-primary-50');
+                tab.classList.add('border-gray-200', 'text-gray-500');
+            });
+            const activeTab = document.querySelector(`.pron-tab[data-dialect="${dialect}"]`);
+            if (activeTab) {
+                activeTab.classList.remove('border-gray-200', 'text-gray-500');
+                activeTab.classList.add('border-primary-500', 'text-primary-500', 'bg-primary-50');
+            }
+
+            const content = document.getElementById('pron-guide-content');
+
+            let featuresHTML = data.features.map(f => `
+                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                    <div class="flex justify-between items-start mb-1">
+                        <span class="font-bold text-primary-700">${f.label}</span>
+                        <span class="text-sm font-mono bg-gray-100 px-2 py-0.5 rounded text-gray-600">${f.ipa}</span>
+                    </div>
+                    <p class="text-sm text-gray-600">${f.desc}</p>
+                    <p class="text-sm text-gray-400 mt-1 font-mono">${f.example}</p>
+                </div>
+            `).join('');
+
+            let phrasesHTML = data.commonPhrases.map(p => `
+                <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-0">
+                    <div>
+                        <span class="font-bold text-slate-800">${p.phrase}</span>
+                        <span class="text-xs text-gray-400 ml-2">${p.pronunciation}</span>
+                    </div>
+                    <span class="text-sm text-gray-600">${p.meaning}</span>
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <h3 class="text-2xl font-heading font-bold text-slate-800 mb-2">${data.title}</h3>
+                <p class="text-gray-600 mb-6">${data.overview}</p>
+
+                <h4 class="text-lg font-heading font-bold text-slate-800 mb-4">Key Pronunciation Features</h4>
+                <div class="grid md:grid-cols-2 gap-4 mb-8">
+                    ${featuresHTML}
+                </div>
+
+                <h4 class="text-lg font-heading font-bold text-slate-800 mb-4">Common Phrases</h4>
+                <div class="bg-white rounded-lg border border-gray-200 divide-y divide-gray-200">
+                    ${phrasesHTML}
+                </div>
+
+                <p class="text-xs text-gray-400 mt-6">💡 Click on a different dialect tab above to explore other pronunciation guides.</p>
+            `;
+        }
+    </script>
+
+    <!-- Learning Path / Student Roadmap -->
+    <div class="gradient-divider"></div>
+    <section id="roadmap" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Your Learning Journey</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">A guided path from finding your level to booking your first session. Follow these steps to make the most of FluentPath.</p>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Connecting line -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-primary-200 transform -translate-x-1/2"></div>
+
+                <div class="space-y-12 md:space-y-0">
+                    <!-- Step 1 -->
+                    <div class="relative md:flex items-center md:mb-24">
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <div class="bg-primary-50 rounded-2xl p-6 shadow-sm border border-primary-100 hover:shadow-md transition cursor-pointer" onclick="document.getElementById('assessment').scrollIntoView({behavior:'smooth'})">
+                                <div class="text-4xl mb-3">📋</div>
+                                <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Step 1: Take the Assessment</h3>
+                                <p class="text-gray-600">Find your current level with our 15-question placement quiz covering beginner to advanced topics. Get a personalized recommendation.</p>
+                                <span class="inline-block mt-3 text-primary-600 font-medium text-sm hover:underline">Start Assessment →</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary-500 text-white rounded-full items-center justify-center font-bold text-lg shadow-md z-10">1</div>
+                        <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <p class="text-sm text-gray-500 font-medium mb-1">💡 Did you know?</p>
+                                <p class="text-sm text-gray-600">The assessment saves your progress in localStorage, so you can come back to it later.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative md:flex items-center md:mb-24">
+                        <div class="md:w-1/2 md:pr-12 md:text-right md:order-2">
+                            <div class="bg-primary-50 rounded-2xl p-6 shadow-sm border border-primary-100 hover:shadow-md transition cursor-pointer" onclick="document.getElementById('quizzes').scrollIntoView({behavior:'smooth'})">
+                                <div class="text-4xl mb-3">🧠</div>
+                                <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Step 2: Test Your Dialect Knowledge</h3>
+                                <p class="text-gray-600">Choose from 5 dialects (Mexican, Cuban, Rioplatense, Chilean, Colombian) and test your regional vocabulary knowledge.</p>
+                                <span class="inline-block mt-3 text-primary-600 font-medium text-sm hover:underline">Try the Quizzes →</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary-500 text-white rounded-full items-center justify-center font-bold text-lg shadow-md z-10">2</div>
+                        <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0 md:order-1">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <p class="text-sm text-gray-500 font-medium mb-1">💡 Did you know?</p>
+                                <p class="text-sm text-gray-600">Each dialect quiz has 3 region-specific questions, and you get instant feedback on each answer.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative md:flex items-center md:mb-24">
+                        <div class="md:w-1/2 md:pr-12 md:text-right">
+                            <div class="bg-primary-50 rounded-2xl p-6 shadow-sm border border-primary-100 hover:shadow-md transition cursor-pointer" onclick="document.getElementById('flashcards').scrollIntoView({behavior:'smooth'})">
+                                <div class="text-4xl mb-3">🃏</div>
+                                <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Step 3: Practice with Flashcards</h3>
+                                <p class="text-gray-600">Master 7-8 essential vocabulary words per dialect with interactive flip cards. Shuffle and review until you remember them all.</p>
+                                <span class="inline-block mt-3 text-primary-600 font-medium text-sm hover:underline">Open Flashcards →</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-primary-500 text-white rounded-full items-center justify-center font-bold text-lg shadow-md z-10">3</div>
+                        <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <p class="text-sm text-gray-500 font-medium mb-1">💡 Did you know?</p>
+                                <p class="text-sm text-gray-600">Click the card to flip it! The front shows the word, and the back shows the definition and example sentence.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="relative md:flex items-center">
+                        <div class="md:w-1/2 md:pr-12 md:text-right md:order-2">
+                            <div class="bg-secondary-50 rounded-2xl p-6 shadow-sm border border-secondary-100 hover:shadow-md transition cursor-pointer" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+                                <div class="text-4xl mb-3">🗣️</div>
+                                <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Step 4: Book a Coaching Session</h3>
+                                <p class="text-gray-600">Ready to take the next step? Book a 1-on-1 session, join a group class, or subscribe for unlimited weekly coaching.</p>
+                                <span class="inline-block mt-3 text-secondary-600 font-medium text-sm hover:underline">Book Now →</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-accent-500 text-slate-800 rounded-full items-center justify-center font-bold text-lg shadow-md z-10">4</div>
+                        <div class="md:w-1/2 md:pl-12 mt-4 md:mt-0 md:order-1">
+                            <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                <p class="text-sm text-gray-500 font-medium mb-1">💡 Did you know?</p>
+                                <p class="text-sm text-gray-600">Your first session is completely free! Plus, the subscription plan includes a 7-day free trial.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Progress Dashboard -->
+    <div class="gradient-divider"></div>
+    <section id="dashboard" class="py-20 bg-coral-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Your Progress Dashboard</h2>
+                <p class="text-lg text-gray-600">Track your learning activity across quizzes, flashcards, and assessments. All data is saved locally in your browser.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl mb-2">📝</div>
+                    <p class="text-sm text-gray-500 uppercase font-bold mb-1">Quizzes Taken</p>
+                    <p id="dash-quizzes" class="text-3xl font-bold text-primary-700">0</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <p class="text-sm text-gray-500 uppercase font-bold mb-1">Avg. Quiz Score</p>
+                    <p id="dash-avg-score" class="text-3xl font-bold text-primary-700">—%</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl mb-2">🌎</div>
+                    <p class="text-sm text-gray-500 uppercase font-bold mb-1">Dialects Explored</p>
+                    <p id="dash-dialects" class="text-3xl font-bold text-primary-700">0</p>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center">
+                    <div class="text-3xl mb-2">📊</div>
+                    <p class="text-sm text-gray-500 uppercase font-bold mb-1">Assessment</p>
+                    <p id="dash-assessment" class="text-3xl font-bold text-primary-700">—</p>
+                </div>
+            </div>
+
+            <!-- Progress bars -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 mb-6">
+                <h3 class="text-lg font-heading font-bold text-slate-800 mb-4">Dialect Progress</h3>
+                <div id="dash-dialect-bars" class="space-y-4"></div>
+            </div>
+
+            <!-- Reset -->
+            <div class="text-center">
+                <button id="dash-reset-btn" class="text-sm text-gray-400 hover:text-red-500 underline transition">Reset All Progress</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dashQuizzes = document.getElementById('dash-quizzes');
+            const dashAvgScore = document.getElementById('dash-avg-score');
+            const dashDialects = document.getElementById('dash-dialects');
+            const dashAssessment = document.getElementById('dash-assessment');
+            const dashDialectBars = document.getElementById('dash-dialect-bars');
+            const resetBtn = document.getElementById('dash-reset-btn');
+            if (!dashQuizzes) return;
+
+            function loadProgress() {
+                try {
+                    // Get quiz data from localStorage (dialect quizzes)
+                    let quizResults = [];
+                    // Check for saved quiz data - we'll look for a custom key or parse
+                    const dialects = ['mexican', 'cuban', 'rioplatense', 'chilean', 'colombian'];
+                    let completedQuizzes = 0;
+                    let totalScore = 0;
+                    let dialectsExplored = new Set();
+
+                    // Parse assessment data
+                    const assessData = localStorage.getItem('fluentpath_assessment');
+                    let assessComplete = false;
+                    let assessScore = 0;
+                    if (assessData) {
+                        try {
+                            const parsed = JSON.parse(assessData);
+                            if (parsed.completed) {
+                                assessComplete = true;
+                                assessScore = parsed.score || 0;
+                            }
+                        } catch(e) {}
+                    }
+
+                    // Build dialect progress bars
+                    let barsHtml = '';
+                    dialects.forEach(d => {
+                        const key = `fluentpath_quiz_${d}`;
+                        const data = localStorage.getItem(key);
+                        let pct = 0;
+                        let label = 'Not started';
+                        if (data) {
+                            try {
+                                const parsed = JSON.parse(data);
+                                if (parsed.completed) {
+                                    pct = Math.round((parsed.score / parsed.total) * 100);
+                                    label = `${parsed.score}/${parsed.total}`;
+                                    completedQuizzes++;
+                                    totalScore += parsed.score;
+                                    dialectsExplored.add(d);
+                                }
+                            } catch(e) {}
+                        }
+                        const dialectNames = {
+                            mexican: 'Mexican',
+                            cuban: 'Cuban',
+                            rioplatense: 'Rioplatense',
+                            chilean: 'Chilean',
+                            colombian: 'Colombian'
+                        };
+                        barsHtml += `
+                            <div class="mb-3">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="font-medium text-slate-800">${dialectNames[d]}</span>
+                                    <span class="text-gray-500">${label}</span>
+                                </div>
+                                <div class="bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="bg-primary-500 h-full rounded-full transition-all duration-500" style="width:${pct}%"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    dashDialectBars.innerHTML = barsHtml;
+                    dashQuizzes.textContent = completedQuizzes;
+                    dashAvgScore.textContent = completedQuizzes > 0 ? Math.round(totalScore / (completedQuizzes * 3) * 100) + '%' : '—%';
+                    dashDialects.textContent = dialectsExplored.size;
+                    dashAssessment.textContent = assessComplete ? `${assessScore}/15` : '—';
+                } catch(e) {}
+            }
+
+            loadProgress();
+
+            resetBtn.addEventListener('click', () => {
+                if (confirm('Reset all progress data? This cannot be undone.')) {
+                    const keys = [
+                        'fluentpath_assessment',
+                        'fluentpath_quiz_mexican',
+                        'fluentpath_quiz_cuban',
+                        'fluentpath_quiz_rioplatense',
+                        'fluentpath_quiz_chilean',
+                        'fluentpath_quiz_colombian',
+                        'fluentpath_flashcard_progress'
+                    ];
+                    keys.forEach(k => localStorage.removeItem(k));
+                    loadProgress();
+                }
+            });
+        });
+    </script>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+    <!-- Referral Program -->
+    <div class="gradient-divider"></div>
+    <section id="referral" class="py-20 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Refer a Friend, Get Rewarded</h2>
+            <p class="text-lg text-gray-600 mb-10">Share FluentPath with friends and earn <strong>1 free month of subscription (£19 value)</strong> or <strong>1 free 1-on-1 session</strong> for each referral!</p>
+            <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-10">
+                <div class="bg-primary-50 rounded-xl p-6 border border-primary-100">
+                    <div class="text-4xl mb-3">🎁</div>
+                    <h3 class="text-xl font-heading font-bold mb-2">Your Referral Code</h3>
+                    <p id="referral-code" class="text-2xl font-bold text-primary-700 bg-white rounded-lg py-3 px-4 border border-primary-200 inline-block mb-2 font-mono tracking-wider"></p>
+                    <p class="text-sm text-gray-500">Share this code with friends</p>
+                </div>
+                <div class="bg-primary-50 rounded-xl p-6 border border-primary-100">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h3 class="text-xl font-heading font-bold mb-2">Your Referrals</h3>
+                    <p id="referral-count" class="text-3xl font-bold text-secondary-500">0</p>
+                    <p class="text-sm text-gray-500">friends referred</p>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 mb-8">
+                <h3 class="text-lg font-heading font-bold mb-4">Share Now</h3>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a id="share-twitter" href="#" target="_blank" class="bg-black text-white px-5 py-3 rounded-lg font-medium hover:opacity-80 transition">🐦 Twitter</a>
+                    <a id="share-linkedin" href="#" target="_blank" class="bg-blue-700 text-white px-5 py-3 rounded-lg font-medium hover:opacity-80 transition">💼 LinkedIn</a>
+                    <a id="share-whatsapp" href="#" target="_blank" class="bg-green-600 text-white px-5 py-3 rounded-lg font-medium hover:opacity-80 transition">📱 WhatsApp</a>
+                    <a id="share-email" href="#" target="_blank" class="bg-gray-600 text-white px-5 py-3 rounded-lg font-medium hover:opacity-80 transition">✉️ Email</a>
+                </div>
+            </div>
+            <div class="text-left bg-white rounded-xl border border-gray-200 p-6">
+                <h4 class="text-sm font-bold text-gray-500 uppercase mb-2">Terms</h4>
+                <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+                    <li>Referral must be a new student</li>
+                    <li>Reward issued after first paid session</li>
+                    <li>No limit on number of referrals</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener("DOMContentLoaded",function(){
+        var e=document.getElementById("referral-code"),t=document.getElementById("referral-count");
+        if(!e)return;
+        var n=localStorage.getItem("fluentpath_ref_code");
+        n||(n="FLUENT-"+Math.random().toString(36).substring(2,8).toUpperCase(),localStorage.setItem("fluentpath_ref_code",n)),e.textContent=n;
+        var r=parseInt(localStorage.getItem("fluentpath_ref_count")||"0",10);
+        t.textContent=r;
+        var o="Join me on FluentPath Spanish! Use my code "+n+" to start.",i=window.location.origin+"/?ref="+n;
+        document.getElementById("share-twitter").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(o)+"&url="+encodeURIComponent(i),
+        document.getElementById("share-linkedin").href="https://linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(i),
+        document.getElementById("share-whatsapp").href="https://wa.me/?text="+encodeURIComponent(o+" "+i),
+        document.getElementById("share-email").href="mailto:?subject="+encodeURIComponent("Join me on FluentPath Spanish")+"&body="+encodeURIComponent(o+"\n\n"+i)
+    });
+    </script>
+    <div class="gradient-divider"></div>
+    <section id="pricing" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Pricing -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Investment in Your Fluency</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose the path that best fits your goals, schedule, and budget.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Group -->
+                <div class="card-base bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                    <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Group Classes</h3>
+                    <div class="text-gray-500 mb-6">Themed conversation sessions</div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-slate-800">£20</span>
+                        <span class="text-gray-500">-£35 / session</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li>• Small groups (max 4-6 students)</li>
+                        <li>• "Work Spanish" themes</li>
+                        <li>• "Dating & Relationships" themes</li>
+                        <li>• Peer learning environment</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_group" class="block w-full text-center bg-gray-50 text-primary-700 font-semibold py-3 rounded-lg border border-primary-200 hover:bg-primary-100 transition">Checkout</a>
+                </div>
+
+                <!-- 1-on-1 -->
+                <div class="card-base bg-white rounded-2xl shadow-xl border-2 border-gold-500 p-8 relative transform md:-translate-y-4">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-gold-500 to-gold-600 text-slate-900 px-4 py-1 rounded-full text-sm font-bold shadow-sm">Most Popular</div>
+                    <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">1-on-1 Coaching</h3>
+                    <div class="text-gray-500 mb-6">Personalized fluency training</div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-slate-800">£40</span>
+                        <span class="text-gray-500">-£80 / hour</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li>• 100% customized curriculum</li>
+                        <li>• Flexible scheduling</li>
+                        <li>• Industry-specific vocabulary</li>
+                        <li>• Discounted 5 & 10 session packs</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_1on1" class="block w-full text-center gradient-cta font-semibold py-3 rounded-lg">Checkout</a>
+                </div>
+
+                <!-- Subscription -->
+                <div class="card-base bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                    <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Subscription</h3>
+                    <div class="text-secondary-500 font-bold mb-1">Includes 7-Day Free Trial!</div>
+                    <div class="text-gray-500 mb-6">For committed learners</div>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-slate-800">£19</span>
+                        <span class="text-gray-500"> / month</span>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-gray-600">
+                        <li>• Unlimited weekly sessions</li>
+                        <li>• Priority booking</li>
+                        <li>• Premium lesson materials</li>
+                        <li>• 🤖 24/7 AI Teacher Access</li>
+                        <li>• 24/7 text support</li>
+                    </ul>
+                    <a href="https://buy.stripe.com/test_subscription" class="block w-full text-center bg-gray-50 text-primary-700 font-semibold py-3 rounded-lg border border-primary-200 hover:bg-primary-100 transition">Start 7-Day Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <div class="gradient-divider"></div>
+    <section id="faq" class="py-20 bg-primary-50">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
+            </div>
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Do I need to be fluent to start?</h3>
+                    <p class="text-gray-600">No, but our coaching is designed for intermediate-to-advanced learners. If you know the basics but struggle to use them in real conversation, we're the perfect fit.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">How does the 7-day free trial work?</h3>
+                    <p class="text-gray-600">When you sign up for our subscription plan, your first 7 days are completely free. You can attend unlimited sessions and cancel anytime before the trial ends without being charged.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Can I switch between dialects?</h3>
+                    <p class="text-gray-600">Yes! If your needs change, you can let your coach know, and we will adjust the focus of your sessions to the specific dialect you require.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Community Discussion Board -->
+    <div class="gradient-divider"></div>
+    <section id="community" class="py-20 bg-gray-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Community Discussions</h2>
+                <p class="text-lg text-gray-600">Join the conversation! Share tips, ask questions, and connect with fellow FluentPath learners.</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <span class="font-bold text-slate-800">Recent Topics</span>
+                    <button id="start-discussion-btn" class="bg-primary-500 text-white text-sm font-bold px-4 py-2 rounded-lg hover:bg-primary-600 transition">+ Start a Discussion</button>
+                </div>
+                <div id="discussion-topics" class="divide-y divide-gray-200"></div>
+                <div id="discussion-form" class="hidden p-6 bg-primary-50 border-t border-primary-200">
+                    <h3 class="text-lg font-bold text-slate-800 mb-4">Start a New Discussion</h3>
+                    <input id="disc-title" type="text" placeholder="Topic title..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mb-3 form-input">
+                    <input id="disc-author" type="text" placeholder="Your name..." class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mb-3 form-input">
+                    <textarea id="disc-body" placeholder="What's on your mind?" rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition mb-3 form-input"></textarea>
+                    <div class="flex gap-3">
+                        <button id="disc-submit-btn" class="bg-primary-500 text-white font-bold px-6 py-2 rounded-lg hover:bg-primary-600 transition">Post</button>
+                        <button id="disc-cancel-btn" class="bg-gray-200 text-gray-700 font-bold px-6 py-2 rounded-lg hover:bg-gray-300 transition">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var topicsEl = document.getElementById('discussion-topics');
+            var formEl = document.getElementById('discussion-form');
+            var startBtn = document.getElementById('start-discussion-btn');
+            var submitBtn = document.getElementById('disc-submit-btn');
+            var cancelBtn = document.getElementById('disc-cancel-btn');
+            var titleInput = document.getElementById('disc-title');
+            var authorInput = document.getElementById('disc-author');
+            var bodyInput = document.getElementById('disc-body');
+            if (!topicsEl) return;
+
+            var defaultTopics = [
+                {title: 'Best Mexican slang for the office', author: 'Carlos M.', replies: 5, date: '2 days ago'},
+                {title: 'Practicing Rioplatense pronunciation', author: 'Emma L.', replies: 3, date: '3 days ago'},
+                {title: 'Chilean vs Colombian - which is harder?', author: 'Raj P.', replies: 8, date: '1 week ago'},
+                {title: 'Tips for understanding fast Cuban Spanish', author: 'Sarah J.', replies: 12, date: '1 week ago'}
+            ];
+
+            function loadTopics() {
+                var stored = localStorage.getItem('fluentpath_discussions');
+                var topics = stored ? JSON.parse(stored) : defaultTopics;
+                renderTopics(topics);
+            }
+
+            function renderTopics(topics) {
+                if (topics.length === 0) {
+                    topicsEl.innerHTML = '<div class="p-8 text-center text-gray-500">No discussions yet. Be the first to start one!</div>';
+                    return;
+                }
+                topicsEl.innerHTML = topics.map(function(t) {
+                    return '<div class="px-6 py-4 hover:bg-gray-50 transition cursor-pointer"><div class="flex justify-between items-start"><div><h3 class="font-bold text-slate-800">' + t.title + '</h3><p class="text-sm text-gray-500">by ' + t.author + ' · ' + t.date + '</p></div><span class="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded-full">' + t.replies + ' replies</span></div></div>';
+                }).join('');
+            }
+
+            loadTopics();
+
+            startBtn.addEventListener('click', function() { formEl.classList.remove('hidden'); });
+            cancelBtn.addEventListener('click', function() { formEl.classList.add('hidden'); });
+            submitBtn.addEventListener('click', function() {
+                var t = titleInput.value.trim(), a = authorInput.value.trim() || 'Anonymous';
+                if (!t) return;
+                var stored = localStorage.getItem('fluentpath_discussions');
+                var topics = stored ? JSON.parse(stored) : defaultTopics;
+                topics.unshift({title: t, author: a, replies: 0, date: 'Just now'});
+                localStorage.setItem('fluentpath_discussions', JSON.stringify(topics));
+                renderTopics(topics);
+                formEl.classList.add('hidden');
+                titleInput.value = ''; authorInput.value = ''; bodyInput.value = '';
+            });
+        });
+    </script>
+
+    <!-- Resource Library -->
+    <div class="gradient-divider"></div>
+    <section id="library" class="py-20 bg-coral-50">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Resource Library</h2>
+                <p class="text-lg text-gray-600">Download free study guides for your target dialect. Each guide includes key vocabulary, phrases, grammar tips, and cultural context.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="library-grid">
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇲🇽</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">Mexican Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/mexican-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇨🇺</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">Cuban Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/cuban-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇦🇷</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">Rioplatense Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/rioplatense-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇨🇱</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">Chilean Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/chilean-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇨🇴</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">Colombian Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/colombian-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200 text-center hover:shadow-md transition">
+                    <span class="text-4xl block mb-3">🇪🇸</span>
+                    <h3 class="text-lg font-heading font-bold mb-1">European Peninsular Spanish</h3>
+                    <p class="text-sm text-gray-500 mb-4">5 key words + phrases</p>
+                    <a href="guides/european-spanish-guide.md" download class="bg-primary-500 text-white text-sm font-bold px-5 py-2 rounded-lg hover:bg-primary-600 transition inline-block">📥 Download Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Sponsor Us -->
+    <div class="gradient-divider"></div>
+    <section id="sponsor" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6">Sponsor FluentPath</h2>
+            <p class="text-lg text-gray-600 mb-8">Support our mission to bring practical, real-world Spanish fluency to professionals around the globe. Become a sponsor today.</p>
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-primary-100 inline-block text-left w-full max-w-md">
+                <h3 class="text-2xl font-heading font-bold text-slate-800 mb-2 text-center">Corporate Sponsorship</h3>
+                <div class="text-center mb-6">
+                    <span class="text-4xl font-bold text-slate-800">£500</span>
+                    <span class="text-gray-500"> / year</span>
+                </div>
+                <ul class="space-y-3 mb-8 text-gray-600">
+                    <li class="flex items-start"><span class="text-secondary-500 mr-2">✓</span> Your logo on our homepage</li>
+                    <li class="flex items-start"><span class="text-secondary-500 mr-2">✓</span> Mentions in our monthly newsletter</li>
+                    <li class="flex items-start"><span class="text-secondary-500 mr-2">✓</span> 2 complimentary 1-on-1 sessions</li>
+                </ul>
+                <a href="https://buy.stripe.com/test_sponsor" class="block w-full text-center bg-accent-500 text-slate-800 font-bold py-3 rounded-lg hover:bg-yellow-500 transition shadow-md">Become a Sponsor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <div class="gradient-divider"></div>
+    <section id="contact" class="py-20 bg-primary-900 text-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold mb-4">Start Your Fluency Journey Today</h2>
+                <p class="text-primary-100">Fill out the form below and we'll be in touch to schedule your assessment session.</p>
+            </div>
+            
+            <form id="booking-form" class="bg-white rounded-xl p-8 shadow-xl text-slate-800">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="first-name" class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                        <input type="text" id="first-name" name="firstName" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition form-input" placeholder="Jane">
+                    </div>
+                    <div>
+                        <label for="last-name" class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                        <input type="text" id="last-name" name="lastName" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition form-input" placeholder="Doe">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition form-input" placeholder="jane@example.com">
+                </div>
+
+                <div class="mb-6">
+                    <label for="timezone" class="block text-sm font-medium text-gray-700 mb-2">Your Timezone</label>
+                    <input type="text" id="timezone" name="timezone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition form-input" placeholder="e.g. EST, GMT+1">
+                </div>
+
+                <div class="mb-6">
+                    <label for="preferred-time" class="block text-sm font-medium text-gray-700 mb-2">Preferred Time for Assessment</label>
+                    <select id="preferred-time" name="preferredTime" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition bg-white form-input">
+                        <option value="morning">Morning (8AM - 12PM)</option>
+                        <option value="afternoon">Afternoon (12PM - 4PM)</option>
+                        <option value="evening">Evening (4PM - 8PM)</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label for="interest" class="block text-sm font-medium text-gray-700 mb-2">I'm interested in...</label>
+                    <select id="interest" name="interest" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition bg-white form-input">
+                        <option value="1-on-1 Coaching">1-on-1 Coaching</option>
+                        <option value="Group Classes">Group Classes</option>
+                        <option value="Monthly Subscription">Monthly Subscription</option>
+                        <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="goals" class="block text-sm font-medium text-gray-700 mb-2">What are your main goals?</label>
+                    <textarea id="goals" name="goals" required rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition form-input" placeholder="E.g., I'm moving to Madrid for work and need to improve my business vocabulary..."></textarea>
+                </div>
+                
+                <button type="submit" class="w-full gradient-cta font-bold py-4 rounded-lg text-lg">Send Enquiry & Book</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 text-gray-400 py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <a href="#" class="inline-block mb-4">
+                <img src="fluentpath-logo-premium.svg" alt="FluentPath Spanish" class="h-8 opacity-75 hover:opacity-100 transition">
+            </a>
+            <p class="mb-6">Practical Spanish for the real world.</p>
+            <div class="text-sm">
+                &copy; 2024 FluentPath Spanish. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Announcement Bar Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bar = document.getElementById('announcement-bar');
+            const text = document.getElementById('announcement-text');
+            const closeBtn = document.getElementById('announcement-close');
+            
+            if (!bar) return;
+
+            const messages = [
+                '🎉 7-Day Free Trial - Start Today!',
+                '🤖 New! Practice 24/7 with AI Spanish Teachers',
+                '💼 Corporate Sponsorships available - £500/yr',
+                '📋 Level Assessment Quiz - Find Your Level',
+                '🇦🇷 Rioplatense Spanish Coaching Available'
+            ];
+            
+            let currentIndex = 0;
+            let interval;
+
+            // Check localStorage for dismissal
+            const dismissed = localStorage.getItem('fluentpath_announcement_dismissed');
+            if (dismissed) {
+                const dismissTime = parseInt(dismissed, 10);
+                const hoursSinceDismiss = (Date.now() - dismissTime) / (1000 * 60 * 60);
+                if (hoursSinceDismiss < 24) {
+                    bar.classList.add('hidden');
+                } else {
+                    localStorage.removeItem('fluentpath_announcement_dismissed');
+                }
+            }
+
+            // Rotate messages
+            function rotateMessage() {
+                currentIndex = (currentIndex + 1) % messages.length;
+                const newText = messages[currentIndex];
+                // Fade out/in effect
+                text.style.opacity = '0';
+                setTimeout(() => {
+                    text.textContent = newText;
+                    text.style.opacity = '1';
+                }, 300);
+            }
+
+            // Start rotation
+            if (!bar.classList.contains('hidden')) {
+                interval = setInterval(rotateMessage, 5000);
+            }
+
+            // Close button
+            closeBtn.addEventListener('click', () => {
+                bar.classList.add('hidden');
+                clearInterval(interval);
+                try {
+                    localStorage.setItem('fluentpath_announcement_dismissed', Date.now().toString());
+                } catch (e) {}
+            });
+
+            // Fade transition
+            text.style.transition = 'opacity 0.3s ease';
+            text.style.opacity = '1';
+        });
+    </script>
+
+</body>
+</html>
