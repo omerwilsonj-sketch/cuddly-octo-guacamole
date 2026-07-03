@@ -1187,9 +1187,21 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="pricing" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Pricing -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-10">
                 <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Investment in Your Fluency</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose the path that best fits your goals, schedule, and budget.</p>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">Choose the path that best fits your goals, schedule, and budget.</p>
+                <div class="inline-flex items-center bg-gray-50 p-2 rounded-lg border border-gray-200">
+                    <label for="currency-select" class="text-sm font-bold text-gray-600 mr-3 ml-2">Currency:</label>
+                    <select id="currency-select" class="bg-white border border-gray-300 text-slate-800 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
+                        <option value="GBP">🇬🇧 GBP (£)</option>
+                        <option value="USD">🇺🇸 USD ($)</option>
+                        <option value="EUR">🇪🇺 EUR (€)</option>
+                        <option value="MXN">🇲🇽 MXN ($)</option>
+                        <option value="ARS">🇦🇷 ARS ($)</option>
+                        <option value="CLP">🇨🇱 CLP ($)</option>
+                        <option value="COP">🇨🇴 COP ($)</option>
+                    </select>
+                </div>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -1198,8 +1210,8 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
                     <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">Group Classes</h3>
                     <div class="text-gray-500 mb-6">Themed conversation sessions</div>
                     <div class="mb-6">
-                        <span class="text-4xl font-bold text-slate-800">£20</span>
-                        <span class="text-gray-500">-£35 / session</span>
+                        <span class="text-4xl font-bold text-slate-800"><span class="price-val" data-base="20">£20</span></span>
+                        <span class="text-gray-500">-<span class="price-val" data-base="35">£35</span> / session</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-gray-600">
                         <li>• Small groups (max 4-6 students)</li>
@@ -1216,8 +1228,8 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
                     <h3 class="text-xl font-heading font-bold text-slate-800 mb-2">1-on-1 Coaching</h3>
                     <div class="text-gray-500 mb-6">Personalized fluency training</div>
                     <div class="mb-6">
-                        <span class="text-4xl font-bold text-slate-800">£40</span>
-                        <span class="text-gray-500">-£80 / hour</span>
+                        <span class="text-4xl font-bold text-slate-800"><span class="price-val" data-base="40">£40</span></span>
+                        <span class="text-gray-500">-<span class="price-val" data-base="80">£80</span> / hour</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-gray-600">
                         <li>• 100% customized curriculum</li>
@@ -1234,7 +1246,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
                     <div class="text-secondary-500 font-bold mb-1">Includes 7-Day Free Trial!</div>
                     <div class="text-gray-500 mb-6">For committed learners</div>
                     <div class="mb-6">
-                        <span class="text-4xl font-bold text-slate-800">£19</span>
+                        <span class="text-4xl font-bold text-slate-800"><span class="price-val" data-base="19">£19</span></span>
                         <span class="text-gray-500"> / month</span>
                     </div>
                     <ul class="space-y-3 mb-8 text-gray-600">
@@ -1249,6 +1261,55 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currencySelect = document.getElementById('currency-select');
+            const priceElements = document.querySelectorAll('.price-val');
+            
+            // Hardcoded approximate exchange rates relative to GBP (1 GBP = ...)
+            const rates = {
+                GBP: { rate: 1, symbol: '£', pos: 'pre' },
+                USD: { rate: 1.25, symbol: '$', pos: 'pre' },
+                EUR: { rate: 1.15, symbol: '€', pos: 'pre' },
+                MXN: { rate: 21.00, symbol: '$', pos: 'pre' },
+                ARS: { rate: 1100.00, symbol: '$', pos: 'pre' }, 
+                CLP: { rate: 1200.00, symbol: '$', pos: 'pre' },
+                COP: { rate: 4900.00, symbol: '$', pos: 'pre' }
+            };
+
+            function updatePrices() {
+                const currency = currencySelect.value;
+                const config = rates[currency];
+                
+                priceElements.forEach(el => {
+                    const basePrice = parseFloat(el.getAttribute('data-base'));
+                    const converted = Math.round(basePrice * config.rate);
+                    
+                    // Format number with commas for thousands
+                    const formatted = converted.toLocaleString('en-US');
+                    
+                    if (config.pos === 'pre') {
+                        el.textContent = config.symbol + formatted;
+                    } else {
+                        el.textContent = formatted + ' ' + config.symbol;
+                    }
+                });
+                
+                // Save preference
+                localStorage.setItem('fluentpath_currency', currency);
+            }
+
+            currencySelect.addEventListener('change', updatePrices);
+            
+            // Load saved preference if any
+            const savedCurrency = localStorage.getItem('fluentpath_currency');
+            if (savedCurrency && rates[savedCurrency]) {
+                currencySelect.value = savedCurrency;
+                updatePrices();
+            }
+        });
+    </script>
 
     <!-- FAQ -->
     <div class="gradient-divider"></div>
@@ -1404,6 +1465,55 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const currencySelect = document.getElementById('currency-select');
+            const priceElements = document.querySelectorAll('.price-val');
+            
+            // Hardcoded approximate exchange rates relative to GBP (1 GBP = ...)
+            const rates = {
+                GBP: { rate: 1, symbol: '£', pos: 'pre' },
+                USD: { rate: 1.25, symbol: '$', pos: 'pre' },
+                EUR: { rate: 1.15, symbol: '€', pos: 'pre' },
+                MXN: { rate: 21.00, symbol: '$', pos: 'pre' },
+                ARS: { rate: 1100.00, symbol: '$', pos: 'pre' }, 
+                CLP: { rate: 1200.00, symbol: '$', pos: 'pre' },
+                COP: { rate: 4900.00, symbol: '$', pos: 'pre' }
+            };
+
+            function updatePrices() {
+                const currency = currencySelect.value;
+                const config = rates[currency];
+                
+                priceElements.forEach(el => {
+                    const basePrice = parseFloat(el.getAttribute('data-base'));
+                    const converted = Math.round(basePrice * config.rate);
+                    
+                    // Format number with commas for thousands
+                    const formatted = converted.toLocaleString('en-US');
+                    
+                    if (config.pos === 'pre') {
+                        el.textContent = config.symbol + formatted;
+                    } else {
+                        el.textContent = formatted + ' ' + config.symbol;
+                    }
+                });
+                
+                // Save preference
+                localStorage.setItem('fluentpath_currency', currency);
+            }
+
+            currencySelect.addEventListener('change', updatePrices);
+            
+            // Load saved preference if any
+            const savedCurrency = localStorage.getItem('fluentpath_currency');
+            if (savedCurrency && rates[savedCurrency]) {
+                currencySelect.value = savedCurrency;
+                updatePrices();
+            }
+        });
+    </script>
     <!-- Sponsor Us -->
     <div class="gradient-divider"></div>
     <section id="sponsor" class="py-20 bg-white">
