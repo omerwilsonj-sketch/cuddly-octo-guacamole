@@ -1,0 +1,362 @@
+/* ============================================================
+   FluentPath Spanish — Dark Premium Theme ("Noir Fluency")
+   Version: 3.1 (Restrained — Stripe/Linear aesthetic)
+
+   Usage: Add class="theme-dark" to <html>, link this file.
+   One accent colour (muted gold) for CTAs. Everything else grayscale.
+   ============================================================ */
+
+.theme-dark {
+  /* === Background Layer System === */
+  --bg-base:          #0D0D12;
+  --bg-layer-1:       #13141C;
+  --bg-layer-2:       #1A1C26;
+  --bg-layer-3:       #222433;
+
+  /* === Accent Palette (2 colours only) === */
+  --accent:            #C8963E;   /* Muted Gold — CTAs ONLY */
+  --accent-hover:      #B88632;   /* Gold hover */
+  --accent-subtle:     #2D7A7A;   /* Deep Teal — success/checkmarks only */
+
+  /* === Text Hierarchy === */
+  --text-primary:      #EDEDF0;
+  --text-secondary:    #A0A0AE;
+  --text-tertiary:     #5C5C6A;
+  --text-inverse:      #0D0D12;   /* Text on gold CTA */
+
+  /* === Borders === */
+  --border-subtle:     #1F2130;
+  --border-strong:     #2A2D3C;
+
+  /* === State Colours === */
+  --state-error:       #8B3A3A;
+  --state-success:     #3A6B3A;
+
+  /* === Typography === */
+  --font-heading: 'Montserrat', 'Inter', sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* === Radii === */
+  --radius-sm:  6px;
+  --radius-md:  8px;
+  --radius-lg:  12px;
+  --radius-full: 9999px;
+
+  /* === Transitions === */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   BASE RESET
+   ============================================================ */
+.theme-dark {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.theme-dark *,
+.theme-dark *::before,
+.theme-dark *::after {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+.theme-dark h1, .theme-dark .h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.15;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.theme-dark h2, .theme-dark .h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.theme-dark h3, .theme-dark .h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.theme-dark p, .theme-dark .body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.625;
+  color: var(--text-secondary);
+}
+
+.theme-dark .body-lg { font-size: 1.125rem; }
+
+.theme-dark .caption, .theme-dark small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+/* Primary CTA — THE ONLY COLOURED ELEMENT */
+.theme-dark .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(180deg, #C8963E 0%, #B88632 100%);
+  color: var(--text-inverse);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.2s ease;
+  text-decoration: none;
+}
+
+.theme-dark .btn-primary:hover {
+  background: #B88632;
+}
+
+/* Secondary — Outline */
+.theme-dark .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 11px 28px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.theme-dark .btn-secondary:hover {
+  border-color: var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+/* Ghost/Tertiary */
+.theme-dark .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.theme-dark .btn-ghost:hover {
+  color: var(--text-primary);
+}
+
+/* Button Sizes */
+.theme-dark .btn-lg { padding: 15px 36px; font-size: 1.0625rem; }
+.theme-dark .btn-sm { padding: 8px 20px; font-size: 0.8125rem; }
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+
+/* Standard Card */
+.theme-dark .card {
+  background: var(--bg-layer-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color 0.2s ease;
+}
+
+.theme-dark .card:hover {
+  border-color: var(--border-strong);
+}
+
+/* Featured Card — slightly elevated, no colour */
+.theme-dark .card-featured {
+  background: var(--bg-layer-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  position: relative;
+}
+
+.theme-dark .card-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-layer-3);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 3px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+/* AI Teacher Card — same as standard, no special treatment */
+.theme-dark .card-ai {
+  background: var(--bg-layer-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color 0.2s ease;
+}
+
+.theme-dark .card-ai:hover {
+  border-color: var(--border-strong);
+}
+
+/* Testimonial Card */
+.theme-dark .card-testimonial {
+  background: var(--bg-layer-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.theme-dark .nav {
+  background: var(--bg-layer-1);
+  border-bottom: 1px solid var(--border-subtle);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.theme-dark .nav-link {
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.theme-dark .nav-link:hover {
+  color: var(--text-primary);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.theme-dark .hero {
+  background: var(--bg-base);
+  padding: 120px 0 100px;
+}
+
+/* ============================================================
+   FORMS & INPUTS
+   ============================================================ */
+.theme-dark .input {
+  background: var(--bg-layer-1);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  width: 100%;
+  transition: border-color 0.2s ease;
+}
+
+.theme-dark .input:focus {
+  border-color: var(--border-strong);
+  outline: none;
+}
+
+.theme-dark .input::placeholder {
+  color: var(--text-tertiary);
+}
+
+/* ============================================================
+   SECTION BACKGROUNDS
+   ============================================================ */
+.theme-dark .section-base    { background: var(--bg-base); }
+.theme-dark .section-layer-1 { background: var(--bg-layer-1); }
+
+/* ============================================================
+   DIVIDERS
+   ============================================================ */
+.theme-dark .divider {
+  height: 0;
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 0;
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.theme-dark .price-value {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.theme-dark .price-period {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  color: var(--text-tertiary);
+}
+
+/* ============================================================
+   FEATURE CHECKMARKS
+   ============================================================ */
+.theme-dark .checkmark {
+  color: var(--accent-subtle);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.theme-dark .footer {
+  background: var(--bg-base);
+  border-top: 1px solid var(--border-subtle);
+  padding: 64px 0 40px;
+}
+
+/* ============================================================
+   UTILITY: Only apply colour to CTA buttons.
+   If anything else has colour, it's a bug.
+   ============================================================ */

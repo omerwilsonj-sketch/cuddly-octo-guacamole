@@ -1,0 +1,415 @@
+/* ============================================================
+   FluentPath Spanish — Dark Theme Tailwind Overrides
+   Maps existing Tailwind utility classes to dark theme tokens.
+   Only active when .theme-dark is present on <html>.
+   ============================================================ */
+
+/* === BACKGROUNDS === */
+.theme-dark .bg-white,
+.theme-dark .bg-background { background: var(--bg-base) !important; }
+.theme-dark .bg-gray-50  { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-gray-100 { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-gray-200 { background: var(--bg-layer-2) !important; }
+
+.theme-dark .bg-primary-50  { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-primary-100 { background: var(--bg-layer-2) !important; }
+.theme-dark .bg-coral-50    { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-coral-100   { background: var(--bg-layer-2) !important; }
+.theme-dark .bg-secondary-50  { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-secondary-100 { background: var(--bg-layer-2) !important; }
+.theme-dark .bg-accent-500    { background: var(--bg-layer-1) !important; }
+
+.theme-dark .bg-green-50  { background: var(--bg-layer-1) !important; }
+.theme-dark .bg-green-100 { background: var(--bg-layer-2) !important; }
+.theme-dark .bg-yellow-100 { background: var(--bg-layer-2) !important; }
+
+.theme-dark .bg-slate-800 { background: var(--bg-layer-2) !important; }
+
+/* === TEXT COLOURS === */
+.theme-dark .text-slate-800,
+.theme-dark .text-slate-900 { color: var(--text-primary) !important; }
+.theme-dark .text-gray-600,
+.theme-dark .text-gray-700 { color: var(--text-secondary) !important; }
+.theme-dark .text-gray-500,
+.theme-dark .text-gray-400 { color: var(--text-tertiary) !important; }
+
+.theme-dark .text-primary-100 { color: var(--text-secondary) !important; }
+.theme-dark .text-primary-500,
+.theme-dark .text-primary-600,
+.theme-dark .text-primary-700 { color: var(--accent) !important; }
+
+.theme-dark .text-secondary-500,
+.theme-dark .text-secondary-600 { color: var(--accent-subtle) !important; }
+
+.theme-dark .text-coral-700  { color: var(--accent) !important; }
+.theme-dark .text-green-500  { color: var(--accent-subtle) !important; }
+.theme-dark .text-green-700  { color: var(--accent-subtle) !important; }
+.theme-dark .text-green-800  { color: var(--state-success) !important; }
+.theme-dark .text-yellow-800 { color: var(--accent) !important; }
+
+/* white text on the hero stays readable — keep it light */
+.theme-dark .text-white { color: var(--text-primary) !important; }
+
+/* === BORDERS === */
+.theme-dark .border-gray-100 { border-color: var(--border-subtle) !important; }
+.theme-dark .border-gray-200 { border-color: var(--border-subtle) !important; }
+.theme-dark .border-gray-300 { border-color: var(--border-strong) !important; }
+.theme-dark .border-primary-100 { border-color: var(--border-subtle) !important; }
+.theme-dark .border-primary-200 { border-color: var(--border-strong) !important; }
+.theme-dark .border-coral-100   { border-color: var(--border-subtle) !important; }
+.theme-dark .border-secondary-100 { border-color: var(--border-subtle) !important; }
+.theme-dark .border-gold-500    { border-color: var(--accent) !important; }
+.theme-dark .border-green-200   { border-color: var(--border-subtle) !important; }
+
+/* === SHADOWS === */
+.theme-dark .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.3) !important; }
+.theme-dark .shadow-lg { box-shadow: 0 10px 25px rgba(0,0,0,0.4) !important; }
+.theme-dark .shadow-xl { box-shadow: 0 15px 35px rgba(0,0,0,0.5) !important; }
+
+/* === RING / FOCUS === */
+.theme-dark .ring-primary-500 { --tw-ring-color: var(--accent) !important; }
+.theme-dark .focus\:ring-primary-500:focus { --tw-ring-color: var(--accent) !important; }
+.theme-dark .focus\:border-primary-500:focus { border-color: var(--accent) !important; }
+
+/* === HOVER STATES === */
+.theme-dark .hover\:bg-gray-50:hover  { background: var(--bg-layer-2) !important; }
+.theme-dark .hover\:bg-gray-100:hover { background: var(--bg-layer-2) !important; }
+.theme-dark .hover\:bg-gray-200:hover { background: var(--bg-layer-3) !important; }
+.theme-dark .hover\:bg-gray-300:hover { background: var(--bg-layer-3) !important; }
+.theme-dark .hover\:bg-primary-50:hover  { background: var(--bg-layer-2) !important; }
+.theme-dark .hover\:bg-primary-100:hover { background: var(--bg-layer-2) !important; }
+.theme-dark .hover\:bg-primary-600:hover { background: var(--accent-hover) !important; }
+.theme-dark .hover\:bg-secondary-600:hover { background: var(--accent-subtle) !important; }
+.theme-dark .hover\:bg-yellow-500:hover { background: var(--accent-hover) !important; }
+
+.theme-dark .hover\:text-gray-900:hover { color: var(--text-primary) !important; }
+.theme-dark .hover\:text-primary-600:hover { color: var(--accent) !important; }
+.theme-dark .hover\:text-primary-900:hover { color: var(--text-primary) !important; }
+
+.theme-dark .hover\:border-primary-300:hover { border-color: var(--border-strong) !important; }
+.theme-dark .hover\:border-primary-500:hover { border-color: var(--accent) !important; }
+
+.theme-dark .hover\:shadow-md:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important; }
+
+.theme-dark .hover\:opacity-80:hover { opacity: 0.9 !important; }
+
+/* === DIVIDERS === */
+.theme-dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border-subtle) !important;
+}
+
+/* ============================================================
+   CUSTOM COMPONENT OVERRIDES
+   ============================================================ */
+
+/* Hero — solid dark background, no gradients */
+.theme-dark .gradient-hero {
+  background: var(--bg-base) !important;
+}
+
+/* Glass nav → solid dark nav */
+.theme-dark .glass-nav {
+  background: var(--bg-layer-1) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: 1px solid var(--border-subtle) !important;
+}
+
+/* CTA buttons → gold (the only coloured element) */
+.theme-dark .gradient-cta {
+  background: linear-gradient(180deg, #C8963E 0%, #B88632 100%) !important;
+  box-shadow: 0 4px 12px rgba(200, 150, 62, 0.25) !important;
+  color: #0D0D12 !important;
+  border: none !important;
+}
+.theme-dark .gradient-cta:hover {
+  background: #B88632 !important;
+  box-shadow: 0 6px 20px rgba(200, 150, 62, 0.35) !important;
+  color: #0D0D12 !important;
+}
+
+/* Gradient divider → simple border */
+.theme-dark .gradient-divider {
+  height: 1px !important;
+  background: var(--border-subtle) !important;
+  opacity: 1 !important;
+}
+
+/* Gradient card accent → dark */
+.theme-dark .gradient-card-accent {
+  background: var(--bg-layer-1) !important;
+}
+
+/* Card accent left border → subtle border */
+.theme-dark .card-accent-left {
+  border-left: 4px solid var(--border-strong) !important;
+}
+
+/* Card base hover */
+.theme-dark .card-base:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
+}
+
+/* Form inputs */
+.theme-dark .form-input {
+  background: var(--bg-layer-1) !important;
+  border-color: var(--border-subtle) !important;
+  color: var(--text-primary) !important;
+}
+.theme-dark .form-input:focus {
+  border-color: var(--border-strong) !important;
+  box-shadow: 0 0 0 3px rgba(200, 150, 62, 0.15) !important;
+}
+
+/* Flashcard front */
+.theme-dark .flashcard-front {
+  background: linear-gradient(135deg, #1A1C26 0%, #222433 100%) !important;
+}
+
+/* Flashcard back */
+.theme-dark .flashcard-back {
+  background: var(--bg-layer-1) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-strong) !important;
+}
+.theme-dark .flashcard-back .example {
+  color: var(--text-tertiary) !important;
+}
+
+/* Announcement bar */
+.theme-dark #announcement-bar {
+  background: var(--bg-layer-3) !important;
+  color: var(--text-primary) !important;
+}
+.theme-dark #announcement-close {
+  color: var(--text-secondary) !important;
+}
+
+/* Contact section (primary-900) */
+.theme-dark .bg-primary-900 {
+  background: var(--bg-base) !important;
+}
+.theme-dark .bg-primary-900 .text-primary-100 {
+  color: var(--text-secondary) !important;
+}
+
+/* Footer */
+.theme-dark footer.bg-slate-800 {
+  background: var(--bg-base) !important;
+}
+
+/* Blog article cards */
+.theme-dark .bg-primary-100 {
+  background: var(--bg-layer-2) !important;
+}
+
+/* FAQ cards */
+.theme-dark .bg-white.p-6.rounded-xl {
+  background: var(--bg-layer-1) !important;
+}
+
+/* Sponsored section */
+.theme-dark .bg-accent-500 {
+  background: var(--accent) !important;
+  color: var(--text-inverse) !important;
+}
+
+/* === ANNOUNCEMENT BAR TEXT === */
+.theme-dark #announcement-text {
+  color: var(--text-primary) !important;
+}
+
+/* === BUTTON STYLES THAT AREN'T CAPTURED BY GRADIENT-CTA === */
+.theme-dark .bg-primary-500 {
+  background: var(--accent) !important;
+  color: var(--text-inverse) !important;
+}
+.theme-dark .bg-primary-500:hover {
+  background: var(--accent-hover) !important;
+}
+
+.theme-dark .bg-secondary-500 {
+  background: var(--accent-subtle) !important;
+  color: var(--text-primary) !important;
+}
+.theme-dark .bg-secondary-500:hover {
+  background: #246868 !important;
+}
+
+.theme-dark .bg-accent-500 {
+  background: var(--accent) !important;
+}
+
+/* Secondary text in certain contexts */
+.theme-dark .text-secondary-500 {
+  color: var(--accent-subtle) !important;
+}
+
+/* Navigation links */
+.theme-dark nav .text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+.theme-dark nav .hover\:text-primary-600:hover {
+  color: var(--text-primary) !important;
+}
+
+/* Book a session button in nav */
+.theme-dark nav a.gradient-cta {
+  color: #0D0D12 !important;
+}
+
+/* === INLINE CODE / MONO === */
+.theme-dark .font-mono {
+  color: var(--text-secondary) !important;
+}
+
+/* === PRONUNCIATION TABS === */
+.theme-dark .border-primary-500 {
+  border-color: var(--accent) !important;
+}
+.theme-dark .text-primary-500 {
+  color: var(--accent) !important;
+}
+
+/* === AI TEACHERS SECTION === */
+.theme-dark #ai-teachers .bg-primary-50,
+.theme-dark #ai-teachers .bg-white\/80 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #ai-teachers .bg-white {
+  background: var(--bg-layer-2) !important;
+}
+
+/* === ROADMAP CIRCLES === */
+.theme-dark .bg-primary-200 {
+  background: var(--bg-layer-2) !important;
+}
+/* Roadmap step number circles — gold accent */
+.theme-dark .bg-primary-500.text-white.rounded-full {
+  background: var(--accent) !important;
+  color: var(--text-inverse) !important;
+}
+
+/* === DASHBOARD CARDS === */
+.theme-dark #dashboard .bg-white {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #dashboard .text-primary-700 {
+  color: var(--text-primary) !important;
+}
+.theme-dark #dashboard .bg-primary-500 {
+  background: var(--accent) !important;
+}
+
+/* === REFERRAL SECTION === */
+.theme-dark #referral .bg-primary-50 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #referral .text-primary-700 {
+  color: var(--text-primary) !important;
+}
+.theme-dark #referral .bg-white {
+  background: var(--bg-layer-2) !important;
+}
+
+/* === BLOG SECTION === */
+.theme-dark #blog .bg-primary-50 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #blog .bg-primary-100 {
+  background: var(--bg-layer-2) !important;
+}
+.theme-dark #blog .text-primary-700 {
+  color: var(--accent) !important;
+}
+
+/* === QUIZZES SECTION === */
+.theme-dark #quizzes .bg-gray-100 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #quizzes .bg-gray-50 {
+  background: var(--bg-layer-2) !important;
+}
+
+/* === FLASHCARDS SECTION === */
+.theme-dark #flashcards .bg-coral-50 {
+  background: var(--bg-layer-1) !important;
+}
+
+/* === COMMUNITY SECTION === */
+.theme-dark #community .bg-gray-100 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #community .bg-gray-50 {
+  background: var(--bg-layer-2) !important;
+}
+.theme-dark #community .bg-primary-50 {
+  background: var(--bg-layer-1) !important;
+}
+
+/* === CONTACT FORM === */
+.theme-dark #booking-form .bg-white {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #booking-form label {
+  color: var(--text-secondary) !important;
+}
+
+/* === LIBRARY SECTION === */
+.theme-dark #library .bg-coral-50 {
+  background: var(--bg-layer-1) !important;
+}
+
+/* === ASSESSMENT SECTION === */
+.theme-dark #assessment .bg-white {
+  background: var(--bg-base) !important;
+}
+.theme-dark #assessment .bg-gray-50 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #assessment .bg-primary-200 {
+  background: var(--bg-layer-2) !important;
+}
+
+/* === PRICING SECTION === */
+.theme-dark #pricing .bg-white {
+  background: var(--bg-base) !important;
+}
+
+/* === PRONUNCIATION SECTION === */
+.theme-dark #pronunciation .bg-gray-100 {
+  background: var(--bg-layer-1) !important;
+}
+.theme-dark #pronunciation .bg-gray-50 {
+  background: var(--bg-layer-2) !important;
+}
+
+/* === FAQ SECTION === */
+.theme-dark #faq .bg-primary-50 {
+  background: var(--bg-layer-1) !important;
+}
+
+/* === GENERAL: all bg-white cards → dark === */
+.theme-dark .rounded-2xl.bg-white,
+.theme-dark .rounded-xl.bg-white,
+.theme-dark .rounded-lg.bg-white {
+  background: var(--bg-layer-1) !important;
+}
+
+/* === Hero "Learn More" outlined button === */
+.theme-dark .border-white {
+  border-color: var(--border-strong) !important;
+  color: var(--text-primary) !important;
+}
+.theme-dark .hover\:bg-white:hover {
+  background: var(--bg-layer-2) !important;
+  color: var(--text-primary) !important;
+}
+
+/* ============================================================
+   FINAL CLEANUP: remove any remaining coral/pink from CTAs
+   ============================================================ */
+.theme-dark .bg-coral-500,
+.theme-dark .bg-pink-500 {
+  background: var(--accent) !important;
+}
