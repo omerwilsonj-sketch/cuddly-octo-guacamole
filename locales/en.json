@@ -1,0 +1,284 @@
+{
+  "site": {
+    "title": "FluentPath Spanish | Practical Fluency for Professionals",
+    "tagline": "Practical Spanish for the real world."
+  },
+  "announcement": {
+    "free_trial": "🎉 7-Day Free Trial – Start Today!",
+    "ai_teachers": "🤖 New! Practice 24/7 with AI Spanish Teachers",
+    "sponsorships": "💼 Corporate Sponsorships available – £500/yr",
+    "assessment": "📋 Level Assessment Quiz – Find Your Level",
+    "rioplatense": "🇦🇷 Rioplatense Spanish Coaching Available"
+  },
+  "nav": {
+    "why_us": "Why Us",
+    "who_for": "Who It's For",
+    "testimonials": "Testimonials",
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "flashcards": "Flashcards",
+    "ai_teachers": "AI Teachers",
+    "assessment": "Assessment",
+    "roadmap": "Roadmap",
+    "blog": "Blog",
+    "pronunciation": "Pronunciation",
+    "dashboard": "Dashboard",
+    "referral": "Referral",
+    "community": "Community",
+    "library": "Library",
+    "sponsor": "Sponsor Us",
+    "book_session": "Book a Session"
+  },
+  "hero": {
+    "headline": "Real-world Spanish for Real-world Success",
+    "subtext": "Master practical fluency and professional communication. Skip the grammar drills and start speaking with confidence.",
+    "cta_primary": "Start Your Journey",
+    "cta_secondary": "Learn More",
+    "badges": "CEFR B1-C2  ·  6 Dialects  ·  AI + Human"
+  },
+  "features": {
+    "heading": "Fluency Over Formulas",
+    "description": "Traditional classes focus on memorization. We focus on getting you ready for that important meeting, your next date, or your new life abroad.",
+    "conversational": {
+      "title": "Conversational Fluency",
+      "desc": "Speak naturally from day one. We simulate real conversations so you aren't lost when you step outside the classroom."
+    },
+    "professional": {
+      "title": "Professional Communication",
+      "desc": "Master the vocabulary that matters for your career. Learn how to negotiate, present, and build relationships in Spanish."
+    },
+    "real_world": {
+      "title": "Real-world Application",
+      "desc": "Roleplay scenarios tailored to your life: ordering at a local cafe, handling a bureaucratic office, or chatting with in-laws."
+    },
+    "dialects": {
+      "title": "Specialized Dialects",
+      "desc": "We offer specialized dialect coaching so students can learn the exact Spanish they need — including Argentinian, Chilean, Mexican, European Spanish (Castilian), and more."
+    }
+  },
+  "audience": {
+    "heading": "Who is FluentPath For?",
+    "description": "Our coaching is designed specifically for intermediate-to-advanced learners who need to bridge the gap between \"knowing Spanish\" and actually using it confidently.",
+    "expats": "Expats & Remote Workers: Feel at home in LATAM or Spain.",
+    "relocating": "Relocating Professionals: Hit the ground running in your new office.",
+    "business": "Business Developers: Close deals in Spanish-speaking markets.",
+    "partners": "Partners & Spouses: Connect deeply with Spanish-speaking loved ones.",
+    "rusty": "Rusty Learners: Reactivate the Spanish you learned years ago."
+  },
+  "testimonials": {
+    "heading": "Success Stories",
+    "description": "Hear from professionals who have transformed their Spanish and their careers.",
+    "quote1": "\"The dialect coaching was a game-changer. I needed Argentinian Spanish for my new role in Buenos Aires, and FluentPath delivered exactly what I needed.\"",
+    "name1": "Mark T.",
+    "role1": "Software Engineer",
+    "quote2": "\"I finally feel confident speaking up in meetings. The focus on professional communication rather than just grammar made all the difference.\"",
+    "name2": "Elena R.",
+    "role2": "Marketing Director",
+    "quote3": "\"The flexible scheduling and 1-on-1 attention were perfect for my busy lifestyle. My Spanish improved dramatically in just a few months.\"",
+    "name3": "David L.",
+    "role3": "Consultant"
+  },
+  "pricing": {
+    "heading": "Investment in Your Fluency",
+    "description": "Choose the path that best fits your goals, schedule, and budget.",
+    "currency_label": "Currency:",
+    "group": {
+      "title": "Group Classes",
+      "subtitle": "Themed conversation sessions",
+      "feature1": "Small groups (max 4-6 students)",
+      "feature2": "\"Work Spanish\" themes",
+      "feature3": "\"Dating & Relationships\" themes",
+      "feature4": "Peer learning environment",
+      "cta": "Checkout"
+    },
+    "one_on_one": {
+      "title": "1-on-1 Coaching",
+      "subtitle": "Personalized fluency training",
+      "badge": "Most Popular",
+      "feature1": "100% customized curriculum",
+      "feature2": "Flexible scheduling",
+      "feature3": "Industry-specific vocabulary",
+      "feature4": "Discounted 5 & 10 session packs",
+      "cta": "Checkout"
+    },
+    "subscription": {
+      "title": "Subscription",
+      "subtitle": "For committed learners",
+      "trial": "Includes 7-Day Free Trial!",
+      "feature1": "Unlimited weekly sessions",
+      "feature2": "Priority booking",
+      "feature3": "Premium lesson materials",
+      "feature4": "🤖 24/7 AI Teacher Access",
+      "feature5": "24/7 text support",
+      "cta": "Start 7-Day Free Trial"
+    }
+  },
+  "ai_teachers": {
+    "badge": "New Feature",
+    "heading": "Meet Your AI Spanish Teachers",
+    "description": "Practice 24/7 with specialized AI personas. Choose your target dialect to find the perfect coach for your goals.",
+    "step1": "1. Choose your target dialect",
+    "step2": "2. Choose your coach",
+    "back": "← Back to dialects",
+    "step3": "3. Start Practicing!",
+    "change_coach": "← Change coach",
+    "unlock_heading": "Unlock Full Access",
+    "unlock_desc": "Get 24/7 unlimited access to all AI dialect coaches with our subscription plan.",
+    "unlock_cta": "Start 7-Day Free Trial",
+    "online": "Online now",
+    "placeholder": "Type a message to practice...",
+    "send": "Send"
+  },
+  "assessment": {
+    "heading": "Level Assessment Quiz",
+    "description": "Not sure where to start? Take our placement quiz to find your level and get a personalized recommendation. 5 beginner, 5 intermediate, and 5 advanced questions.",
+    "start_desc": "This assessment covers grammar, vocabulary, and comprehension across 3 levels. It takes about 5-8 minutes.",
+    "start_btn": "Start Assessment",
+    "completed_notice": "📋 You've already completed the assessment. Take it again to see if you've improved!",
+    "next_question": "Next Question",
+    "complete_heading": "Assessment Complete",
+    "complete_desc": "Here's your fluency profile and recommendation.",
+    "your_level": "Your Level",
+    "score_breakdown": "Score Breakdown",
+    "retake": "Retake Assessment"
+  },
+  "quizzes": {
+    "heading": "Test Your Dialect Knowledge",
+    "description": "Select a dialect to see how well you know regional vocabulary. This is exactly what our specialized coaching prepares you for.",
+    "label": "Choose your target dialect:",
+    "start": "Start Quiz",
+    "complete": "Quiz Complete!",
+    "retry": "Try Another Dialect",
+    "next": "Next Question"
+  },
+  "flashcards": {
+    "heading": "Dialect Vocabulary Flashcards",
+    "description": "Master regional vocabulary with our interactive flashcards. Click to flip, swipe through the deck, and learn at your own pace.",
+    "label": "Choose a dialect deck:",
+    "start": "Start Learning",
+    "click_flip": "Click to flip",
+    "definition": "Definition",
+    "example": "Example",
+    "prev": "‹ Prev",
+    "next": "Next ›",
+    "shuffle": "🔀 Shuffle",
+    "great_job": "Great job!",
+    "great_job_desc": "You've reviewed this deck. Try another dialect or shuffle to test yourself again.",
+    "choose_another": "Choose Another Dialect"
+  },
+  "roadmap": {
+    "heading": "Your Learning Journey",
+    "description": "A guided path from finding your level to booking your first session. Follow these steps to make the most of FluentPath.",
+    "step1_title": "Step 1: Take the Assessment",
+    "step1_desc": "Find your current level with our 15-question placement quiz covering beginner to advanced topics. Get a personalized recommendation.",
+    "step1_link": "Start Assessment →",
+    "step2_title": "Step 2: Test Your Dialect Knowledge",
+    "step2_desc": "Choose from 5 dialects (Mexican, Cuban, Rioplatense, Chilean, Colombian) and test your regional vocabulary knowledge.",
+    "step2_link": "Try the Quizzes →",
+    "step3_title": "Step 3: Practice with Flashcards",
+    "step3_desc": "Master 7-8 essential vocabulary words per dialect with interactive flip cards. Shuffle and review until you remember them all.",
+    "step3_link": "Open Flashcards →",
+    "step4_title": "Step 4: Book a Coaching Session",
+    "step4_desc": "Ready to take the next step? Book a 1-on-1 session, join a group class, or subscribe for unlimited weekly coaching.",
+    "step4_link": "Book Now →"
+  },
+  "dashboard": {
+    "heading": "Your Progress Dashboard",
+    "description": "Track your learning activity across quizzes, flashcards, and assessments. All data is saved locally in your browser.",
+    "quizzes_taken": "Quizzes Taken",
+    "avg_score": "Avg. Quiz Score",
+    "dialects_explored": "Dialects Explored",
+    "assessment_label": "Assessment",
+    "dialect_progress": "Dialect Progress",
+    "reset": "Reset All Progress"
+  },
+  "blog": {
+    "heading": "Blog & Learning Resources",
+    "description": "Tips, guides, and deep dives to accelerate your Spanish fluency journey."
+  },
+  "pronunciation": {
+    "heading": "Pronunciation Guide by Dialect",
+    "description": "Learn the unique sounds and pronunciation patterns of each Spanish dialect. Select a dialect below.",
+    "select_prompt": "Select a dialect above to see its pronunciation guide.",
+    "key_features": "Key Pronunciation Features",
+    "common_phrases": "Common Phrases",
+    "tip": "💡 Click on a different dialect tab above to explore other pronunciation guides."
+  },
+  "referral": {
+    "heading": "Refer a Friend, Get Rewarded",
+    "description": "Share FluentPath with friends and earn 1 free month of subscription (£19 value) or 1 free 1-on-1 session for each referral!",
+    "your_code": "Your Referral Code",
+    "share_code": "Share this code with friends",
+    "your_referrals": "Your Referrals",
+    "friends_referred": "friends referred",
+    "share_now": "Share Now",
+    "terms_heading": "Terms",
+    "term1": "Referral must be a new student",
+    "term2": "Reward issued after first paid session",
+    "term3": "No limit on number of referrals"
+  },
+  "community": {
+    "heading": "Community Discussions",
+    "description": "Join the conversation! Share tips, ask questions, and connect with fellow FluentPath learners.",
+    "recent": "Recent Topics",
+    "start": "+ Start a Discussion",
+    "new_heading": "Start a New Discussion",
+    "title_placeholder": "Topic title...",
+    "name_placeholder": "Your name...",
+    "body_placeholder": "What's on your mind?",
+    "post": "Post",
+    "cancel": "Cancel",
+    "no_discussions": "No discussions yet. Be the first to start one!",
+    "replies": "replies"
+  },
+  "library": {
+    "heading": "Resource Library",
+    "description": "Download free study guides for your target dialect. Each guide includes key vocabulary, phrases, grammar tips, and cultural context.",
+    "download": "📥 Download Guide"
+  },
+  "sponsor": {
+    "heading": "Sponsor FluentPath",
+    "description": "Support our mission to bring practical, real-world Spanish fluency to professionals around the globe. Become a sponsor today.",
+    "title": "Corporate Sponsorship",
+    "feature1": "Your logo on our homepage",
+    "feature2": "Mentions in our monthly newsletter",
+    "feature3": "2 complimentary 1-on-1 sessions",
+    "cta": "Become a Sponsor"
+  },
+  "faq": {
+    "heading": "Frequently Asked Questions",
+    "q1": "Do I need to be fluent to start?",
+    "a1": "No, but our coaching is designed for intermediate-to-advanced learners. If you know the basics but struggle to use them in real conversation, we're the perfect fit.",
+    "q2": "How does the 7-day free trial work?",
+    "a2": "When you sign up for our subscription plan, your first 7 days are completely free. You can attend unlimited sessions and cancel anytime before the trial ends without being charged.",
+    "q3": "Can I switch between dialects?",
+    "a3": "Yes! If your needs change, you can let your coach know, and we will adjust the focus of your sessions to the specific dialect you require."
+  },
+  "contact": {
+    "heading": "Start Your Fluency Journey Today",
+    "description": "Fill out the form below and we'll be in touch to schedule your assessment session.",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email Address",
+    "timezone": "Your Timezone",
+    "preferred_time": "Preferred Time for Assessment",
+    "morning": "Morning (8AM - 12PM)",
+    "afternoon": "Afternoon (12PM - 4PM)",
+    "evening": "Evening (4PM - 8PM)",
+    "interest": "I'm interested in...",
+    "interest_1on1": "1-on-1 Coaching",
+    "interest_group": "Group Classes",
+    "interest_subscription": "Monthly Subscription",
+    "interest_unsure": "Not sure yet",
+    "goals": "What are your main goals?",
+    "goals_placeholder": "E.g., I'm moving to Madrid for work and need to improve my business vocabulary...",
+    "submit": "Send Enquiry & Book",
+    "first_name_placeholder": "Jane",
+    "last_name_placeholder": "Doe",
+    "email_placeholder": "jane@example.com",
+    "timezone_placeholder": "e.g. EST, GMT+1"
+  },
+  "footer": {
+    "copyright": "© 2024 FluentPath Spanish. All rights reserved."
+  }
+}

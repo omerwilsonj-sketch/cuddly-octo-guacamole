@@ -1,0 +1,284 @@
+{
+  "site": {
+    "title": "FluentPath Spanish | Praktisches Spanisch für Profis",
+    "tagline": "Praktisches Spanisch für die echte Welt."
+  },
+  "announcement": {
+    "free_trial": "🎉 7 Tage kostenlos testen – Jetzt starten!",
+    "ai_teachers": "🤖 Neu! Übe rund um die Uhr mit KI-Spanischlehrern",
+    "sponsorships": "💼 Firmensponsoring verfügbar – £500/Jahr",
+    "assessment": "📋 Einstufungstest – Finde dein Niveau",
+    "rioplatense": "🇦🇷 Rioplatense-Spanisch-Coaching verfügbar"
+  },
+  "nav": {
+    "why_us": "Warum wir",
+    "who_for": "Für wen",
+    "testimonials": "Erfahrungen",
+    "pricing": "Preise",
+    "faq": "FAQ",
+    "flashcards": "Karteikarten",
+    "ai_teachers": "KI-Lehrer",
+    "assessment": "Einstufung",
+    "roadmap": "Lernweg",
+    "blog": "Blog",
+    "pronunciation": "Aussprache",
+    "dashboard": "Dashboard",
+    "referral": "Empfehlen",
+    "community": "Community",
+    "library": "Bibliothek",
+    "sponsor": "Sponsern",
+    "book_session": "Session buchen"
+  },
+  "hero": {
+    "headline": "Echtes Spanisch für echten Erfolg",
+    "subtext": "Meistern Sie praktische Sprachfertigkeit und professionelle Kommunikation. Überspringen Sie Grammatikübungen und sprechen Sie mit Selbstvertrauen.",
+    "cta_primary": "Starten Sie Ihre Reise",
+    "cta_secondary": "Mehr erfahren",
+    "badges": "GER B1-C2  ·  6 Dialekte  ·  KI + Mensch"
+  },
+  "features": {
+    "heading": "Sprachfertigkeit statt Formeln",
+    "description": "Traditionelle Kurse setzen auf Auswendiglernen. Wir bereiten Sie auf das wichtige Meeting, Ihr nächstes Date oder Ihr neues Leben im Ausland vor.",
+    "conversational": {
+      "title": "Konversationssicherheit",
+      "desc": "Sprechen Sie von Tag eins an natürlich. Wir simulieren echte Gespräche."
+    },
+    "professional": {
+      "title": "Professionelle Kommunikation",
+      "desc": "Meistern Sie das Vokabular für Ihre Karriere. Lernen Sie zu verhandeln und zu präsentieren."
+    },
+    "real_world": {
+      "title": "Praxisnahe Anwendung",
+      "desc": "Rollenspiele für Ihr Leben: im Café bestellen, Behörden navigieren, mit Schwiegereltern plaudern."
+    },
+    "dialects": {
+      "title": "Spezialisierte Dialekte",
+      "desc": "Spezialisiertes Dialekt-Coaching: argentinisch, chilenisch, mexikanisch, kastilisch und mehr."
+    }
+  },
+  "audience": {
+    "heading": "Für wen ist FluentPath?",
+    "description": "Unser Coaching richtet sich an Lernende auf mittlerem bis fortgeschrittenem Niveau.",
+    "expats": "Expats & Remote-Arbeiter: Fühlen Sie sich zuhause in LATAM oder Spanien.",
+    "relocating": "Umziehende Fachkräfte: Starten Sie durch im neuen Büro.",
+    "business": "Business Developer: Deals in spanischsprachigen Märkten abschließen.",
+    "partners": "Partner & Ehepartner: Tiefe Verbindung mit spanischsprachigen Liebsten.",
+    "rusty": "Eingerostete Lerner: Reaktivieren Sie Ihr früher gelerntes Spanisch."
+  },
+  "testimonials": {
+    "heading": "Erfolgsgeschichten",
+    "description": "Fachleute, die ihr Spanisch und ihre Karriere transformiert haben.",
+    "quote1": "\"Das Dialekt-Coaching war ein Wendepunkt. Ich brauchte argentinisches Spanisch für Buenos Aires, und FluentPath lieferte.\"",
+    "name1": "Mark T.",
+    "role1": "Softwareentwickler",
+    "quote2": "\"Endlich Selbstvertrauen in Meetings. Der Fokus auf Kommunikation statt Grammatik machte den Unterschied.\"",
+    "name2": "Elena R.",
+    "role2": "Marketing Director",
+    "quote3": "\"Flexible Planung und persönliche Betreuung. Mein Spanisch verbesserte sich dramatisch in wenigen Monaten.\"",
+    "name3": "David L.",
+    "role3": "Berater"
+  },
+  "pricing": {
+    "heading": "Investition in Ihre Sprachfertigkeit",
+    "description": "Der Weg, der zu Ihren Zielen, Zeitplan und Budget passt.",
+    "currency_label": "Währung:",
+    "group": {
+      "title": "Gruppenkurse",
+      "subtitle": "Thematische Konversationssitzungen",
+      "feature1": "Kleine Gruppen (max. 4-6 TN)",
+      "feature2": "Themen „Business-Spanisch\"",
+      "feature3": "Themen „Dating & Beziehungen\"",
+      "feature4": "Peer-Learning-Umgebung",
+      "cta": "Zur Kasse"
+    },
+    "one_on_one": {
+      "title": "Einzelcoaching",
+      "subtitle": "Personalisiertes Sprachtraining",
+      "badge": "Am beliebtesten",
+      "feature1": "100% maßgeschneidert",
+      "feature2": "Flexible Terminplanung",
+      "feature3": "Branchenspezifisches Vokabular",
+      "feature4": "Vergünstigte 5er- & 10er-Pakete",
+      "cta": "Zur Kasse"
+    },
+    "subscription": {
+      "title": "Abonnement",
+      "subtitle": "Für engagierte Lerner",
+      "trial": "7 Tage kostenlos testen!",
+      "feature1": "Unbegrenzte wöchentliche Sessions",
+      "feature2": "Prioritätsbuchung",
+      "feature3": "Premium-Lernmaterialien",
+      "feature4": "🤖 24/7 KI-Lehrer-Zugang",
+      "feature5": "24/7 Text-Support",
+      "cta": "7 Tage kostenlos testen"
+    }
+  },
+  "ai_teachers": {
+    "badge": "Neue Funktion",
+    "heading": "KI-Spanischlehrer",
+    "description": "Üben Sie 24/7 mit spezialisierten KI-Personas. Wählen Sie Ihren Zieldialekt.",
+    "step1": "1. Zieldialekt wählen",
+    "step2": "2. Coach wählen",
+    "back": "← Zurück",
+    "step3": "3. Üben!",
+    "change_coach": "← Coach wechseln",
+    "unlock_heading": "Vollzugriff freischalten",
+    "unlock_desc": "24/7 Zugang zu allen KI-Dialekt-Coaches mit Abonnement.",
+    "unlock_cta": "7 Tage kostenlos testen",
+    "online": "Jetzt online",
+    "placeholder": "Nachricht zum Üben...",
+    "send": "Senden"
+  },
+  "assessment": {
+    "heading": "Einstufungstest",
+    "description": "Finden Sie Ihr Niveau mit 15 Fragen (Anfänger bis Fortgeschritten). Persönliche Empfehlung.",
+    "start_desc": "Grammatik, Wortschatz, Verständnis über 3 Niveaus. Ca. 5-8 Minuten.",
+    "start_btn": "Test starten",
+    "completed_notice": "📋 Test bereits abgeschlossen. Wiederholen für Fortschrittskontrolle!",
+    "next_question": "Nächste Frage",
+    "complete_heading": "Test abgeschlossen",
+    "complete_desc": "Ihr Sprachprofil und unsere Empfehlung.",
+    "your_level": "Ihr Niveau",
+    "score_breakdown": "Punktzahl",
+    "retake": "Test wiederholen"
+  },
+  "quizzes": {
+    "heading": "Dialekt-Wissen testen",
+    "description": "Testen Sie regionales Vokabular. Genau darauf bereitet unser Coaching vor.",
+    "label": "Zieldialekt wählen:",
+    "start": "Quiz starten",
+    "complete": "Quiz abgeschlossen!",
+    "retry": "Anderen Dialekt versuchen",
+    "next": "Nächste Frage"
+  },
+  "flashcards": {
+    "heading": "Dialekt-Vokabelkarten",
+    "description": "Interaktive Karteikarten. Klicken zum Umdrehen, im eigenen Tempo lernen.",
+    "label": "Dialekt-Deck wählen:",
+    "start": "Lernen starten",
+    "click_flip": "Zum Umdrehen klicken",
+    "definition": "Definition",
+    "example": "Beispiel",
+    "prev": "‹ Zurück",
+    "next": "Weiter ›",
+    "shuffle": "🔀 Mischen",
+    "great_job": "Gut gemacht!",
+    "great_job_desc": "Deck durchgearbeitet. Anderen Dialekt oder Mischen versuchen.",
+    "choose_another": "Anderen Dialekt wählen"
+  },
+  "roadmap": {
+    "heading": "Ihr Lernweg",
+    "description": "Vom Einstufungstest zur ersten Coaching-Sitzung.",
+    "step1_title": "Schritt 1: Einstufungstest",
+    "step1_desc": "Aktuelles Niveau mit 15-Fragen-Quiz finden.",
+    "step1_link": "Test starten →",
+    "step2_title": "Schritt 2: Dialekt-Wissen testen",
+    "step2_desc": "5 Dialekte, regionales Vokabular testen.",
+    "step2_link": "Quiz ausprobieren →",
+    "step3_title": "Schritt 3: Karteikarten",
+    "step3_desc": "7-8 Vokabeln pro Dialekt mit Wendekarten meistern.",
+    "step3_link": "Karteikarten öffnen →",
+    "step4_title": "Schritt 4: Coaching buchen",
+    "step4_desc": "Einzelsitzung, Gruppenkurs oder Abo buchen.",
+    "step4_link": "Jetzt buchen →"
+  },
+  "dashboard": {
+    "heading": "Fortschritts-Dashboard",
+    "description": "Lernaktivität über Quiz, Karteikarten und Tests verfolgen.",
+    "quizzes_taken": "Quiz absolviert",
+    "avg_score": "Ø Punktzahl",
+    "dialects_explored": "Erkundete Dialekte",
+    "assessment_label": "Einstufung",
+    "dialect_progress": "Dialekt-Fortschritt",
+    "reset": "Alles zurücksetzen"
+  },
+  "blog": {
+    "heading": "Blog & Lernressourcen",
+    "description": "Tipps, Leitfäden und Analysen für Ihren Weg zur Spanisch-Flüssigkeit."
+  },
+  "pronunciation": {
+    "heading": "Aussprache-Guide nach Dialekt",
+    "description": "Einzigartige Laute jedes spanischen Dialekts. Dialekt unten wählen.",
+    "select_prompt": "Dialekt oben wählen für Aussprache-Guide.",
+    "key_features": "Aussprachemerkmale",
+    "common_phrases": "Häufige Ausdrücke",
+    "tip": "💡 Anderen Dialekt-Tab oben für weitere Guides anklicken."
+  },
+  "referral": {
+    "heading": "Freund werben, Prämie erhalten",
+    "description": "1 Gratismonat (£19) oder 1 Gratis-Session pro Empfehlung!",
+    "your_code": "Ihr Empfehlungscode",
+    "share_code": "Code mit Freunden teilen",
+    "your_referrals": "Ihre Empfehlungen",
+    "friends_referred": "geworbene Freunde",
+    "share_now": "Jetzt teilen",
+    "terms_heading": "Bedingungen",
+    "term1": "Neuer Teilnehmer erforderlich",
+    "term2": "Prämie nach erster bezahlter Session",
+    "term3": "Unbegrenzte Anzahl"
+  },
+  "community": {
+    "heading": "Community-Diskussionen",
+    "description": "Tipps teilen, Fragen stellen, sich vernetzen.",
+    "recent": "Aktuelle Themen",
+    "start": "+ Diskussion starten",
+    "new_heading": "Neue Diskussion",
+    "title_placeholder": "Titel...",
+    "name_placeholder": "Ihr Name...",
+    "body_placeholder": "Was beschäftigt Sie?",
+    "post": "Veröffentlichen",
+    "cancel": "Abbrechen",
+    "no_discussions": "Noch keine Diskussionen. Starten Sie die erste!",
+    "replies": "Antworten"
+  },
+  "library": {
+    "heading": "Ressourcenbibliothek",
+    "description": "Kostenlose Studienführer mit Vokabular, Ausdrücken, Grammatiktipps.",
+    "download": "📥 Leitfaden herunterladen"
+  },
+  "sponsor": {
+    "heading": "FluentPath sponsern",
+    "description": "Unterstützen Sie praktische Spanisch-Flüssigkeit weltweit. Sponsor werden.",
+    "title": "Firmensponsoring",
+    "feature1": "Ihr Logo auf der Startseite",
+    "feature2": "Erwähnungen im monatlichen Newsletter",
+    "feature3": "2 kostenlose Einzelsitzungen",
+    "cta": "Sponsor werden"
+  },
+  "faq": {
+    "heading": "Häufige Fragen",
+    "q1": "Muss ich fließend sein?",
+    "a1": "Nein, Mittelstufe reicht. Grundlagen plus Konversationspraxis – wir sind perfekt.",
+    "q2": "Wie funktioniert die 7-Tage-Testphase?",
+    "a2": "Erste 7 Tage kostenlos. Unbegrenzte Sessions, jederzeit kündbar ohne Kosten.",
+    "q3": "Kann ich Dialekte wechseln?",
+    "a3": "Ja! Coach informieren, wir passen Ihre Sessions an."
+  },
+  "contact": {
+    "heading": "Starten Sie Ihre Sprachreise",
+    "description": "Formular ausfüllen, wir melden uns für Ihre Einstufung.",
+    "first_name": "Vorname",
+    "last_name": "Nachname",
+    "email": "E-Mail",
+    "timezone": "Zeitzone",
+    "preferred_time": "Bevorzugte Zeit",
+    "morning": "Vormittag (8-12 Uhr)",
+    "afternoon": "Nachmittag (12-16 Uhr)",
+    "evening": "Abend (16-20 Uhr)",
+    "interest": "Interessiert an...",
+    "interest_1on1": "Einzelcoaching",
+    "interest_group": "Gruppenkurse",
+    "interest_subscription": "Monatsabo",
+    "interest_unsure": "Noch unsicher",
+    "goals": "Ihre Hauptziele?",
+    "goals_placeholder": "Z.B. Umzug nach Madrid, Business-Vokabular verbessern...",
+    "submit": "Anfrage senden",
+    "first_name_placeholder": "Anna",
+    "last_name_placeholder": "Schmidt",
+    "email_placeholder": "anna@beispiel.de",
+    "timezone_placeholder": "z.B. MEZ, GMT+1"
+  },
+  "footer": {
+    "copyright": "© 2024 FluentPath Spanish. Alle Rechte vorbehalten."
+  }
+}

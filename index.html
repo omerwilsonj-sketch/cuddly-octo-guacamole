@@ -9,7 +9,7 @@
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>FluentPath Spanish | Practical Fluency for Professionals</title>
+    <title data-i18n="site.title">FluentPath Spanish | Practical Fluency for Professionals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="dark_theme.css">
     <link rel="stylesheet" href="dark_theme_overrides.css">
@@ -163,7 +163,15 @@
             font-style: italic;
             color: #6b7280;
         }
-    </style>
+        .lang-switcher { position: relative; display: inline-block; }
+    .lang-current { background: transparent; border: 1px solid #d1d5db; color: #4b5563; padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.875rem; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+    .lang-current:hover { border-color: #1A6B7A; color: #1A6B7A; }
+    .lang-dropdown { position: absolute; top: 100%; right: 0; margin-top: 4px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 200; min-width: 160px; overflow: hidden; display: none; }
+    .lang-dropdown.show { display: block; }
+    .lang-btn { display: block; width: 100%; text-align: left; padding: 10px 16px; border: none; background: white; cursor: pointer; font-size: 0.875rem; color: #4b5563; transition: background 0.15s; }
+    .lang-btn:hover { background: #f3f4f6; }
+    .lang-btn.active-lang { background: #E8F4F5; color: #1A6B7A; font-weight: 600; }
+</style>
     <script>
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("service-worker.js");
@@ -173,13 +181,14 @@
     <script src="quiz.js"></script>
     <script src="flashcards.js"></script>
     <script src="assessment.js"></script>
+    <script src="i18n.js"></script>
 </head>
 <body class="font-sans text-slate-800 antialiased bg-background">
 
     <!-- Announcement Bar -->
     <div id="announcement-bar" class="bg-accent-500 text-slate-800 py-2 text-center text-sm font-medium relative transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 pr-10">
-            <span id="announcement-text">🎉 7-Day Free Trial - Start Today!</span>
+            <span id="announcement-text" data-i18n="announcement.free_trial">🎉 7-Day Free Trial – Start Today!</span>
         </div>
         <button id="announcement-close" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-800 hover:text-slate-900 text-lg leading-none" aria-label="Close">&times;</button>
     </div>
@@ -191,35 +200,39 @@
                 <img src="fluentpath-logo-premium.svg" alt="FluentPath Spanish" class="h-10">
             </a>
             <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-gray-600 hover:text-primary-600 font-medium">Why Us</a>
-                <a href="#students" class="text-gray-600 hover:text-primary-600 font-medium">Who It's For</a>
-                <a href="#testimonials" class="text-gray-600 hover:text-primary-600 font-medium">Testimonials</a>
-                <a href="#pricing" class="text-gray-600 hover:text-primary-600 font-medium">Pricing</a>
-                <a href="#faq" class="text-gray-600 hover:text-primary-600 font-medium">FAQ</a>
-                <a href="#flashcards" class="text-gray-600 hover:text-primary-600 font-medium">Flashcards</a>
-                <a href="#ai-teachers" class="text-gray-600 hover:text-primary-600 font-medium">AI Teachers</a>
-                <a href="#assessment" class="text-gray-600 hover:text-primary-600 font-medium">Assessment</a>
-                <a href="#roadmap" class="text-gray-600 hover:text-primary-600 font-medium">Roadmap</a>
-                <a href="#blog" class="text-gray-600 hover:text-primary-600 font-medium">Blog</a>
-                <a href="#pronunciation" class="text-gray-600 hover:text-primary-600 font-medium">Pronunciation</a>
-                <a href="#dashboard" class="text-gray-600 hover:text-primary-600 font-medium">Dashboard</a>
-                <a href="#referral" class="text-gray-600 hover:text-primary-600 font-medium">Referral</a>
-                <a href="#community" class="text-gray-600 hover:text-primary-600 font-medium">Community</a>
-                <a href="#library" class="text-gray-600 hover:text-primary-600 font-medium">Library</a>
-                <a href="#sponsor" class="text-gray-600 hover:text-primary-600 font-medium">Sponsor Us</a>
+                <a href="#about" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.why_us">Why Us</a>
+                <a href="#students" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.who_for">Who It's For</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.testimonials">Testimonials</a>
+                <a href="#pricing" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.pricing">Pricing</a>
+                <a href="#faq" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.faq">FAQ</a>
+                <a href="#flashcards" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.flashcards">Flashcards</a>
+                <a href="#ai-teachers" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.ai_teachers">AI Teachers</a>
+                <a href="#assessment" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.assessment">Assessment</a>
+                <a href="#roadmap" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.roadmap">Roadmap</a>
+                <a href="#blog" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.blog">Blog</a>
+                <a href="#pronunciation" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.pronunciation">Pronunciation</a>
+                <a href="#dashboard" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="#referral" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.referral">Referral</a>
+                <a href="#community" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.community">Community</a>
+                <a href="#library" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.library">Library</a>
+                <a href="#sponsor" class="text-gray-600 hover:text-primary-600 font-medium" data-i18n="nav.sponsor">Sponsor Us</a>
             </div>
-            <a href="#contact" class="gradient-cta px-5 py-2 rounded-lg font-medium">Book a Session</a>
+            <a href="#contact" class="gradient-cta px-5 py-2 rounded-lg font-medium" data-i18n="nav.book_session">Book a Session</a>
+            <div class="lang-switcher ml-3">
+              <button id="lang-current-label" class="lang-current" onclick="document.getElementById("lang-switcher-buttons").classList.toggle("show")" >🌐 EN</button>
+              <div id="lang-switcher-buttons" class="lang-dropdown"></div>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="gradient-hero text-white py-20 lg:py-32">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">Real-world Spanish for Real-world Success</h1>
-            <p class="text-xl md:text-2xl text-primary-100 mb-10 max-w-3xl mx-auto">Master practical fluency and professional communication. Skip the grammar drills and start speaking with confidence.</p>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6" data-i18n="hero.headline">Real-world Spanish for Real-world Success</h1>
+            <p class="text-xl md:text-2xl text-primary-100 mb-10 max-w-3xl mx-auto" data-i18n="hero.subtext">Master practical fluency and professional communication. Skip the grammar drills and start speaking with confidence.</p>
             <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#contact" class="gradient-cta px-8 py-3 rounded-lg font-bold text-lg">Start Your Journey</a>
-                <a href="#about" class="border-2 border-white text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-white hover:text-primary-900 transition">Learn More</a>
+                <a href="#contact" class="gradient-cta px-8 py-3 rounded-lg font-bold text-lg" data-i18n="hero.cta_primary">Start Your Journey</a>
+                <a href="#about" class="border-2 border-white text-white px-8 py-3 rounded-lg font-bold text-lg hover:bg-white hover:text-primary-900 transition" data-i18n="hero.cta_secondary">Learn More</a>
             </div>
         </div>
     </section>
@@ -229,8 +242,8 @@
     <section id="about" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Fluency Over Formulas</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Traditional classes focus on memorization. We focus on getting you ready for that important meeting, your next date, or your new life abroad.</p>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="features.heading">Fluency Over Formulas</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="features.description">Traditional classes focus on memorization. We focus on getting you ready for that important meeting, your next date, or your new life abroad.</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 <div class="card-base card-accent-left bg-white p-8 rounded-xl shadow-sm border border-gray-100">
@@ -263,7 +276,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row items-center gap-16">
                 <div class="lg:w-1/2">
-                    <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6">Who is FluentPath For?</h2>
+                    <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6" data-i18n="audience.heading">Who is FluentPath For?</h2>
                     <p class="text-lg text-gray-600 mb-8">Our coaching is designed specifically for intermediate-to-advanced learners who need to bridge the gap between "knowing Spanish" and actually using it confidently.</p>
                     <ul class="space-y-4">
                         <li class="flex items-start">
@@ -308,7 +321,7 @@
     <section id="assessment" class="py-20 bg-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Level Assessment Quiz</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="assessment.heading">Level Assessment Quiz</h2>
                 <p class="text-lg text-gray-600">Not sure where to start? Take our placement quiz to find your level and get a personalized recommendation. 5 beginner, 5 intermediate, and 5 advanced questions.</p>
             </div>
 
@@ -475,8 +488,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <div class="inline-block bg-yellow-100 text-yellow-800 text-sm font-bold px-3 py-1 rounded-full mb-4">New Feature</div>
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Meet Your AI Spanish Teachers</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Practice 24/7 with specialized AI personas. Choose your target dialect to find the perfect coach for your goals.</p>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="ai_teachers.heading">Meet Your AI Spanish Teachers</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="ai_teachers.description">Practice 24/7 with specialized AI personas. Choose your target dialect to find the perfect coach for your goals.</p>
             </div>
 
             <div class="bg-primary-50 rounded-3xl p-8 border border-primary-100 shadow-lg">
@@ -619,7 +632,7 @@
     <section id="testimonials" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Success Stories</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="testimonials.heading">Success Stories</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">Hear from professionals who have transformed their Spanish and their careers.</p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
@@ -647,8 +660,8 @@
     <section id="blog" class="py-20 bg-primary-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Blog & Learning Resources</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Tips, guides, and deep dives to accelerate your Spanish fluency journey.</p>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="blog.heading">Blog & Learning Resources</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto" data-i18n="blog.description">Tips, guides, and deep dives to accelerate your Spanish fluency journey.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -771,7 +784,7 @@
     <section id="pronunciation" class="py-20 bg-gray-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Pronunciation Guide by Dialect</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="pronunciation.heading">Pronunciation Guide by Dialect</h2>
                 <p class="text-lg text-gray-600">Learn the unique sounds and pronunciation patterns of each Spanish dialect. Select a dialect below.</p>
             </div>
 
@@ -934,7 +947,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="roadmap" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Your Learning Journey</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="roadmap.heading">Your Learning Journey</h2>
                 <p class="text-lg text-gray-600 max-w-2xl mx-auto">A guided path from finding your level to booking your first session. Follow these steps to make the most of FluentPath.</p>
             </div>
 
@@ -1028,7 +1041,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="dashboard" class="py-20 bg-coral-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Your Progress Dashboard</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="dashboard.heading">Your Progress Dashboard</h2>
                 <p class="text-lg text-gray-600">Track your learning activity across quizzes, flashcards, and assessments. All data is saved locally in your browser.</p>
             </div>
 
@@ -1175,7 +1188,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <div class="gradient-divider"></div>
     <section id="referral" class="py-20 bg-gray-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Refer a Friend, Get Rewarded</h2>
+            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="referral.heading">Refer a Friend, Get Rewarded</h2>
             <p class="text-lg text-gray-600 mb-10">Share FluentPath with friends and earn <strong>1 free month of subscription (£19 value)</strong> or <strong>1 free 1-on-1 session</strong> for each referral!</p>
             <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-10">
                 <div class="bg-primary-50 rounded-xl p-6 border border-primary-100">
@@ -1231,10 +1244,10 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Pricing -->
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Investment in Your Fluency</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6">Choose the path that best fits your goals, schedule, and budget.</p>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="pricing.heading">Investment in Your Fluency</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-6" data-i18n="pricing.description">Choose the path that best fits your goals, schedule, and budget.</p>
                 <div class="inline-flex items-center bg-gray-50 p-2 rounded-lg border border-gray-200">
-                    <label for="currency-select" class="text-sm font-bold text-gray-600 mr-3 ml-2">Currency:</label>
+                    <label for="currency-select" class="text-sm font-bold text-gray-600 mr-3 ml-2" data-i18n="pricing.currency_label">Currency:</label>
                     <select id="currency-select" class="bg-white border border-gray-300 text-slate-800 text-sm rounded-md focus:ring-primary-500 focus:border-primary-500 block p-2 outline-none cursor-pointer">
                         <option value="GBP">🇬🇧 GBP (£)</option>
                         <option value="USD">🇺🇸 USD ($)</option>
@@ -1359,19 +1372,19 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="faq" class="py-20 bg-primary-50">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="faq.heading">Frequently Asked Questions</h2>
             </div>
             <div class="space-y-6">
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">Do I need to be fluent to start?</h3>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2" data-i18n="faq.q1">Do I need to be fluent to start?</h3>
                     <p class="text-gray-600">No, but our coaching is designed for intermediate-to-advanced learners. If you know the basics but struggle to use them in real conversation, we're the perfect fit.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">How does the 7-day free trial work?</h3>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2" data-i18n="faq.q2">How does the 7-day free trial work?</h3>
                     <p class="text-gray-600">When you sign up for our subscription plan, your first 7 days are completely free. You can attend unlimited sessions and cancel anytime before the trial ends without being charged.</p>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">Can I switch between dialects?</h3>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2" data-i18n="faq.q3">Can I switch between dialects?</h3>
                     <p class="text-gray-600">Yes! If your needs change, you can let your coach know, and we will adjust the focus of your sessions to the specific dialect you require.</p>
                 </div>
             </div>
@@ -1384,7 +1397,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="community" class="py-20 bg-gray-100">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Community Discussions</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="community.heading">Community Discussions</h2>
                 <p class="text-lg text-gray-600">Join the conversation! Share tips, ask questions, and connect with fellow FluentPath learners.</p>
             </div>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
@@ -1465,7 +1478,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="library" class="py-20 bg-coral-50">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4">Resource Library</h2>
+                <h2 class="text-3xl font-heading font-bold text-slate-800 mb-4" data-i18n="library.heading">Resource Library</h2>
                 <p class="text-lg text-gray-600">Download free study guides for your target dialect. Each guide includes key vocabulary, phrases, grammar tips, and cultural context.</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="library-grid">
@@ -1561,7 +1574,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <div class="gradient-divider"></div>
     <section id="sponsor" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6">Sponsor FluentPath</h2>
+            <h2 class="text-3xl font-heading font-bold text-slate-800 mb-6" data-i18n="sponsor.heading">Sponsor FluentPath</h2>
             <p class="text-lg text-gray-600 mb-8">Support our mission to bring practical, real-world Spanish fluency to professionals around the globe. Become a sponsor today.</p>
             <div class="bg-white p-8 rounded-2xl shadow-lg border border-primary-100 inline-block text-left w-full max-w-md">
                 <h3 class="text-2xl font-heading font-bold text-slate-800 mb-2 text-center">Corporate Sponsorship</h3>
@@ -1584,7 +1597,7 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
     <section id="contact" class="py-20 bg-primary-900 text-white">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-heading font-bold mb-4">Start Your Fluency Journey Today</h2>
+                <h2 class="text-3xl font-heading font-bold mb-4" data-i18n="contact.heading">Start Your Fluency Journey Today</h2>
                 <p class="text-primary-100">Fill out the form below and we'll be in touch to schedule your assessment session.</p>
             </div>
             
@@ -1645,9 +1658,9 @@ european: {title: 'European Peninsular Spanish Pronunciation',overview: 'Europea
             <a href="#" class="inline-block mb-4">
                 <img src="fluentpath-logo-premium.svg" alt="FluentPath Spanish" class="h-8 opacity-75 hover:opacity-100 transition">
             </a>
-            <p class="mb-6">Practical Spanish for the real world.</p>
+            <p class="mb-6" data-i18n="site.tagline">Practical Spanish for the real world.</p>
             <div class="text-sm">
-                &copy; 2024 FluentPath Spanish. All rights reserved.
+                <span data-i18n="footer.copyright">&copy; 2024 FluentPath Spanish. All rights reserved.</span>
             </div>
         </div>
     </footer>
