@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FluentPath — Dialect Word Comparison: Coger</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; background: #000; font-family: 'Montserrat', 'Inter', sans-serif;
+}
+.reel {
+  width: 540px; height: 960px; position: relative; overflow: hidden;
+  background: #0D0D12;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+
+/* Scene timing */
+.scene { position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; opacity: 0; transform: translateY(20px);
+  animation-fill-mode: forwards; }
+.scene h2 { font-size: 1.3rem; color: #A0A0AE; font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; margin-bottom: 16px; }
+.scene .word { font-size: 4rem; font-weight: 700; color: #C8963E; margin-bottom: 8px; }
+
+.scene-1 { animation: sceneIn 0.6s ease 0s forwards; }
+.scene-2 { animation: sceneIn 0.6s ease 3.5s forwards; }
+.scene-3 { animation: sceneIn 0.6s ease 7s forwards; }
+.scene-4 { animation: sceneIn 0.6s ease 10.5s forwards; }
+.scene-5 { animation: sceneIn 0.6s ease 14s forwards; }
+.loop { animation: sceneIn 0.6s ease 18s forwards; animation-iteration-count: 1;
+  animation-fill-mode: forwards; }
+
+@keyframes sceneIn { to { opacity: 1; transform: translateY(0); } }
+
+.split { display: flex; gap: 40px; width: 100%; justify-content: center; text-align: center; }
+.split-col { flex: 0 0 auto; }
+.flag { font-size: 2.5rem; margin-bottom: 8px; }
+.meaning { color: #EDEDF0; font-size: 1.2rem; font-weight: 600; margin-top: 8px; }
+.example { color: #5C5C6A; font-size: 0.85rem; margin-top: 12px; max-width: 200px; font-style: italic; }
+.divider { width: 2px; background: #1F2130; }
+.vs { color: #C8963E; font-size: 1.5rem; font-weight: 700; margin: 12px 0; }
+
+.focus-text { color: #EDEDF0; font-size: 1.1rem; max-width: 400px; text-align: center;
+  line-height: 1.6; margin-top: 16px; }
+.gold { color: #C8963E; }
+
+/* Watermark */
+.logo { position: absolute; top: 20px; left: 20px; color: #5C5C6A; font-size: 0.7rem;
+  font-weight: 600; letter-spacing: 0.08em; z-index: 10; opacity: 0.7; }
+.logo span { color: #C8963E; }
+
+/* End card */
+.end-card { position: absolute; inset: 0; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center; opacity: 0;
+  animation: sceneIn 0.6s ease 17s forwards; padding: 40px; }
+.end-card h3 { font-size: 1.5rem; color: #EDEDF0; margin-bottom: 12px; }
+.end-card p { color: #A0A0AE; font-size: 1rem; margin-bottom: 24px; }
+.end-card .cta { display: inline-block; background: #C8963E; color: #0D0D12;
+  font-weight: 700; font-size: 0.9rem; padding: 12px 32px; border-radius: 8px;
+  text-decoration: none; }
+.end-card .link { color: #5C5C6A; font-size: 0.75rem; margin-top: 16px; }
+
+.bg-pattern {
+  position: absolute; inset: 0; opacity: 0.03; z-index: 0;
+  background-image: radial-gradient(#C8963E 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+</style>
+</head>
+<body>
+<div class="reel">
+  <div class="bg-pattern"></div>
+  <div class="logo">FLUENTPATH <span>SPANISH</span></div>
+
+  <!-- Scene 1: Intro -->
+  <div class="scene scene-1">
+    <h2>Dialect Breakdown</h2>
+    <div class="word">coger</div>
+    <p class="focus-text">One word.<br>Two <span class="gold">very</span> different meanings.</p>
+  </div>
+
+  <!-- Scene 2: Spain -->
+  <div class="scene scene-2">
+    <h2>🇪🇸 In Spain</h2>
+    <div class="word" style="font-size:3rem;">coger</div>
+    <p class="meaning">to grab / to take</p>
+    <p class="example">"Voy a coger el autobús."<br>→ I'm going to take the bus.</p>
+  </div>
+
+  <!-- Scene 3: Mexico -->
+  <div class="scene scene-3">
+    <h2>🇲🇽 In Mexico</h2>
+    <div class="word" style="font-size:3rem; color:#8B3A3A;">coger</div>
+    <p class="meaning" style="color:#8B3A3A;">⚠️ vulgar slang</p>
+    <p class="example">Avoid this word entirely.<br>Use <span class="gold">agarrar</span> or <span class="gold">tomar</span> instead.</p>
+  </div>
+
+  <!-- Scene 4: The lesson -->
+  <div class="scene scene-4">
+    <h2>The Lesson</h2>
+    <p class="focus-text">Dialect matters.<br><br>Our coaches teach you the <span class="gold">exact</span> Spanish<br>you need for your situation.</p>
+  </div>
+
+  <!-- End Card -->
+  <div class="end-card">
+    <h3>Master Every Dialect</h3>
+    <p>6 dialects. AI + human coaches. 24/7.</p>
+    <a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
+    <p class="link">fluentpathspanish.ctonew.app</p>
+  </div>
+
+  <!-- Loop trigger: restart after 19s -->
+  <script>
+    const reel = document.querySelector('.reel');
+    setInterval(() => {
+      reel.style.animation = 'none';
+      reel.offsetHeight;
+      reel.style.animation = '';
+      document.querySelectorAll('.scene, .end-card').forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+      });
+    }, 20000);
+  </script>
+</div>
+</body>
+</html>
