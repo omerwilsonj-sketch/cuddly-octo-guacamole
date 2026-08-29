@@ -1,79 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FluentPath — 3 Mistakes That Scream You're a Foreigner</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat','Inter',sans-serif}
-.reel{width:540px;height:960px;position:relative;overflow:hidden;background:#0D0D12;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.bg-pattern{position:absolute;inset:0;opacity:.03;z-index:0;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:30px 30px}
-.logo{position:absolute;top:20px;left:20px;color:#5C5C6A;font-size:.7rem;font-weight:600;letter-spacing:.08em;z-index:10;opacity:.7}
-.logo span{color:#C8963E}
+:root{--bg:#0D0D12;--gold:#C8963E;--text:#EDEDF0;--muted:#A0A0AE;--dim:#5C5C6A}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat',Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.reel{width:540px;height:960px;position:relative;overflow:hidden;background:var(--bg);user-select:none}
+.beat{position:absolute;inset:0;pointer-events:none;z-index:0}
+.beat::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 50% 50%,rgba(200,150,62,.16),transparent 60%);animation:beatPulse 1.4s ease-in-out infinite}
+.dots{position:absolute;inset:0;opacity:.04;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:30px 30px}
+.logo{position:absolute;top:20px;left:20px;color:var(--dim);font-size:.7rem;font-weight:600;letter-spacing:.08em;z-index:10;opacity:.75}
+.logo span{color:var(--gold)}
 
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transform:translateY(20px);text-align:center;padding:32px}
-h2{font-size:1.2rem;color:#A0A0AE;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px}
-.num{font-size:5rem;font-weight:700;color:#C8963E;margin-bottom:8px;line-height:1}
-.mistake{font-size:1.4rem;color:#EDEDF0;font-weight:700;margin-bottom:8px}
-.explanation{color:#A0A0AE;font-size:1rem;max-width:380px;line-height:1.5;margin-top:12px}
-.gold{color:#C8963E}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:44px 40px;opacity:0;transform:translateY(24px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:1}
+.scene.active{opacity:1;transform:translateY(0)}
 
-@keyframes sceneIn{to{opacity:1;transform:translateY(0)}}
-.s0{animation:sceneIn .5s ease 0s forwards}
-.s1{animation:sceneIn .5s ease 3s forwards}
-.s2{animation:sceneIn .5s ease 6.5s forwards}
-.s3{animation:sceneIn .5s ease 10s forwards}
-.s4{animation:sceneIn .5s ease 13.5s forwards}
-.end-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;animation:sceneIn .6s ease 16.5s forwards;padding:40px}
-.end-card h3{font-size:1.5rem;color:#EDEDF0;margin-bottom:12px}
-.end-card p{color:#A0A0AE;font-size:1rem;margin-bottom:24px}
-.cta{display:inline-block;background:#C8963E;color:#0D0D12;font-weight:700;font-size:.9rem;padding:12px 32px;border-radius:8px;text-decoration:none}
-.link{color:#5C5C6A;font-size:.75rem;margin-top:16px}
+.el{opacity:0;transform:translateY(22px)}
+.scene.active .el{animation:slideUp .6s cubic-bezier(.22,1,.36,1) forwards}
+.scene.active .el.d1{animation-delay:.02s}
+.scene.active .el.d2{animation-delay:.14s}
+.scene.active .el.d3{animation-delay:.26s}
+.scene.active .el.d4{animation-delay:.38s}
+.bounce{opacity:0;transform:scale(.4)}
+.scene.active .bounce{animation:bounceIn .7s cubic-bezier(.68,-.55,.265,1.55) forwards}
+.scene.active .bounce.bd1{animation-delay:.05s}
+.scene.active .bounce.bd2{animation-delay:.18s}
 
-.typewriter{overflow:hidden;border-right:2px solid #C8963E;white-space:nowrap;
-  animation:typing 2s steps(30) 0s forwards,blink .6s step-end infinite;width:0}
-@keyframes typing{from{width:0}to{width:100%}}
-@keyframes blink{50%{border-color:transparent}}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.09)}80%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+@keyframes beatPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.3);opacity:.45}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(200,150,62,.65),0 0 18px rgba(200,150,62,.35)}100%{box-shadow:0 0 0 26px rgba(200,150,62,0),0 0 18px rgba(200,150,62,.35)}}
+
+h2{font-size:1.2rem;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
+.big-title{font-size:2.3rem;font-weight:800;color:var(--gold);line-height:1.15;text-shadow:0 0 32px rgba(200,150,62,.5);margin-top:6px}
+.num{font-size:6rem;font-weight:800;color:var(--gold);line-height:1;margin-bottom:10px;text-shadow:0 0 40px rgba(200,150,62,.6)}
+.mistake{font-size:1.5rem;color:var(--text);font-weight:800;margin-bottom:8px;text-shadow:0 0 18px rgba(237,237,240,.25)}
+.explanation{color:var(--muted);font-size:1rem;max-width:380px;line-height:1.55;margin-top:12px}
+.gold{color:var(--gold);text-shadow:0 0 22px rgba(200,150,62,.45)}
+
+.end-card h3{font-size:1.6rem;color:var(--text);margin-bottom:12px}
+.end-card p{color:var(--muted);font-size:1rem;margin-bottom:20px}
+.es-tagline{color:var(--gold);font-size:1.05rem;font-weight:700;margin-bottom:22px;text-shadow:0 0 22px rgba(200,150,62,.5)}
+.cta{display:inline-block;background:var(--gold);color:var(--bg);font-weight:800;font-size:1rem;padding:15px 38px;border-radius:999px;text-decoration:none;animation:ctaPulse 1.6s ease-out infinite}
+.link{color:var(--dim);font-size:.75rem;margin-top:18px}
+
+.save-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%) translateY(14px);background:rgba(19,20,28,.92);border:1px solid var(--gold);color:var(--gold);font-size:.95rem;font-weight:700;padding:10px 20px;border-radius:999px;z-index:20;opacity:0;transition:opacity .4s,transform .4s;pointer-events:none}
+.save-hint.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.sound-overlay{position:absolute;inset:0;background:rgba(13,13,18,.82);display:flex;justify-content:center;align-items:center;z-index:50;cursor:pointer;transition:opacity .45s}
+.sound-overlay.hidden{opacity:0;pointer-events:none}
+.sound-pill{background:#1A1B25;border:1px solid var(--gold);color:var(--gold);padding:18px 30px;border-radius:999px;font-size:1.15rem;font-weight:700;box-shadow:0 0 34px rgba(200,150,62,.4);animation:ctaPulse 1.6s ease-out infinite}
 </style>
 </head>
 <body>
-<div class="reel">
-<div class="bg-pattern"></div>
-<div class="logo">FLUENTPATH <span>SPANISH</span></div>
+<div class="reel" id="reel">
+  <div class="beat"></div>
+  <div class="dots"></div>
+  <div class="logo">FLUENTPATH <span>SPANISH</span></div>
 
-<div class="scene s0">
-<h2>3 Mistakes That Scream</h2>
-<div style="font-size:2.2rem;font-weight:700;color:#C8963E;margin-top:8px">YOU'RE A FOREIGNER</div>
-<p class="explanation">Fix these and sound local instantly.</p>
+  <!-- Scene 0: Intro -->
+  <div class="scene">
+    <h2 class="el d1">3 Mistakes That Scream</h2>
+    <div class="big-title bounce bd1">YOU'RE A<br>FOREIGNER</div>
+    <p class="explanation el d2">Fix these and sound local instantly.</p>
+  </div>
+
+  <!-- Scene 1: Mistake 1 -->
+  <div class="scene">
+    <div class="num bounce">1</div>
+    <div class="mistake el d1">"Estoy embarazada"</div>
+    <p class="explanation el d2">You just said you're <span class="gold">pregnant</span> — not embarrassed.<br>Say <span class="gold">"Tengo vergüenza"</span> instead.</p>
+  </div>
+
+  <!-- Scene 2: Mistake 2 -->
+  <div class="scene">
+    <div class="num bounce">2</div>
+    <div class="mistake el d1">"Soy caliente"</div>
+    <p class="explanation el d2">You said you're <span class="gold">horny</span> — not hot (temperature).<br>Say <span class="gold">"Tengo calor"</span>.</p>
+  </div>
+
+  <!-- Scene 3: Mistake 3 -->
+  <div class="scene">
+    <div class="num bounce">3</div>
+    <div class="mistake el d1">"Bizarro" ≠ Bizarre</div>
+    <p class="explanation el d2">In Spanish, <span class="gold">bizarro</span> means <span class="gold">brave</span> or dashing.<br>For "bizarre," say <span class="gold">"extraño"</span> or <span class="gold">"raro"</span>.</p>
+  </div>
+
+  <!-- End card -->
+  <div class="scene end-card">
+    <h3 class="el d1">Sound Like a Local</h3>
+    <p class="el d2">Dialect-specific coaching. No embarrassment.</p>
+    <p class="es-tagline el d3">¡Sin vergüenza!</p>
+    <a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
+    <p class="link el d4">fluentpathspanish.ctonew.app</p>
+  </div>
+
+  <div class="save-hint" id="saveHint">Save this for later →</div>
+  <div class="sound-overlay" id="soundOverlay"><div class="sound-pill">🔊 Tap for sound</div></div>
 </div>
 
-<div class="scene s1">
-<div class="num">1</div>
-<div class="mistake">"Estoy embarazada"</div>
-<p class="explanation">You just said you're <span class="gold">pregnant</span> — not embarrassed.<br>Say <span class="gold">"Tengo vergüenza"</span> instead.</p>
-</div>
-
-<div class="scene s2">
-<div class="num">2</div>
-<div class="mistake">"Soy caliente"</div>
-<p class="explanation">You said you're <span class="gold">horny</span> — not hot (temperature).<br>Say <span class="gold">"Tengo calor"</span>.</p>
-</div>
-
-<div class="scene s3">
-<div class="num">3</div>
-<div class="mistake">"Bizarro" ≠ Bizarre</div>
-<p class="explanation">In Spanish, <span class="gold">bizarro</span> means <span class="gold">brave</span> or dashing.<br>For "bizarre," say <span class="gold">"extraño"</span> or <span class="gold">"raro"</span>.</p>
-</div>
-
-<div class="end-card">
-<h3>Sound Like a Local</h3>
-<p>Dialect-specific coaching. No embarrassment.</p>
-<a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
-<p class="link">fluentpathspanish.ctonew.app</p>
-</div>
-</div>
 <script>
-setInterval(()=>{document.querySelectorAll('.scene,.end-card').forEach(e=>{e.style.animation='none';e.offsetHeight;e.style.animation=''})},20000);
+(function(){
+  var LOOP_MS = 18000;
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var saveHint = document.getElementById('saveHint');
+  var soundOverlay = document.getElementById('soundOverlay');
+  var soundOn = false;
+  var start = performance.now();
+  var loopTimer = null;
+
+  var CUES = [
+    [3.3,  'Estoy embarazada', 'es-ES'],
+    [4.4,  'Tengo vergüenza',  'es-ES'],
+    [6.3,  'Soy caliente',     'es-MX'],
+    [7.4,  'Tengo calor',      'es-MX'],
+    [9.3,  'bizarro',          'es-ES'],
+    [10.2, 'extraño',          'es-ES'],
+    [10.8, 'raro',             'es-ES'],
+    [12.5, '¡Sin vergüenza!',  'es-ES']
+  ];
+
+  function activeIndex(t){
+    var tt = t % LOOP_MS;
+    if(tt < 12000) return Math.floor(tt / 3000);
+    return scenes.length - 1;
+  }
+  function update(t){
+    var tt = t % LOOP_MS;
+    var idx = activeIndex(t);
+    scenes.forEach(function(s,i){ s.classList.toggle('active', i === idx); });
+    saveHint.classList.toggle('show', tt >= 15000 && tt < LOOP_MS);
+  }
+  function speak(text, lang){
+    if(!soundOn || !('speechSynthesis' in window)) return;
+    try{
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang; u.rate = 0.92; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function scheduleAudio(){
+    CUES.forEach(function(cue){ setTimeout(function(){ speak(cue[1], cue[2]); }, cue[0] * 1000); });
+  }
+  function startLoop(){
+    start = performance.now();
+    scheduleAudio();
+    if(loopTimer) clearInterval(loopTimer);
+    loopTimer = setInterval(scheduleAudio, LOOP_MS);
+  }
+  function enableSound(){
+    if(soundOn) return;
+    soundOn = true;
+    soundOverlay.classList.add('hidden');
+    startLoop();
+  }
+  document.addEventListener('click', enableSound);
+  document.addEventListener('keydown', enableSound);
+  function tick(now){ update(now - start); requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>

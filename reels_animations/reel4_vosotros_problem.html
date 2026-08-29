@@ -1,82 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FluentPath — The Vosotros Problem</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat','Inter',sans-serif}
-.reel{width:540px;height:960px;position:relative;overflow:hidden;background:#0D0D12;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.bg-pattern{position:absolute;inset:0;opacity:.03;z-index:0;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:30px 30px}
-.logo{position:absolute;top:20px;left:20px;color:#5C5C6A;font-size:.7rem;font-weight:600;letter-spacing:.08em;z-index:10;opacity:.7}
-.logo span{color:#C8963E}
+:root{--bg:#0D0D12;--gold:#C8963E;--text:#EDEDF0;--muted:#A0A0AE;--dim:#5C5C6A}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat',Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.reel{width:540px;height:960px;position:relative;overflow:hidden;background:var(--bg);user-select:none}
+.beat{position:absolute;inset:0;pointer-events:none;z-index:0}
+.beat::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 50% 50%,rgba(200,150,62,.16),transparent 60%);animation:beatPulse 1.4s ease-in-out infinite}
+.dots{position:absolute;inset:0;opacity:.04;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:30px 30px}
+.logo{position:absolute;top:20px;left:20px;color:var(--dim);font-size:.7rem;font-weight:600;letter-spacing:.08em;z-index:10;opacity:.75}
+.logo span{color:var(--gold)}
 
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;opacity:0;transform:translateY(20px);text-align:center;padding:32px}
-h2{font-size:1.2rem;color:#A0A0AE;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:16px}
-.vosotros{font-size:4rem;font-weight:700;color:#C8963E;margin-bottom:8px;line-height:1}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:44px 40px;opacity:0;transform:translateY(24px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:1}
+.scene.active{opacity:1;transform:translateY(0)}
 
-.split{display:flex;gap:24px;width:100%;justify-content:center;text-align:center}
-.split-col{flex:0 0 auto;max-width:200px}
-.flag{font-size:2rem;margin-bottom:8px}
-.phrase{color:#EDEDF0;font-size:1.3rem;font-weight:700;margin-bottom:8px}
-.trans{color:#5C5C6A;font-size:.85rem;margin-top:4px}
-.vs-col{display:flex;align-items:center;color:#C8963E;font-weight:700;font-size:1rem}
+.el{opacity:0;transform:translateY(22px)}
+.scene.active .el{animation:slideUp .6s cubic-bezier(.22,1,.36,1) forwards}
+.scene.active .el.d1{animation-delay:.02s}
+.scene.active .el.d2{animation-delay:.14s}
+.scene.active .el.d3{animation-delay:.26s}
+.scene.active .el.d4{animation-delay:.38s}
+.bounce{opacity:0;transform:scale(.4)}
+.scene.active .bounce{animation:bounceIn .7s cubic-bezier(.68,-.55,.265,1.55) forwards}
+.scene.active .bounce.bd1{animation-delay:.05s}
+.scene.active .bounce.bd2{animation-delay:.18s}
 
-.focus-text{color:#A0A0AE;font-size:1rem;max-width:400px;line-height:1.6;margin-top:20px}
-.gold{color:#C8963E}
-.punch{font-size:1.4rem;font-weight:700;margin-top:12px}
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.09)}80%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+@keyframes beatPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.3);opacity:.45}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(200,150,62,.65),0 0 18px rgba(200,150,62,.35)}100%{box-shadow:0 0 0 26px rgba(200,150,62,0),0 0 18px rgba(200,150,62,.35)}}
 
-@keyframes sceneIn{to{opacity:1;transform:translateY(0)}}
-.s0{animation:sceneIn .5s ease 0s forwards}
-.s1{animation:sceneIn .5s ease 3s forwards}
-.s2{animation:sceneIn .5s ease 6.5s forwards}
-.s3{animation:sceneIn .5s ease 10s forwards}
-.s4{animation:sceneIn .5s ease 13.5s forwards}
-.end-card{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;animation:sceneIn .6s ease 16.5s forwards;padding:40px}
-.end-card h3{font-size:1.5rem;color:#EDEDF0;margin-bottom:12px}
-.end-card p{color:#A0A0AE;font-size:1rem;margin-bottom:24px}
-.cta{display:inline-block;background:#C8963E;color:#0D0D12;font-weight:700;font-size:.9rem;padding:12px 32px;border-radius:8px;text-decoration:none}
-.link{color:#5C5C6A;font-size:.75rem;margin-top:16px}
+h2{font-size:1.25rem;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+.bigflag{font-size:4rem;line-height:1;margin-bottom:10px;animation:float 3s ease-in-out infinite}
+.vosotros{font-size:4rem;font-weight:800;color:var(--gold);margin-bottom:6px;letter-spacing:-.02em;text-shadow:0 0 34px rgba(200,150,62,.55)}
+.problem{font-size:1.6rem;font-weight:800;color:var(--gold);text-shadow:0 0 22px rgba(200,150,62,.5)}
+.focus-text{color:var(--text);font-size:1.2rem;max-width:420px;line-height:1.6;margin-top:14px;font-weight:600}
+.sub-text{color:var(--muted);font-size:1rem;max-width:400px;line-height:1.55;margin-top:12px}
+.gold{color:var(--gold);text-shadow:0 0 22px rgba(200,150,62,.45)}
+.emoji-relief{font-size:2rem;margin-top:6px}
+
+.end-card h3{font-size:1.6rem;color:var(--text);margin-bottom:12px}
+.end-card p{color:var(--muted);font-size:1rem;margin-bottom:20px}
+.es-tagline{color:var(--gold);font-size:1.05rem;font-weight:700;margin-bottom:22px;text-shadow:0 0 22px rgba(200,150,62,.5)}
+.cta{display:inline-block;background:var(--gold);color:var(--bg);font-weight:800;font-size:1rem;padding:15px 38px;border-radius:999px;text-decoration:none;animation:ctaPulse 1.6s ease-out infinite}
+.link{color:var(--dim);font-size:.75rem;margin-top:18px}
+
+.save-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%) translateY(14px);background:rgba(19,20,28,.92);border:1px solid var(--gold);color:var(--gold);font-size:.95rem;font-weight:700;padding:10px 20px;border-radius:999px;z-index:20;opacity:0;transition:opacity .4s,transform .4s;pointer-events:none}
+.save-hint.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.sound-overlay{position:absolute;inset:0;background:rgba(13,13,18,.82);display:flex;justify-content:center;align-items:center;z-index:50;cursor:pointer;transition:opacity .45s}
+.sound-overlay.hidden{opacity:0;pointer-events:none}
+.sound-pill{background:#1A1B25;border:1px solid var(--gold);color:var(--gold);padding:18px 30px;border-radius:999px;font-size:1.15rem;font-weight:700;box-shadow:0 0 34px rgba(200,150,62,.4);animation:ctaPulse 1.6s ease-out infinite}
 </style>
 </head>
 <body>
-<div class="reel">
-<div class="bg-pattern"></div>
-<div class="logo">FLUENTPATH <span>SPANISH</span></div>
+<div class="reel" id="reel">
+  <div class="beat"></div>
+  <div class="dots"></div>
+  <div class="logo">FLUENTPATH <span>SPANISH</span></div>
 
-<div class="scene s0">
-<h2>The</h2>
-<div class="vosotros">Vosotros</div>
-<div class="punch" style="color:#C8963E">Problem</div>
+  <!-- Scene 0: Intro -->
+  <div class="scene">
+    <h2 class="el d1">The</h2>
+    <div class="vosotros bounce bd1">Vosotros</div>
+    <div class="problem bounce bd2">Problem</div>
+  </div>
+
+  <!-- Scene 1: Spain -->
+  <div class="scene">
+    <div class="bigflag">🇪🇸</div>
+    <h2 class="el d1">Spain</h2>
+    <div class="focus-text bounce bd1">"<span class="gold">Vosotros habláis</span>"</div>
+    <div class="sub-text el d2">→ You all speak</div>
+    <div class="sub-text el d3">A whole extra conjugation.<br>6 verb forms to memorize.</div>
+  </div>
+
+  <!-- Scene 2: Mexico -->
+  <div class="scene">
+    <div class="bigflag">🇲🇽</div>
+    <h2 class="el d1">Mexico (and everywhere else)</h2>
+    <div class="focus-text bounce bd1">"<span class="gold">Ustedes hablan</span>"</div>
+    <div class="sub-text el d2">→ You all speak</div>
+    <div class="sub-text el d3">Same form for formal & informal.<br>One less thing to learn. <span class="emoji-relief">😮‍💨</span></div>
+  </div>
+
+  <!-- Scene 3: The reality -->
+  <div class="scene">
+    <h2 class="el d1">The Reality</h2>
+    <div class="focus-text bounce bd1">479 million Spanish speakers<br><span class="gold">don't use vosotros.</span></div>
+    <div class="sub-text el d2">Spain is the only country<br>that insists on it.</div>
+  </div>
+
+  <!-- End card -->
+  <div class="scene end-card">
+    <h3 class="el d1">Learn the Dialect That Matters</h3>
+    <p class="el d2">Castilian, Mexican, Rioplatense — your choice.</p>
+    <p class="es-tagline el d3">¡Elige tu dialecto!</p>
+    <a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
+    <p class="link el d4">fluentpathspanish.ctonew.app</p>
+  </div>
+
+  <div class="save-hint" id="saveHint">Save this for later →</div>
+  <div class="sound-overlay" id="soundOverlay"><div class="sound-pill">🔊 Tap for sound</div></div>
 </div>
 
-<div class="scene s1">
-<h2>🇪🇸 Spain</h2>
-<div class="focus-text">"<span class="gold">Vosotros habláis</span>"<br>→ You all speak</div>
-<div class="focus-text" style="margin-top:12px">A whole extra conjugation.<br>6 verb forms to memorize.</div>
-</div>
-
-<div class="scene s2">
-<h2>🇲🇽 Mexico (and everywhere else)</h2>
-<div class="focus-text">"<span class="gold">Ustedes hablan</span>"<br>→ You all speak</div>
-<div class="focus-text" style="margin-top:12px">Same form for formal & informal.<br>One less thing to learn. 😮‍💨</div>
-</div>
-
-<div class="scene s3">
-<h2>The Reality</h2>
-<div class="focus-text">479 million Spanish speakers<br><span class="gold">don't use vosotros.</span></div>
-<div class="focus-text" style="margin-top:12px">Spain is the only country<br>that insists on it.</div>
-</div>
-
-<div class="end-card">
-<h3>Learn the Dialect That Matters</h3>
-<p>Castilian, Mexican, Rioplatense — your choice.</p>
-<a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
-<p class="link">fluentpathspanish.ctonew.app</p>
-</div>
-</div>
 <script>
-setInterval(()=>{document.querySelectorAll('.scene,.end-card').forEach(e=>{e.style.animation='none';e.offsetHeight;e.style.animation=''})},20000);
+(function(){
+  var LOOP_MS = 18000;
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var saveHint = document.getElementById('saveHint');
+  var soundOverlay = document.getElementById('soundOverlay');
+  var soundOn = false;
+  var start = performance.now();
+  var loopTimer = null;
+
+  var CUES = [
+    [0.4,  'vosotros',          'es-ES'],
+    [3.3,  'Vosotros habláis',  'es-ES'],
+    [6.3,  'Ustedes hablan',    'es-MX'],
+    [12.5, '¡Elige tu dialecto!', 'es-ES']
+  ];
+
+  function activeIndex(t){
+    var tt = t % LOOP_MS;
+    if(tt < 12000) return Math.floor(tt / 3000);
+    return scenes.length - 1;
+  }
+  function update(t){
+    var tt = t % LOOP_MS;
+    var idx = activeIndex(t);
+    scenes.forEach(function(s,i){ s.classList.toggle('active', i === idx); });
+    saveHint.classList.toggle('show', tt >= 15000 && tt < LOOP_MS);
+  }
+  function speak(text, lang){
+    if(!soundOn || !('speechSynthesis' in window)) return;
+    try{
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang; u.rate = 0.92; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  function scheduleAudio(){
+    CUES.forEach(function(cue){ setTimeout(function(){ speak(cue[1], cue[2]); }, cue[0] * 1000); });
+  }
+  function startLoop(){
+    start = performance.now();
+    scheduleAudio();
+    if(loopTimer) clearInterval(loopTimer);
+    loopTimer = setInterval(scheduleAudio, LOOP_MS);
+  }
+  function enableSound(){
+    if(soundOn) return;
+    soundOn = true;
+    soundOverlay.classList.add('hidden');
+    startLoop();
+  }
+  document.addEventListener('click', enableSound);
+  document.addEventListener('keydown', enableSound);
+  function tick(now){ update(now - start); requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>

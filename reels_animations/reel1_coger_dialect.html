@@ -5,126 +5,192 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FluentPath — Dialect Word Comparison: Coger</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  display: flex; justify-content: center; align-items: center;
-  min-height: 100vh; background: #000; font-family: 'Montserrat', 'Inter', sans-serif;
-}
-.reel {
-  width: 540px; height: 960px; position: relative; overflow: hidden;
-  background: #0D0D12;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-}
+:root{--bg:#0D0D12;--gold:#C8963E;--text:#EDEDF0;--muted:#A0A0AE;--dim:#5C5C6A;--danger:#8B3A3A}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat',Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.reel{width:540px;height:960px;position:relative;overflow:hidden;background:var(--bg);user-select:none}
 
-/* Scene timing */
-.scene { position: absolute; inset: 0; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; opacity: 0; transform: translateY(20px);
-  animation-fill-mode: forwards; }
-.scene h2 { font-size: 1.3rem; color: #A0A0AE; font-weight: 600; letter-spacing: 0.05em;
-  text-transform: uppercase; margin-bottom: 16px; }
-.scene .word { font-size: 4rem; font-weight: 700; color: #C8963E; margin-bottom: 8px; }
+/* Beat-pulse background */
+.beat{position:absolute;inset:0;pointer-events:none;z-index:0}
+.beat::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 50% 50%,rgba(200,150,62,.16),transparent 60%);animation:beatPulse 1.4s ease-in-out infinite}
+.dots{position:absolute;inset:0;opacity:.04;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:30px 30px}
 
-.scene-1 { animation: sceneIn 0.6s ease 0s forwards; }
-.scene-2 { animation: sceneIn 0.6s ease 3.5s forwards; }
-.scene-3 { animation: sceneIn 0.6s ease 7s forwards; }
-.scene-4 { animation: sceneIn 0.6s ease 10.5s forwards; }
-.scene-5 { animation: sceneIn 0.6s ease 14s forwards; }
-.loop { animation: sceneIn 0.6s ease 18s forwards; animation-iteration-count: 1;
-  animation-fill-mode: forwards; }
+.logo{position:absolute;top:20px;left:20px;color:var(--dim);font-size:.7rem;font-weight:600;letter-spacing:.08em;z-index:10;opacity:.75}
+.logo span{color:var(--gold)}
 
-@keyframes sceneIn { to { opacity: 1; transform: translateY(0); } }
+/* Scene system */
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:44px 40px;opacity:0;transform:translateY(24px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:1}
+.scene.active{opacity:1;transform:translateY(0)}
 
-.split { display: flex; gap: 40px; width: 100%; justify-content: center; text-align: center; }
-.split-col { flex: 0 0 auto; }
-.flag { font-size: 2.5rem; margin-bottom: 8px; }
-.meaning { color: #EDEDF0; font-size: 1.2rem; font-weight: 600; margin-top: 8px; }
-.example { color: #5C5C6A; font-size: 0.85rem; margin-top: 12px; max-width: 200px; font-style: italic; }
-.divider { width: 2px; background: #1F2130; }
-.vs { color: #C8963E; font-size: 1.5rem; font-weight: 700; margin: 12px 0; }
+/* Staggered child entrances */
+.el{opacity:0;transform:translateY(22px)}
+.scene.active .el{animation:slideUp .6s cubic-bezier(.22,1,.36,1) forwards}
+.scene.active .el.d1{animation-delay:.02s}
+.scene.active .el.d2{animation-delay:.14s}
+.scene.active .el.d3{animation-delay:.26s}
+.scene.active .el.d4{animation-delay:.38s}
+.bounce{opacity:0;transform:scale(.4)}
+.scene.active .bounce{animation:bounceIn .7s cubic-bezier(.68,-.55,.265,1.55) forwards}
+.scene.active .bounce.bd1{animation-delay:.05s}
+.scene.active .bounce.bd2{animation-delay:.18s}
+.scene.active .bounce.bd3{animation-delay:.3s}
 
-.focus-text { color: #EDEDF0; font-size: 1.1rem; max-width: 400px; text-align: center;
-  line-height: 1.6; margin-top: 16px; }
-.gold { color: #C8963E; }
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.4)}60%{opacity:1;transform:scale(1.09)}80%{transform:scale(.95)}100%{opacity:1;transform:scale(1)}}
+@keyframes beatPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.3);opacity:.45}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(200,150,62,.65),0 0 18px rgba(200,150,62,.35)}100%{box-shadow:0 0 0 26px rgba(200,150,62,0),0 0 18px rgba(200,150,62,.35)}}
 
-/* Watermark */
-.logo { position: absolute; top: 20px; left: 20px; color: #5C5C6A; font-size: 0.7rem;
-  font-weight: 600; letter-spacing: 0.08em; z-index: 10; opacity: 0.7; }
-.logo span { color: #C8963E; }
+h2{font-size:1.25rem;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:14px}
+.word{font-size:3.8rem;font-weight:800;color:var(--gold);margin-bottom:10px;letter-spacing:-.02em;text-shadow:0 0 32px rgba(200,150,62,.55)}
+.word.red{color:var(--danger);text-shadow:0 0 32px rgba(139,58,58,.6)}
+.bigflag{font-size:4rem;line-height:1;margin-bottom:6px;animation:float 3s ease-in-out infinite}
+.meaning{color:var(--text);font-size:1.2rem;font-weight:700;margin-top:8px}
+.meaning.red{color:#D87B7B}
+.example{color:var(--dim);font-size:.92rem;margin-top:14px;max-width:340px;font-style:italic;line-height:1.55}
+.gold{color:var(--gold);text-shadow:0 0 22px rgba(200,150,62,.45)}
+.focus-text{color:var(--text);font-size:1.15rem;max-width:420px;line-height:1.65;margin-top:14px;font-weight:600}
 
 /* End card */
-.end-card { position: absolute; inset: 0; display: flex; flex-direction: column;
-  justify-content: center; align-items: center; text-align: center; opacity: 0;
-  animation: sceneIn 0.6s ease 17s forwards; padding: 40px; }
-.end-card h3 { font-size: 1.5rem; color: #EDEDF0; margin-bottom: 12px; }
-.end-card p { color: #A0A0AE; font-size: 1rem; margin-bottom: 24px; }
-.end-card .cta { display: inline-block; background: #C8963E; color: #0D0D12;
-  font-weight: 700; font-size: 0.9rem; padding: 12px 32px; border-radius: 8px;
-  text-decoration: none; }
-.end-card .link { color: #5C5C6A; font-size: 0.75rem; margin-top: 16px; }
+.end-card h3{font-size:1.6rem;color:var(--text);margin-bottom:12px}
+.end-card p{color:var(--muted);font-size:1rem;margin-bottom:20px}
+.es-tagline{color:var(--gold);font-size:1.05rem;font-weight:700;margin-bottom:22px;text-shadow:0 0 22px rgba(200,150,62,.5)}
+.cta{display:inline-block;background:var(--gold);color:var(--bg);font-weight:800;font-size:1rem;padding:15px 38px;border-radius:999px;text-decoration:none;animation:ctaPulse 1.6s ease-out infinite}
+.link{color:var(--dim);font-size:.75rem;margin-top:18px}
 
-.bg-pattern {
-  position: absolute; inset: 0; opacity: 0.03; z-index: 0;
-  background-image: radial-gradient(#C8963E 1px, transparent 1px);
-  background-size: 30px 30px;
-}
+/* Save hint */
+.save-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%) translateY(14px);background:rgba(19,20,28,.92);border:1px solid var(--gold);color:var(--gold);font-size:.95rem;font-weight:700;padding:10px 20px;border-radius:999px;z-index:20;opacity:0;transition:opacity .4s,transform .4s;pointer-events:none}
+.save-hint.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Sound overlay */
+.sound-overlay{position:absolute;inset:0;background:rgba(13,13,18,.82);display:flex;justify-content:center;align-items:center;z-index:50;cursor:pointer;transition:opacity .45s}
+.sound-overlay.hidden{opacity:0;pointer-events:none}
+.sound-pill{background:#1A1B25;border:1px solid var(--gold);color:var(--gold);padding:18px 30px;border-radius:999px;font-size:1.15rem;font-weight:700;box-shadow:0 0 34px rgba(200,150,62,.4);animation:ctaPulse 1.6s ease-out infinite}
 </style>
 </head>
 <body>
-<div class="reel">
-  <div class="bg-pattern"></div>
+<div class="reel" id="reel">
+  <div class="beat"></div>
+  <div class="dots"></div>
   <div class="logo">FLUENTPATH <span>SPANISH</span></div>
 
-  <!-- Scene 1: Intro -->
-  <div class="scene scene-1">
-    <h2>Dialect Breakdown</h2>
-    <div class="word">coger</div>
-    <p class="focus-text">One word.<br>Two <span class="gold">very</span> different meanings.</p>
+  <!-- Scene 0: Intro -->
+  <div class="scene">
+    <h2 class="el d1">Dialect Breakdown</h2>
+    <div class="word bounce bd1">coger</div>
+    <p class="focus-text el d2">One word.<br>Two <span class="gold">very</span> different meanings.</p>
   </div>
 
-  <!-- Scene 2: Spain -->
-  <div class="scene scene-2">
-    <h2>🇪🇸 In Spain</h2>
-    <div class="word" style="font-size:3rem;">coger</div>
-    <p class="meaning">to grab / to take</p>
-    <p class="example">"Voy a coger el autobús."<br>→ I'm going to take the bus.</p>
+  <!-- Scene 1: Spain -->
+  <div class="scene">
+    <div class="bigflag">🇪🇸</div>
+    <h2 class="el d1">In Spain</h2>
+    <div class="word bounce bd1">coger</div>
+    <p class="meaning el d2">to grab / to take</p>
+    <p class="example el d3">"<span class="gold">Voy a coger el autobús</span>."<br>→ I'm going to take the bus.</p>
   </div>
 
-  <!-- Scene 3: Mexico -->
-  <div class="scene scene-3">
-    <h2>🇲🇽 In Mexico</h2>
-    <div class="word" style="font-size:3rem; color:#8B3A3A;">coger</div>
-    <p class="meaning" style="color:#8B3A3A;">⚠️ vulgar slang</p>
-    <p class="example">Avoid this word entirely.<br>Use <span class="gold">agarrar</span> or <span class="gold">tomar</span> instead.</p>
+  <!-- Scene 2: Mexico -->
+  <div class="scene">
+    <div class="bigflag">🇲🇽</div>
+    <h2 class="el d1">In Mexico</h2>
+    <div class="word red bounce bd1">coger</div>
+    <p class="meaning red el d2">⚠️ vulgar slang</p>
+    <p class="example el d3">Avoid this word entirely.<br>Use <span class="gold">agarrar</span> or <span class="gold">tomar</span> instead.</p>
   </div>
 
-  <!-- Scene 4: The lesson -->
-  <div class="scene scene-4">
-    <h2>The Lesson</h2>
-    <p class="focus-text">Dialect matters.<br><br>Our coaches teach you the <span class="gold">exact</span> Spanish<br>you need for your situation.</p>
+  <!-- Scene 3: The lesson -->
+  <div class="scene">
+    <h2 class="el d1">The Lesson</h2>
+    <p class="focus-text bounce bd1">Dialect matters.</p>
+    <p class="focus-text el d2" style="color:var(--muted);font-weight:400">Our coaches teach you the <span class="gold">exact</span> Spanish you need for your situation.</p>
   </div>
 
-  <!-- End Card -->
-  <div class="end-card">
-    <h3>Master Every Dialect</h3>
-    <p>6 dialects. AI + human coaches. 24/7.</p>
+  <!-- End card -->
+  <div class="scene end-card">
+    <h3 class="el d1">Master Every Dialect</h3>
+    <p class="el d2">6 dialects. AI + human coaches. 24/7.</p>
+    <p class="es-tagline el d3">¡Habla como un nativo!</p>
     <a class="cta" href="https://fluentpathspanish.ctonew.app">Start Free →</a>
-    <p class="link">fluentpathspanish.ctonew.app</p>
+    <p class="link el d4">fluentpathspanish.ctonew.app</p>
   </div>
 
-  <!-- Loop trigger: restart after 19s -->
-  <script>
-    const reel = document.querySelector('.reel');
-    setInterval(() => {
-      reel.style.animation = 'none';
-      reel.offsetHeight;
-      reel.style.animation = '';
-      document.querySelectorAll('.scene, .end-card').forEach(el => {
-        el.style.animation = 'none';
-        el.offsetHeight;
-        el.style.animation = '';
-      });
-    }, 20000);
-  </script>
+  <div class="save-hint" id="saveHint">Save this for later →</div>
+
+  <div class="sound-overlay" id="soundOverlay"><div class="sound-pill">🔊 Tap for sound</div></div>
 </div>
+
+<script>
+(function(){
+  var LOOP_MS = 18000;
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var saveHint = document.getElementById('saveHint');
+  var soundOverlay = document.getElementById('soundOverlay');
+  var soundOn = false;
+  var start = performance.now();
+  var loopTimer = null;
+
+  // Spanish audio cues: [offsetSeconds, text, lang]
+  var CUES = [
+    [0.4,  'coger',                  'es-ES'],
+    [3.3,  'coger',                  'es-ES'],
+    [3.9,  'Voy a coger el autobús', 'es-ES'],
+    [6.3,  'coger',                  'es-MX'],
+    [7.1,  'agarrar',                'es-MX'],
+    [7.8,  'tomar',                  'es-MX'],
+    [12.5, '¡Habla como un nativo!', 'es-ES']
+  ];
+
+  function activeIndex(t){
+    var tt = t % LOOP_MS;
+    if(tt < 12000) return Math.floor(tt / 3000);
+    return scenes.length - 1;
+  }
+
+  function update(t){
+    var tt = t % LOOP_MS;
+    var idx = activeIndex(t);
+    scenes.forEach(function(s,i){ s.classList.toggle('active', i === idx); });
+    saveHint.classList.toggle('show', tt >= 15000 && tt < LOOP_MS);
+  }
+
+  function speak(text, lang){
+    if(!soundOn || !('speechSynthesis' in window)) return;
+    try{
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      u.rate = 0.92;
+      u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function scheduleAudio(){
+    CUES.forEach(function(cue){
+      setTimeout(function(){ speak(cue[1], cue[2]); }, cue[0] * 1000);
+    });
+  }
+
+  function startLoop(){
+    start = performance.now();
+    scheduleAudio();
+    if(loopTimer) clearInterval(loopTimer);
+    loopTimer = setInterval(scheduleAudio, LOOP_MS);
+  }
+
+  function enableSound(){
+    if(soundOn) return;
+    soundOn = true;
+    soundOverlay.classList.add('hidden');
+    startLoop();
+  }
+
+  document.addEventListener('click', enableSound);
+  document.addEventListener('keydown', enableSound);
+
+  function tick(now){ update(now - start); requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+})();
+</script>
 </body>
 </html>
