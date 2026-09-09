@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-base: #0D0D12;
+    --bg-layer-1: #13141C;
+    --bg-layer-2: #1A1C26;
+    --bg-layer-3: #222433;
+    --accent: #C8963E;
+    --accent-hover: #B88632;
+    --accent-subtle: #2D7A7A;
+    --text-primary: #EDEDF0;
+    --text-secondary: #A0A0AE;
+    --text-tertiary: #5C5C6A;
+    --border-subtle: #1F2130;
+    --border-strong: #2A2D3C;
+  }
+
+  html,
+  body {
+    @apply antialiased;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(180deg, #C8963E 0%, #B88632 100%);
+    color: var(--bg-base);
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    background: var(--accent-hover);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: 'Montserrat', 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    padding: 11px 28px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+  }
+
+  .card {
+    background: var(--bg-layer-1);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 28px;
+    transition: border-color 0.2s ease;
+  }
+  .card:hover {
+    border-color: var(--border-strong);
+  }
+}

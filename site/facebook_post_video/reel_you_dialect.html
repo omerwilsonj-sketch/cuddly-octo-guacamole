@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FluentPath — The Word You: Argentina vs Mexico vs Spain</title>
+<style>
+:root{--bg:#0D0D12;--bg2:#11131A;--gold:#C8963E;--gold2:#D4A44A;--text:#EDEDF0;--muted:#A0A0AE;--dim:#5C5C6A;--ar:#E8612B;--mx:#4CAF50;--es:#C45B28}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{display:flex;justify-content:center;align-items:center;min-height:100vh;background:#000;font-family:'Montserrat',Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.reel{width:540px;height:960px;position:relative;overflow:hidden;background:linear-gradient(170deg,var(--bg) 0%,var(--bg2) 50%,#0F1118 100%);user-select:none}
+
+.bg-ambient{position:absolute;inset:0;pointer-events:none;z-index:0}
+.bg-ambient::before{content:"";position:absolute;inset:-30%;background:radial-gradient(ellipse at 35% 40%,rgba(200,150,62,.10),transparent 55%),radial-gradient(ellipse at 65% 70%,rgba(200,150,62,.06),transparent 50%);animation:ambientShift 8s ease-in-out infinite}
+.bg-ambient::after{content:"";position:absolute;inset:0;opacity:.03;background-image:radial-gradient(#C8963E 1px,transparent 1px);background-size:28px 28px}
+@keyframes ambientShift{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.beat{position:absolute;inset:0;pointer-events:none;z-index:0}
+.beat::before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 50% 45%,rgba(210,160,70,.14),transparent 60%);animation:beatPulse 1.6s ease-in-out infinite}
+.dots{position:absolute;inset:0;opacity:.05;background-image:radial-gradient(#C8963E 1.5px,transparent 1.5px);background-size:32px 32px}
+
+.particles{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;width:2px;height:2px;background:var(--gold);border-radius:50%;opacity:0;animation:particleFloat 5s ease-in-out infinite}
+.particle:nth-child(1){left:15%;animation-delay:0s;animation-duration:5.5s}
+.particle:nth-child(2){left:35%;animation-delay:1.2s;animation-duration:6s}
+.particle:nth-child(3){left:55%;animation-delay:2.5s;animation-duration:5s}
+.particle:nth-child(4){left:75%;animation-delay:3.8s;animation-duration:5.8s}
+.particle:nth-child(5){left:90%;animation-delay:0.8s;animation-duration:4.5s}
+@keyframes particleFloat{0%{opacity:0;transform:translateY(100%) translateX(0)}20%{opacity:.5}80%{opacity:.3}100%{opacity:0;transform:translateY(-10%) translateX(20px)}}
+
+.logo{position:absolute;top:20px;left:22px;color:var(--dim);font-size:.68rem;font-weight:600;letter-spacing:.1em;z-index:10;opacity:.8;background:rgba(13,13,18,.55);padding:6px 10px;border-radius:6px;backdrop-filter:blur(6px)}
+.logo span{color:var(--gold);font-weight:700}
+.badge{position:absolute;top:20px;right:22px;color:var(--muted);font-size:.7rem;font-weight:600;letter-spacing:.05em;z-index:10;opacity:.85;background:rgba(13,13,18,.55);padding:6px 10px;border-radius:6px;backdrop-filter:blur(6px)}
+
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:44px 40px;opacity:0;transform:translateY(28px) scale(.97);filter:blur(4px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),filter .55s cubic-bezier(.22,1,.36,1);pointer-events:none;z-index:1}
+.scene.active{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+
+.el{opacity:0;transform:translateY(28px)}
+.scene.active .el{animation:slideUp .65s cubic-bezier(.22,1,.36,1) forwards}
+.scene.active .el.d1{animation-delay:.03s}
+.scene.active .el.d2{animation-delay:.15s}
+.scene.active .el.d3{animation-delay:.28s}
+.scene.active .el.d4{animation-delay:.42s}
+.bounce{opacity:0;transform:scale(.3)}
+.scene.active .bounce{animation:bounceIn .75s cubic-bezier(.68,-.55,.265,1.55) forwards}
+.scene.active .bounce.bd1{animation-delay:.06s}
+.scene.active .bounce.bd2{animation-delay:.2s}
+.scene.active .bounce.bd3{animation-delay:.34s}
+
+@keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+@keyframes bounceIn{0%{opacity:0;transform:scale(.3)}55%{opacity:1;transform:scale(1.12)}75%{transform:scale(.93)}100%{opacity:1;transform:scale(1)}}
+@keyframes beatPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.35);opacity:.4}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes ctaPulse{0%{box-shadow:0 0 0 0 rgba(200,150,62,.7),0 0 20px rgba(200,150,62,.4),0 0 40px rgba(200,150,62,.15)}100%{box-shadow:0 0 0 30px rgba(200,150,62,0),0 0 24px rgba(200,150,62,.3),0 0 50px rgba(200,150,62,0)}}
+@keyframes borderGlow{0%,100%{box-shadow:0 0 8px rgba(200,150,62,.08)}50%{box-shadow:0 0 20px rgba(200,150,62,.18)}}
+@keyframes shimmerSweep{0%{left:-100%}50%{left:120%}100%{left:120%}}
+
+h2{font-size:1.05rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;opacity:.85}
+.bigflag{font-size:3.8rem;line-height:1;margin-bottom:10px;animation:float 3.5s ease-in-out infinite;filter:drop-shadow(0 0 12px rgba(200,150,62,.2))}
+.word{font-size:3.8rem;font-weight:800;color:var(--gold);margin-bottom:8px;letter-spacing:-.02em;text-shadow:0 0 40px rgba(200,150,62,.5),0 0 80px rgba(200,150,62,.15);position:relative}
+.word.ar{color:var(--ar);text-shadow:0 0 40px rgba(232,97,43,.5),0 0 80px rgba(232,97,43,.12)}
+.word.mx{color:var(--mx);text-shadow:0 0 40px rgba(76,175,80,.5),0 0 80px rgba(76,175,80,.12)}
+.word.es{color:var(--es);text-shadow:0 0 40px rgba(196,91,40,.5),0 0 80px rgba(196,91,40,.12)}
+.meaning{color:var(--text);font-size:1.3rem;font-weight:700;margin-top:10px;text-shadow:0 0 12px rgba(237,237,240,.1)}
+.sub{color:var(--muted);font-size:.95rem;margin-top:12px;max-width:400px;line-height:1.55}
+.gold{color:var(--gold);text-shadow:0 0 20px rgba(200,150,62,.4)}
+.focus-text{color:var(--text);font-size:1.2rem;max-width:430px;line-height:1.65;margin-top:14px;font-weight:600;text-shadow:0 0 10px rgba(237,237,240,.08)}
+.emoji-pop{font-size:1.8rem;margin-top:8px}
+
+.end-card{background:linear-gradient(180deg,rgba(13,13,18,.4) 0%,rgba(19,20,28,.6) 100%)}
+.end-card h3{font-size:1.55rem;color:var(--text);margin-bottom:12px;text-shadow:0 0 18px rgba(237,237,240,.1)}
+.end-card p{color:var(--muted);font-size:.98rem;margin-bottom:20px;max-width:400px;line-height:1.5}
+.es-tagline{color:var(--gold);font-size:1.05rem;font-weight:700;margin-bottom:22px;text-shadow:0 0 26px rgba(200,150,62,.45)}
+.cta{display:inline-block;background:linear-gradient(180deg,var(--gold2) 0%,var(--gold) 100%);color:var(--bg);font-weight:800;font-size:1.05rem;padding:16px 42px;border-radius:999px;text-decoration:none;animation:ctaPulse 1.8s ease-out infinite;letter-spacing:.03em;position:relative;overflow:hidden}
+.cta::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent, rgba(255,255,255,.18),transparent);animation:shimmerSweep 3s ease-in-out infinite 1s}
+.link{color:var(--dim);font-size:.75rem;margin-top:18px;letter-spacing:.03em}
+.fb-follow{color:var(--muted);font-size:.88rem;margin-top:18px;font-weight:600}
+.fb-follow .hl{color:var(--gold);font-weight:700}
+
+.save-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(19,20,28,.94);border:1.5px solid var(--gold);color:var(--gold);font-size:.95rem;font-weight:700;padding:11px 22px;border-radius:999px;z-index:20;opacity:0;transition:opacity .45s,transform .45s;pointer-events:none;box-shadow:0 0 20px rgba(200,150,62,.25)}
+.save-hint.show{opacity:1;transform:translateX(-50%) translateY(0);animation:borderGlow 2s ease-in-out infinite}
+
+.sound-overlay{position:absolute;inset:0;background:rgba(11,11,16,.88);display:flex;justify-content:center;align-items:center;z-index:50;cursor:pointer;transition:opacity .5s;backdrop-filter:blur(2px)}
+.sound-overlay.hidden{opacity:0;pointer-events:none}
+.sound-pill{background:linear-gradient(180deg,#1C1E28 0%,#15161F 100%);border:1.5px solid var(--gold);color:var(--gold);padding:20px 34px;border-radius:999px;font-size:1.2rem;font-weight:700;box-shadow:0 0 40px rgba(200,150,62,.35),0 0 80px rgba(200,150,62,.1);animation:ctaPulse 1.8s ease-out infinite;letter-spacing:.02em}
+</style>
+</head>
+<body>
+<div class="reel" id="reel">
+  <div class="bg-ambient"></div>
+  <div class="beat"></div>
+  <div class="dots"></div>
+  <div class="particles"><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div></div>
+  <div class="logo">FLUENTPATH <span>SPANISH</span></div>
+  <div class="badge">Dialect Coaching</div>
+
+  <!-- Scene 0: Intro hook -->
+  <div class="scene">
+    <h2 class="el d1">The Word</h2>
+    <div class="word bounce bd1">"You"</div>
+    <p class="focus-text el d2">Three countries.<br><span class="gold">Three</span> completely different rules.</p>
+  </div>
+
+  <!-- Scene 1: Argentina -->
+  <div class="scene">
+    <div class="bigflag">🇦🇷</div>
+    <h2 class="el d1">Argentina</h2>
+    <div class="word ar bounce bd1">Vos</div>
+    <p class="meaning el d2">"<span class="gold">Vos sos</span>"</p>
+    <p class="sub el d3">"Tú" doesn't exist here.<br>They use <span class="gold">vos</span> with different verb endings.<br>Sos, tenés, podés, querés.</p>
+  </div>
+
+  <!-- Scene 2: Mexico -->
+  <div class="scene">
+    <div class="bigflag">🇲🇽</div>
+    <h2 class="el d1">Mexico</h2>
+    <div class="word mx bounce bd1">Tú</div>
+    <p class="meaning el d2">"<span class="gold">Tú eres</span>"</p>
+    <p class="sub el d3">Standard "<span class="gold">tú</span>" like you learned.<br>But "<span class="gold">ustedes</span>" for everyone — boss,<br>friends, mom. No vosotros. <span class="emoji-pop">😮‍💨</span></p>
+  </div>
+
+  <!-- Scene 3: Spain -->
+  <div class="scene">
+    <div class="bigflag">🇪🇸</div>
+    <h2 class="el d1">Spain</h2>
+    <div class="word es bounce bd1">Tú</div>
+    <p class="meaning el d2">+ <span class="gold">Vosotros</span></p>
+    <p class="sub el d3">"<span class="gold">Tú</span>" for one person, yes.<br>But "<span class="gold">vosotros</span>" for you-all (friends).<br>"<span class="gold">Ustedes</span>" only if you're being formal. 🤵</p>
+  </div>
+
+  <!-- Scene 4: The point -->
+  <div class="scene">
+    <h2 class="el d1">The Point</h2>
+    <p class="focus-text bounce bd1" style="font-size:1.3rem">Imagine learning Spanish in Mexico,<br>then moving to Buenos Aires.</p>
+    <p class="focus-text el d2" style="color:var(--muted);font-weight:400">"Tú eres" → <span class="gold">blank stares</span>.</p>
+    <p class="focus-text el d3" style="color:var(--gold);font-weight:700">Dialect. Matters.</p>
+  </div>
+
+  <!-- End card -->
+  <div class="scene end-card">
+    <h3 class="el d1">Learn the Spanish You'll Actually Use</h3>
+    <p class="el d2">Argentina, Mexico, Spain — your coach, your dialect.</p>
+    <p class="es-tagline el d3">¡Tu dialecto, tu fluidez!</p>
+    <a class="cta" href="https://fluentpathspanish.ctonew.app">Free First Session →</a>
+    <p class="link el d4">fluentpathspanish.ctonew.app</p>
+  </div>
+
+  <div class="save-hint" id="saveHint">Save this for later →</div>
+  <div class="sound-overlay" id="soundOverlay"><div class="sound-pill">🔊 Tap for sound</div></div>
+</div>
+
+<script>
+(function(){
+  var LOOP_MS = 18000;
+  var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+  var saveHint = document.getElementById('saveHint');
+  var soundOverlay = document.getElementById('soundOverlay');
+  var soundOn = false;
+  var start = performance.now();
+  var loopTimer = null;
+
+  // Spanish TTS cues per dialect: [offsetSeconds, text, lang]
+  var CUES = [
+    [0.4,  'Vos',      'es-AR'],
+    [3.3,  'Vos sos',  'es-AR'],
+    [5.2,  'tenés',    'es-AR'],
+    [6.3,  'Tú eres',  'es-MX'],
+    [7.4,  'ustedes',  'es-MX'],
+    [9.3,  'Tú',       'es-ES'],
+    [9.8,  'vosotros', 'es-ES'],
+    [10.8, 'ustedes',  'es-ES'],
+    [12.5, '¡Tu dialecto, tu fluidez!', 'es-ES']
+  ];
+
+  function activeIndex(t){
+    var tt = t % LOOP_MS;
+    if(tt < 15000) return Math.floor(tt / 3000);   // 5 content scenes @ 3s
+    return scenes.length - 1;                        // end card holds 15s→18s
+  }
+
+  function update(t){
+    var tt = t % LOOP_MS;
+    var idx = activeIndex(t);
+    scenes.forEach(function(s,i){ s.classList.toggle('active', i === idx); });
+    saveHint.classList.toggle('show', tt >= 15500 && tt < LOOP_MS);
+  }
+
+  function speak(text, lang){
+    if(!soundOn || !('speechSynthesis' in window)) return;
+    try{
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang; u.rate = 0.92; u.pitch = 1;
+      window.speechSynthesis.speak(u);
+    }catch(e){}
+  }
+
+  function scheduleAudio(){
+    CUES.forEach(function(cue){ setTimeout(function(){ speak(cue[1], cue[2]); }, cue[0] * 1000); });
+  }
+
+  function startLoop(){
+    start = performance.now();
+    scheduleAudio();
+    if(loopTimer) clearInterval(loopTimer);
+    loopTimer = setInterval(scheduleAudio, LOOP_MS);
+  }
+
+  function enableSound(){
+    if(soundOn) return;
+    soundOn = true;
+    soundOverlay.classList.add('hidden');
+    startLoop();
+  }
+  document.addEventListener('click', enableSound);
+  document.addEventListener('keydown', enableSound);
+
+  function tick(now){ update(now - start); requestAnimationFrame(tick); }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
