@@ -9,6 +9,7 @@ import {
   loadSavedCurrency,
   saveCurrency,
 } from "~/lib/currency";
+import { STRIPE_LINKS } from "~/lib/paymentLinks";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -38,6 +39,7 @@ interface Plan {
   popular?: boolean;
   priceKey: string;
   priceNote: string;
+  link: string;
 }
 
 const PLANS: Plan[] = [
@@ -53,6 +55,7 @@ const PLANS: Plan[] = [
       "Peer learning environment",
     ],
     cta: "Book a group seat",
+    link: STRIPE_LINKS.groupClass,
   },
   {
     name: "1-on-1 Coaching",
@@ -67,6 +70,7 @@ const PLANS: Plan[] = [
     ],
     cta: "Book 1-on-1",
     popular: true,
+    link: STRIPE_LINKS.oneOnOne,
   },
   {
     name: "Subscription",
@@ -80,13 +84,14 @@ const PLANS: Plan[] = [
       "24/7 text support",
     ],
     cta: "Start 7-Day Free Trial",
+    link: STRIPE_LINKS.monthly,
   },
 ];
 
 const PACKS = [
-  { key: "pack5", label: "5-session pack" },
-  { key: "pack10", label: "10-session pack" },
-  { key: "annual", label: "Annual subscription" },
+  { key: "pack5", label: "5-session pack", link: STRIPE_LINKS.pack5 },
+  { key: "pack10", label: "10-session pack", link: STRIPE_LINKS.pack10 },
+  { key: "annual", label: "Annual subscription", link: STRIPE_LINKS.annual },
 ];
 
 /* ── Pricing section with real-time local currency conversion ── */
@@ -193,7 +198,7 @@ function PricingSection() {
                     <li key={f}>• {f}</li>
                   ))}
                 </ul>
-                <a href="#pricing" className={`${plan.popular ? "btn-primary" : "btn-secondary"} mt-auto w-full`}>
+                <a href={plan.link} target="_blank" rel="noopener noreferrer" className={`${plan.popular ? "btn-primary" : "btn-secondary"} mt-auto w-full`}>
                   {plan.cta}
                 </a>
               </div>
@@ -209,6 +214,14 @@ function PricingSection() {
                 <span className="text-sm text-[#A0A0AE]">{item.label}: </span>
                 <span className="text-lg font-bold text-[#C8963E]">{p.amount}</span>{" "}
                 <span className="text-sm text-[#5C5C6A]">{p.suffix}</span>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary mt-3 block w-full text-center"
+                >
+                  Buy
+                </a>
               </div>
             );
           })}
