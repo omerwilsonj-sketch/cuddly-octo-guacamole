@@ -9,11 +9,29 @@
     --accent: #C8963E;
     --accent-hover: #B88632;
     --accent-subtle: #2D7A7A;
+    --on-accent: #0D0D12;
     --text-primary: #EDEDF0;
     --text-secondary: #A0A0AE;
     --text-tertiary: #5C5C6A;
     --border-subtle: #1F2130;
     --border-strong: #2A2D3C;
+  }
+
+  /* Light mode — white/cream background, dark text, same gold accent */
+  [data-theme="light"] {
+    --bg-base: #FBF8F3;
+    --bg-layer-1: #F3EEE5;
+    --bg-layer-2: #EAE3D6;
+    --bg-layer-3: #DED5C4;
+    --accent: #C8963E;
+    --accent-hover: #B88632;
+    --accent-subtle: #2D7A7A;
+    --on-accent: #0D0D12;
+    --text-primary: #1B1A17;
+    --text-secondary: #4C4A44;
+    --text-tertiary: #77736A;
+    --border-subtle: #E2DBCE;
+    --border-strong: #C9C0AE;
   }
 
   html,
@@ -22,6 +40,7 @@
     background: var(--bg-base);
     color: var(--text-primary);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
@@ -32,7 +51,7 @@
     justify-content: center;
     gap: 8px;
     background: linear-gradient(180deg, #C8963E 0%, #B88632 100%);
-    color: var(--bg-base);
+    color: var(--on-accent);
     font-family: 'Montserrat', 'Inter', sans-serif;
     font-weight: 600;
     font-size: 0.9375rem;

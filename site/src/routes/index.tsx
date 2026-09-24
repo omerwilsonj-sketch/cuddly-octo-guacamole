@@ -141,24 +141,24 @@ function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="border-t border-[#1F2130] py-20">
+    <section id="pricing" className="border-t border-[var(--border-subtle)] py-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-10 text-center">
-          <h2 className="font-['Montserrat'] text-3xl font-bold text-[#EDEDF0]">
+          <h2 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)]">
             Investment in Your Fluency
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-[#A0A0AE]">
+          <p className="mx-auto mt-3 max-w-2xl text-[var(--text-secondary)]">
             Choose the path that fits your goals, schedule, and budget.
           </p>
-          <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-xl border border-[#1F2130] bg-[#13141C] px-3 py-2">
-            <label htmlFor="currency-select" className="ml-1 text-sm font-semibold text-[#A0A0AE]">
+          <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-3 py-2">
+            <label htmlFor="currency-select" className="ml-1 text-sm font-semibold text-[var(--text-secondary)]">
               Currency:
             </label>
             <select
               id="currency-select"
               value={currency}
               onChange={(e) => handleChange(e.target.value)}
-              className="cursor-pointer rounded-md border border-[#2A2D3C] bg-[#1A1C26] p-2 text-sm text-[#EDEDF0] outline-none focus:border-[#C8963E]"
+              className="cursor-pointer rounded-md border border-[var(--border-strong)] bg-[var(--bg-layer-2)] p-2 text-sm text-[var(--text-primary)] outline-none focus:border-[var(--accent)]"
             >
               {SUPPORTED_CURRENCIES.map((c) => (
                 <option key={c.code} value={c.code}>
@@ -166,11 +166,11 @@ function PricingSection() {
                 </option>
               ))}
             </select>
-            <span className="mr-1 text-xs text-[#5C5C6A]" aria-live="polite">
+            <span className="mr-1 text-xs text-[var(--text-tertiary)]" aria-live="polite">
               {loading ? "Fetching live rates…" : live ? "Live rates ●" : "Offline rates ○"}
             </span>
           </div>
-          <p className="mt-2 text-xs text-[#5C5C6A]">
+          <p className="mt-2 text-xs text-[var(--text-tertiary)]">
             Prices are approximate conversions and are charged in GBP
             {updatedAt ? ` · rates updated ${new Date(updatedAt).toLocaleDateString(locale)}` : ""}.
           </p>
@@ -180,20 +180,20 @@ function PricingSection() {
           {PLANS.map((plan) => {
             const p = price(plan.priceKey);
             return (
-              <div key={plan.name} className={`card flex flex-col ${plan.popular ? "relative border-[#C8963E] md:-translate-y-2" : ""}`}>
+              <div key={plan.name} className={`card flex flex-col ${plan.popular ? "relative border-[var(--accent)] md:-translate-y-2" : ""}`}>
                 {plan.popular && (
-                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-[#C8963E] to-[#B88632] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#0D0D12]">
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-[var(--accent)] to-[var(--accent-hover)] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[var(--on-accent)]">
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-lg font-bold text-[#EDEDF0]">{plan.name}</h3>
-                <p className="mt-1 text-sm text-[#5C5C6A]">{plan.tagline}</p>
+                <h3 className="text-lg font-bold text-[var(--text-primary)]">{plan.name}</h3>
+                <p className="mt-1 text-sm text-[var(--text-tertiary)]">{plan.tagline}</p>
                 <div className="mb-1 mt-5">
-                  <span className="text-4xl font-bold text-[#EDEDF0]">{p.amount}</span>{" "}
-                  <span className="text-sm text-[#A0A0AE]">{p.suffix}</span>
+                  <span className="text-4xl font-bold text-[var(--text-primary)]">{p.amount}</span>{" "}
+                  <span className="text-sm text-[var(--text-secondary)]">{p.suffix}</span>
                 </div>
-                <p className="mb-6 text-xs text-[#5C5C6A]">{plan.priceNote}</p>
-                <ul className="mb-8 space-y-3 text-sm text-[#A0A0AE]">
+                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote}</p>
+                <ul className="mb-8 space-y-3 text-sm text-[var(--text-secondary)]">
                   {plan.features.map((f) => (
                     <li key={f}>• {f}</li>
                   ))}
@@ -210,10 +210,10 @@ function PricingSection() {
           {PACKS.map((item) => {
             const p = price(item.key);
             return (
-              <div key={item.key} className="rounded-xl border border-[#1F2130] bg-[#13141C] px-5 py-4 text-center">
-                <span className="text-sm text-[#A0A0AE]">{item.label}: </span>
-                <span className="text-lg font-bold text-[#C8963E]">{p.amount}</span>{" "}
-                <span className="text-sm text-[#5C5C6A]">{p.suffix}</span>
+              <div key={item.key} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-5 py-4 text-center">
+                <span className="text-sm text-[var(--text-secondary)]">{item.label}: </span>
+                <span className="text-lg font-bold text-[var(--accent)]">{p.amount}</span>{" "}
+                <span className="text-sm text-[var(--text-tertiary)]">{p.suffix}</span>
                 <a
                   href={item.link}
                   target="_blank"
@@ -238,7 +238,7 @@ function Stars({ rating = 5 }: { rating?: number }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <svg
           key={i}
-          className={`h-4 w-4 ${i <= rating ? "text-[#C8963E]" : "text-[#2A2D3C]"}`}
+          className={`h-4 w-4 ${i <= rating ? "text-[var(--accent)]" : "text-[var(--border-strong)]"}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -252,7 +252,7 @@ function Stars({ rating = 5 }: { rating?: number }) {
 /* ── Trust signal pill ── */
 function TrustPill({ icon, label }: { icon: string; label: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-full border border-[#1F2130] bg-[#13141C] px-4 py-2 text-sm text-[#A0A0AE]">
+    <div className="flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-4 py-2 text-sm text-[var(--text-secondary)]">
       <span className="text-base">{icon}</span>
       <span>{label}</span>
     </div>
@@ -263,11 +263,11 @@ function TrustPill({ icon, label }: { icon: string; label: string }) {
 function ReviewCardPlaceholder() {
   return (
     <div className="card flex flex-col items-center gap-4 py-10 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#1F2130] text-2xl">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] text-2xl">
         ⭐
       </div>
-      <p className="text-lg font-semibold text-[#EDEDF0]">Be the first to review us!</p>
-      <p className="max-w-xs text-sm text-[#A0A0AE]">
+      <p className="text-lg font-semibold text-[var(--text-primary)]">Be the first to review us!</p>
+      <p className="max-w-xs text-sm text-[var(--text-secondary)]">
         Your feedback helps other learners find the right Spanish coaching. We'd love to hear from you.
       </p>
       <a
@@ -298,14 +298,14 @@ export function ReviewCard({
   return (
     <div className="card flex flex-col gap-4">
       <Stars rating={rating} />
-      <p className="text-sm leading-relaxed text-[#A0A0AE]">"{text}"</p>
-      <div className="flex items-center gap-3 border-t border-[#1F2130] pt-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1A1C26] text-sm font-semibold text-[#C8963E]">
+      <p className="text-sm leading-relaxed text-[var(--text-secondary)]">"{text}"</p>
+      <div className="flex items-center gap-3 border-t border-[var(--border-subtle)] pt-4">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--bg-layer-2)] text-sm font-semibold text-[var(--accent)]">
           {name.charAt(0)}
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#EDEDF0]">{name}</p>
-          <p className="text-xs text-[#5C5C6A]">{location}</p>
+          <p className="text-sm font-semibold text-[var(--text-primary)]">{name}</p>
+          <p className="text-xs text-[var(--text-tertiary)]">{location}</p>
         </div>
       </div>
     </div>
@@ -331,12 +331,12 @@ function Home() {
 
       {/* ── Hero ── */}
       <section className="relative flex flex-col items-center justify-center px-6 py-28 text-center">
-        <h1 className="font-['Montserrat'] text-5xl font-bold tracking-tight text-[#EDEDF0] sm:text-6xl">
+        <h1 className="font-['Montserrat'] text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl">
           Real-world Spanish,
           <br />
           Engineered for Professionals.
         </h1>
-        <p className="mt-5 max-w-xl text-lg text-[#A0A0AE]">
+        <p className="mt-5 max-w-xl text-lg text-[var(--text-secondary)]">
           Dialect fluency coaching with native teachers. Available 24/7. Precision training for serious learners.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -347,13 +347,13 @@ function Home() {
             See Pricing
           </a>
         </div>
-        <div className="mt-8 text-xs text-[#5C5C6A]">
+        <div className="mt-8 text-xs text-[var(--text-tertiary)]">
           CEFR B1-C2 · 6 Dialects · Native Teachers
         </div>
       </section>
 
       {/* ── Trust Signals ── */}
-      <section className="border-t border-[#1F2130] py-16">
+      <section className="border-t border-[var(--border-subtle)] py-16">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-4 px-6">
           <TrustPill icon="🎓" label="Teachers Available 24/7" />
           <TrustPill icon="🗺️" label="Dialect-Specialized" />
@@ -366,13 +366,13 @@ function Home() {
       <PricingSection />
 
       {/* ── Testimonials Section ── */}
-      <section id="reviews" className="border-t border-[#1F2130] py-20">
+      <section id="reviews" className="border-t border-[var(--border-subtle)] py-20">
         <div className="mx-auto max-w-5xl px-6">
           <div className="mb-12 text-center">
-            <h2 className="font-['Montserrat'] text-3xl font-bold text-[#EDEDF0]">
+            <h2 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)]">
               What Our Students Say
             </h2>
-            <p className="mt-3 text-[#A0A0AE]">
+            <p className="mt-3 text-[var(--text-secondary)]">
               Real reviews from real learners. No fabrication — ever.
             </p>
           </div>
@@ -395,7 +395,7 @@ function Home() {
               href="https://g.page/r/placeholder"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 rounded-xl border border-[#1F2130] bg-[#13141C] px-6 py-4 transition hover:border-[#2A2D3C]"
+              className="inline-flex items-center gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-6 py-4 transition hover:border-[var(--border-strong)]"
             >
               <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -404,17 +404,17 @@ function Home() {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
               </svg>
               <div className="text-left">
-                <p className="text-sm font-semibold text-[#EDEDF0]">Review us on Google</p>
-                <p className="text-xs text-[#5C5C6A]">Share your experience</p>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">Review us on Google</p>
+                <p className="text-xs text-[var(--text-tertiary)]">Share your experience</p>
               </div>
-              <span className="text-[#A0A0AE]">→</span>
+              <span className="text-[var(--text-secondary)]">→</span>
             </a>
           </div>
         </div>
       </section>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-[#1F2130] py-12 text-center text-xs text-[#5C5C6A]">
+      <footer className="border-t border-[var(--border-subtle)] py-12 text-center text-xs text-[var(--text-tertiary)]">
         <p>FluentPath Spanish — dialect-specific fluency coaching with native teachers.</p>
         <p className="mt-1">fluentpathspanish.ctonew.app</p>
       </footer>
