@@ -1,8 +1,235 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useMemo, useState } from "react";
+import {
+  BASE_CURRENCY,
+  SUPPORTED_CURRENCIES,
+  detectCurrency,
+  formatPrice,
+  getRates,
+  loadSavedCurrency,
+  saveCurrency,
+} from "~/lib/currency";
+import { STRIPE_LINKS } from "~/lib/paymentLinks";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
+
+/* ── Pricing plans (GBP base — display-only conversion, Stripe stays GBP) ── */
+interface PricePoint {
+  key: string;
+  gbp: number;
+  suffix: string;
+}
+
+const PRICE_POINTS: PricePoint[] = [
+  { key: "group", gbp: 25, suffix: "/ session" },
+  { key: "coaching", gbp: 50, suffix: "/ hour" },
+  { key: "subscription", gbp: 19, suffix: "/ month" },
+  { key: "pack5", gbp: 225, suffix: "· 5 sessions" },
+  { key: "pack10", gbp: 400, suffix: "· 10 sessions" },
+  { key: "annual", gbp: 179, suffix: "/ year" },
+];
+
+interface Plan {
+  name: string;
+  tagline: string;
+  features: string[];
+  cta: string;
+  popular?: boolean;
+  priceKey: string;
+  priceNote: string;
+  link: string;
+}
+
+const PLANS: Plan[] = [
+  {
+    name: "Group Classes",
+    tagline: "Themed conversation sessions",
+    priceKey: "group",
+    priceNote: "£20–£35 range · pay per session",
+    features: [
+      "Small groups (max 4–6 students)",
+      "\u201CWork Spanish\u201D themes",
+      "\u201CDating & Relationships\u201D themes",
+      "Peer learning environment",
+    ],
+    cta: "Book a group seat",
+    link: STRIPE_LINKS.groupClass,
+  },
+  {
+    name: "1-on-1 Coaching",
+    tagline: "Personalized fluency training",
+    priceKey: "coaching",
+    priceNote: "£40–£80 range · session packs save more",
+    features: [
+      "100% customized curriculum",
+      "Flexible scheduling",
+      "Industry-specific vocabulary",
+      "Discounted 5 & 10 session packs",
+    ],
+    cta: "Book 1-on-1",
+    popular: true,
+    link: STRIPE_LINKS.oneOnOne,
+  },
+  {
+    name: "Subscription",
+    tagline: "For committed learners · 7-day free trial",
+    priceKey: "subscription",
+    priceNote: "Or £179/year — two months free",
+    features: [
+      "Unlimited teacher access",
+      "Weekly group sessions",
+      "Premium lesson materials",
+      "24/7 text support",
+    ],
+    cta: "Start 7-Day Free Trial",
+    link: STRIPE_LINKS.monthly,
+  },
+];
+
+const PACKS = [
+  { key: "pack5", label: "5-session pack", link: STRIPE_LINKS.pack5 },
+  { key: "pack10", label: "10-session pack", link: STRIPE_LINKS.pack10 },
+  { key: "annual", label: "Annual subscription", link: STRIPE_LINKS.annual },
+];
+
+/* ── Pricing section with real-time local currency conversion ── */
+function PricingSection() {
+  const locale = useMemo(
+    () => (typeof navigator !== "undefined" ? navigator.language : "en-GB"),
+    [],
+  );
+  const [currency, setCurrency] = useState<string>(BASE_CURRENCY);
+  const [rates, setRates] = useState<Record<string, number>>({ GBP: 1 });
+  const [live, setLive] = useState(false);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Auto-detect from browser locale, honouring an explicit saved choice.
+  useEffect(() => {
+    const saved = loadSavedCurrency();
+    setCurrency(saved ?? detectCurrency(locale));
+  }, [locale]);
+
+  // Fetch live rates once on mount.
+  useEffect(() => {
+    let cancelled = false;
+    getRates().then((result) => {
+      if (cancelled) return;
+      setRates(result.rates);
+      setLive(result.live);
+      setUpdatedAt(result.updatedAt);
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const handleChange = (code: string) => {
+    setCurrency(code);
+    saveCurrency(code);
+  };
+
+  const price = (key: string): { amount: string; suffix: string } => {
+    const point = PRICE_POINTS.find((p) => p.key === key)!;
+    return {
+      amount: formatPrice(point.gbp, currency, rates, locale),
+      suffix: point.suffix,
+    };
+  };
+
+  return (
+    <section id="pricing" className="border-t border-[#1F2130] py-20">
+      <div className="mx-auto max-w-5xl px-6">
+        <div className="mb-10 text-center">
+          <h2 className="font-['Montserrat'] text-3xl font-bold text-[#EDEDF0]">
+            Investment in Your Fluency
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-[#A0A0AE]">
+            Choose the path that fits your goals, schedule, and budget.
+          </p>
+          <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-xl border border-[#1F2130] bg-[#13141C] px-3 py-2">
+            <label htmlFor="currency-select" className="ml-1 text-sm font-semibold text-[#A0A0AE]">
+              Currency:
+            </label>
+            <select
+              id="currency-select"
+              value={currency}
+              onChange={(e) => handleChange(e.target.value)}
+              className="cursor-pointer rounded-md border border-[#2A2D3C] bg-[#1A1C26] p-2 text-sm text-[#EDEDF0] outline-none focus:border-[#C8963E]"
+            >
+              {SUPPORTED_CURRENCIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.code} — {c.label}
+                </option>
+              ))}
+            </select>
+            <span className="mr-1 text-xs text-[#5C5C6A]" aria-live="polite">
+              {loading ? "Fetching live rates…" : live ? "Live rates ●" : "Offline rates ○"}
+            </span>
+          </div>
+          <p className="mt-2 text-xs text-[#5C5C6A]">
+            Prices are approximate conversions and are charged in GBP
+            {updatedAt ? ` · rates updated ${new Date(updatedAt).toLocaleDateString(locale)}` : ""}.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {PLANS.map((plan) => {
+            const p = price(plan.priceKey);
+            return (
+              <div key={plan.name} className={`card flex flex-col ${plan.popular ? "relative border-[#C8963E] md:-translate-y-2" : ""}`}>
+                {plan.popular && (
+                  <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-b from-[#C8963E] to-[#B88632] px-4 py-1 text-xs font-bold uppercase tracking-wide text-[#0D0D12]">
+                    Most Popular
+                  </div>
+                )}
+                <h3 className="text-lg font-bold text-[#EDEDF0]">{plan.name}</h3>
+                <p className="mt-1 text-sm text-[#5C5C6A]">{plan.tagline}</p>
+                <div className="mb-1 mt-5">
+                  <span className="text-4xl font-bold text-[#EDEDF0]">{p.amount}</span>{" "}
+                  <span className="text-sm text-[#A0A0AE]">{p.suffix}</span>
+                </div>
+                <p className="mb-6 text-xs text-[#5C5C6A]">{plan.priceNote}</p>
+                <ul className="mb-8 space-y-3 text-sm text-[#A0A0AE]">
+                  {plan.features.map((f) => (
+                    <li key={f}>• {f}</li>
+                  ))}
+                </ul>
+                <a href={plan.link} target="_blank" rel="noopener noreferrer" className={`${plan.popular ? "btn-primary" : "btn-secondary"} mt-auto w-full`}>
+                  {plan.cta}
+                </a>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {PACKS.map((item) => {
+            const p = price(item.key);
+            return (
+              <div key={item.key} className="rounded-xl border border-[#1F2130] bg-[#13141C] px-5 py-4 text-center">
+                <span className="text-sm text-[#A0A0AE]">{item.label}: </span>
+                <span className="text-lg font-bold text-[#C8963E]">{p.amount}</span>{" "}
+                <span className="text-sm text-[#5C5C6A]">{p.suffix}</span>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary mt-3 block w-full text-center"
+                >
+                  Buy
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ── Star rating (read-only) ── */
 function Stars({ rating = 5 }: { rating?: number }) {
@@ -55,8 +282,9 @@ function ReviewCardPlaceholder() {
   );
 }
 
-/* ── Review card (filled – ready for real reviews) ── */
-function ReviewCard({
+/* ── Review card (filled – ready for real reviews; exported so the
+   designer's upcoming testimonials work can import it) ── */
+export function ReviewCard({
   name,
   location,
   rating,
@@ -95,16 +323,8 @@ function Home() {
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             name: "FluentPath Spanish",
-            description: "AI-native Spanish tutoring with dialect-specific coaching for professionals.",
+            description: "Dialect-specific Spanish tutoring with native teachers for professionals.",
             url: "https://fluentpathspanish.ctonew.app",
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: "5.0",
-              reviewCount: "0",
-              bestRating: "5",
-              worstRating: "1",
-            },
-            review: [],
           }),
         }}
       />
@@ -117,30 +337,33 @@ function Home() {
           Engineered for Professionals.
         </h1>
         <p className="mt-5 max-w-xl text-lg text-[#A0A0AE]">
-          AI-native fluency coaching. Available 24/7. Precision training for serious learners.
+          Dialect fluency coaching with native teachers. Available 24/7. Precision training for serious learners.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#reviews" className="btn-primary">
+          <a href="#pricing" className="btn-primary">
             Start Free Trial
           </a>
-          <a href="#reviews" className="btn-secondary">
-            See Student Reviews
+          <a href="#pricing" className="btn-secondary">
+            See Pricing
           </a>
         </div>
         <div className="mt-8 text-xs text-[#5C5C6A]">
-          CEFR B1-C2 · 6 Dialects · AI + Human
+          CEFR B1-C2 · 6 Dialects · Native Teachers
         </div>
       </section>
 
       {/* ── Trust Signals ── */}
       <section className="border-t border-[#1F2130] py-16">
         <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-4 px-6">
-          <TrustPill icon="🤖" label="24/7 AI Teacher" />
+          <TrustPill icon="🎓" label="Teachers Available 24/7" />
           <TrustPill icon="🗺️" label="Dialect-Specialized" />
           <TrustPill icon="❌" label="Cancel Anytime" />
           <TrustPill icon="🔒" label="No Fake Reviews" />
         </div>
       </section>
+
+      {/* ── Pricing (display-only currency conversion; Stripe stays GBP) ── */}
+      <PricingSection />
 
       {/* ── Testimonials Section ── */}
       <section id="reviews" className="border-t border-[#1F2130] py-20">
@@ -192,7 +415,7 @@ function Home() {
 
       {/* ── Footer ── */}
       <footer className="border-t border-[#1F2130] py-12 text-center text-xs text-[#5C5C6A]">
-        <p>FluentPath Spanish — AI-native, dialect-specific fluency coaching.</p>
+        <p>FluentPath Spanish — dialect-specific fluency coaching with native teachers.</p>
         <p className="mt-1">fluentpathspanish.ctonew.app</p>
       </footer>
     </main>

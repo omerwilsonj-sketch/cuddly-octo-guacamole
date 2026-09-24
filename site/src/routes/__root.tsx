@@ -8,11 +8,11 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FluentPath Spanish — AI Spanish Teachers with Dialect Coaching" },
+      { title: "FluentPath Spanish — Dialect Coaching with Native Teachers" },
       {
         name: "description",
         content:
-          "24/7 AI Spanish teachers with dialect-specific coaching — Mexican, Castilian, Argentinian, Chilean and more. Conversational fluency for professionals, expats and learners.",
+          "Spanish teachers available 24/7 with dialect-specific coaching — Mexican, Castilian, Argentinian, Chilean and more. Conversational fluency for professionals, expats and learners.",
       },
     ],
     links: [{ rel: "stylesheet", href: appCss }],
