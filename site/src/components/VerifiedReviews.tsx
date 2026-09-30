@@ -68,17 +68,22 @@ export function VerifiedReviewCard({ review }: { review: VerifiedReview }) {
 export function VerifiedReviewsEmptyState() {
   return (
     <div className="card flex flex-col items-center gap-4 py-12 text-center md:col-span-2 lg:col-span-3">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)] px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wide text-[var(--accent)]">
+        Founding students
+      </span>
       <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)] text-2xl">
         ⭐
       </div>
-      <p className="text-lg font-semibold text-[var(--text-primary)]">No reviews published yet</p>
+      <p className="text-lg font-semibold text-[var(--text-primary)]">Be the first to review us</p>
       <p className="max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">
         We only publish reviews we can verify — a real student, with the purchase or booking on
-        record. We have none yet, so this section stays empty. No invented ratings, no borrowed
-        quotes, no stock testimonials.
+        record. We&apos;re just getting started, so this section stays empty until a real student
+        has something honest to say. No invented ratings, no borrowed quotes, no stock
+        testimonials.
       </p>
       <p className="max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">
-        Studying with us? Your honest feedback — good or bad — would be the first review here.
+        Be one of our first students and your honest feedback — good or bad — becomes the first
+        review here. Your first session is free, and a subscription is £19/month.
       </p>
       <a href="#pricing" className="btn-primary mt-2">
         Start with a free session
