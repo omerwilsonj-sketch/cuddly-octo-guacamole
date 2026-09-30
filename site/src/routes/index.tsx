@@ -31,6 +31,11 @@ const PRICE_POINTS: PricePoint[] = [
   { key: "annual", gbp: 179, suffix: "/ year" },
 ];
 
+/** Formats a GBP base amount into whatever currency the visitor has selected. */
+type PriceFormatter = (gbp: number) => string;
+
+const PRICE_POINTS_BY_KEY = new Map(PRICE_POINTS.map((point) => [point.key, point]));
+
 interface Plan {
   name: string;
   tagline: string;
@@ -38,7 +43,12 @@ interface Plan {
   cta: string;
   popular?: boolean;
   priceKey: string;
-  priceNote: string;
+  /**
+   * Note shown under the headline price. It receives the currency formatter so
+   * amounts inside the note (ranges, annual price) convert along with
+   * everything else — no hardcoded £ amounts anywhere in the pricing section.
+   */
+  priceNote: (fmt: PriceFormatter) => string;
   link: string;
 }
 
@@ -47,7 +57,7 @@ const PLANS: Plan[] = [
     name: "Group Classes",
     tagline: "Themed conversation sessions",
     priceKey: "group",
-    priceNote: "£20–£35 range · pay per session",
+    priceNote: (fmt) => `${fmt(20)}–${fmt(35)} range · pay per session`,
     features: [
       "Small groups (max 4–6 students)",
       "\u201CWork Spanish\u201D themes",
@@ -61,7 +71,7 @@ const PLANS: Plan[] = [
     name: "1-on-1 Coaching",
     tagline: "Personalized fluency training",
     priceKey: "coaching",
-    priceNote: "£40–£80 range · session packs save more",
+    priceNote: (fmt) => `${fmt(40)}–${fmt(80)} range · session packs save more`,
     features: [
       "100% customized curriculum",
       "Flexible scheduling",
@@ -76,7 +86,7 @@ const PLANS: Plan[] = [
     name: "Subscription",
     tagline: "For committed learners · 7-day free trial",
     priceKey: "subscription",
-    priceNote: "Or £179/year — two months free",
+    priceNote: (fmt) => `Or ${fmt(179)}/year — two months free`,
     features: [
       "Unlimited teacher access",
       "Weekly group sessions",
@@ -132,12 +142,14 @@ function PricingSection() {
     saveCurrency(code);
   };
 
+  // Every GBP amount in the pricing section — headline prices *and* the notes
+  // beneath them — goes through this one formatter.
+  const fmt: PriceFormatter = (gbp) => formatPrice(gbp, currency, rates, locale);
+
   const price = (key: string): { amount: string; suffix: string } => {
-    const point = PRICE_POINTS.find((p) => p.key === key)!;
-    return {
-      amount: formatPrice(point.gbp, currency, rates, locale),
-      suffix: point.suffix,
-    };
+    const point = PRICE_POINTS_BY_KEY.get(key);
+    if (!point) return { amount: "—", suffix: "" };
+    return { amount: fmt(point.gbp), suffix: point.suffix };
   };
 
   return (
@@ -192,7 +204,7 @@ function PricingSection() {
                   <span className="text-4xl font-bold text-[var(--text-primary)]">{p.amount}</span>{" "}
                   <span className="text-sm text-[var(--text-secondary)]">{p.suffix}</span>
                 </div>
-                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote}</p>
+                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote(fmt)}</p>
                 <ul className="mb-8 space-y-3 text-sm text-[var(--text-secondary)]">
                   {plan.features.map((f) => (
                     <li key={f}>• {f}</li>
