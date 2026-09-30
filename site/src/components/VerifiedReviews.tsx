@@ -67,7 +67,7 @@ export function VerifiedReviewCard({ review }: { review: VerifiedReview }) {
    rule — rather than dressing up a slot with invented social proof. */
 export function VerifiedReviewsEmptyState() {
   return (
-    <div className="card flex flex-col items-center gap-4 py-12 text-center">
+    <div className="card flex flex-col items-center gap-4 py-12 text-center md:col-span-2 lg:col-span-3">
       <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)] text-2xl">
         ⭐
       </div>
