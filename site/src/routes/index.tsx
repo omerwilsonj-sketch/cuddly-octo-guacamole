@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from "react";
 import {
   BASE_CURRENCY,
   SUPPORTED_CURRENCIES,
-  detectCurrency,
   formatPrice,
   getRates,
   loadSavedCurrency,
@@ -117,11 +116,13 @@ function PricingSection() {
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Auto-detect from browser locale, honouring an explicit saved choice.
+  // GBP is the billing currency, so it is what everyone sees by default (the
+  // target market is USA + UK). An explicit earlier choice is honoured; we no
+  // longer switch the display behind the visitor's back from their locale.
   useEffect(() => {
     const saved = loadSavedCurrency();
-    setCurrency(saved ?? detectCurrency(locale));
-  }, [locale]);
+    if (saved && saved !== BASE_CURRENCY) setCurrency(saved);
+  }, []);
 
   // Fetch live rates once on mount.
   useEffect(() => {
@@ -176,6 +177,7 @@ function PricingSection() {
               {SUPPORTED_CURRENCIES.map((c) => (
                 <option key={c.code} value={c.code}>
                   {c.code} — {c.label}
+                  {c.code === BASE_CURRENCY ? " (billing currency)" : ""}
                 </option>
               ))}
             </select>
@@ -184,8 +186,10 @@ function PricingSection() {
             </span>
           </div>
           <p className="mt-2 text-xs text-[var(--text-tertiary)]">
-            Prices are approximate conversions and are charged in GBP
-            {updatedAt ? ` · rates updated ${new Date(updatedAt).toLocaleDateString(locale)}` : ""}.
+            Always charged in GBP — the currency we bill in. Selecting USD or EUR shows an
+            approximate conversion at live rates
+            {updatedAt ? ` (updated ${new Date(updatedAt).toLocaleDateString(locale)})` : ""}; the
+            exact amount is confirmed at checkout.
           </p>
         </div>
 

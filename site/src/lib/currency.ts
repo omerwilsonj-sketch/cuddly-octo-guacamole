@@ -15,6 +15,8 @@ export interface CurrencyInfo {
   label: string;
 }
 
+// GBP is the billing currency (target market: USA + UK), USD is the first
+// display alternative and EUR second — that is why they lead this list.
 export const SUPPORTED_CURRENCIES: CurrencyInfo[] = [
   { code: "GBP", label: "British Pound" },
   { code: "USD", label: "US Dollar" },
@@ -94,7 +96,13 @@ function regionFromLocale(locale: string): string | null {
   }
 }
 
-/** Guess the visitor's currency from their browser locale. Falls back to GBP. */
+/**
+ * Guess the visitor's currency from their browser locale. Falls back to GBP.
+ *
+ * Not applied on page load any more: GBP is the billing currency and stays the
+ * default for everyone, with an explicit visitor choice (localStorage) honoured
+ * instead. Kept for a future geo-based default or per-market landing pages.
+ */
 export function detectCurrency(locale: string): string {
   const region = regionFromLocale(locale);
   if (region) {
