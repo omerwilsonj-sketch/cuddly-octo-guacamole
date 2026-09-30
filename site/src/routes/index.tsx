@@ -3,13 +3,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   BASE_CURRENCY,
   SUPPORTED_CURRENCIES,
-  detectCurrency,
   formatPrice,
   getRates,
   loadSavedCurrency,
   saveCurrency,
 } from "~/lib/currency";
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
+import { VerifiedReviews } from "~/components/VerifiedReviews";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -31,6 +31,11 @@ const PRICE_POINTS: PricePoint[] = [
   { key: "annual", gbp: 179, suffix: "/ year" },
 ];
 
+/** Formats a GBP base amount into whatever currency the visitor has selected. */
+type PriceFormatter = (gbp: number) => string;
+
+const PRICE_POINTS_BY_KEY = new Map(PRICE_POINTS.map((point) => [point.key, point]));
+
 interface Plan {
   name: string;
   tagline: string;
@@ -38,7 +43,12 @@ interface Plan {
   cta: string;
   popular?: boolean;
   priceKey: string;
-  priceNote: string;
+  /**
+   * Note shown under the headline price. It receives the currency formatter so
+   * amounts inside the note (ranges, annual price) convert along with
+   * everything else — no hardcoded £ amounts anywhere in the pricing section.
+   */
+  priceNote: (fmt: PriceFormatter) => string;
   link: string;
 }
 
@@ -47,7 +57,7 @@ const PLANS: Plan[] = [
     name: "Group Classes",
     tagline: "Themed conversation sessions",
     priceKey: "group",
-    priceNote: "£20–£35 range · pay per session",
+    priceNote: (fmt) => `${fmt(20)}–${fmt(35)} range · pay per session`,
     features: [
       "Small groups (max 4–6 students)",
       "\u201CWork Spanish\u201D themes",
@@ -61,7 +71,7 @@ const PLANS: Plan[] = [
     name: "1-on-1 Coaching",
     tagline: "Personalized fluency training",
     priceKey: "coaching",
-    priceNote: "£40–£80 range · session packs save more",
+    priceNote: (fmt) => `${fmt(40)}–${fmt(80)} range · session packs save more`,
     features: [
       "100% customized curriculum",
       "Flexible scheduling",
@@ -76,7 +86,7 @@ const PLANS: Plan[] = [
     name: "Subscription",
     tagline: "For committed learners · 7-day free trial",
     priceKey: "subscription",
-    priceNote: "Or £179/year — two months free",
+    priceNote: (fmt) => `Or ${fmt(179)}/year — two months free`,
     features: [
       "Unlimited teacher access",
       "Weekly group sessions",
@@ -106,11 +116,13 @@ function PricingSection() {
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Auto-detect from browser locale, honouring an explicit saved choice.
+  // GBP is the billing currency, so it is what everyone sees by default (the
+  // target market is USA + UK). An explicit earlier choice is honoured; we no
+  // longer switch the display behind the visitor's back from their locale.
   useEffect(() => {
     const saved = loadSavedCurrency();
-    setCurrency(saved ?? detectCurrency(locale));
-  }, [locale]);
+    if (saved && saved !== BASE_CURRENCY) setCurrency(saved);
+  }, []);
 
   // Fetch live rates once on mount.
   useEffect(() => {
@@ -132,12 +144,14 @@ function PricingSection() {
     saveCurrency(code);
   };
 
+  // Every GBP amount in the pricing section — headline prices *and* the notes
+  // beneath them — goes through this one formatter.
+  const fmt: PriceFormatter = (gbp) => formatPrice(gbp, currency, rates, locale);
+
   const price = (key: string): { amount: string; suffix: string } => {
-    const point = PRICE_POINTS.find((p) => p.key === key)!;
-    return {
-      amount: formatPrice(point.gbp, currency, rates, locale),
-      suffix: point.suffix,
-    };
+    const point = PRICE_POINTS_BY_KEY.get(key);
+    if (!point) return { amount: "—", suffix: "" };
+    return { amount: fmt(point.gbp), suffix: point.suffix };
   };
 
   return (
@@ -163,6 +177,7 @@ function PricingSection() {
               {SUPPORTED_CURRENCIES.map((c) => (
                 <option key={c.code} value={c.code}>
                   {c.code} — {c.label}
+                  {c.code === BASE_CURRENCY ? " (billing currency)" : ""}
                 </option>
               ))}
             </select>
@@ -171,8 +186,10 @@ function PricingSection() {
             </span>
           </div>
           <p className="mt-2 text-xs text-[var(--text-tertiary)]">
-            Prices are approximate conversions and are charged in GBP
-            {updatedAt ? ` · rates updated ${new Date(updatedAt).toLocaleDateString(locale)}` : ""}.
+            Always charged in GBP — the currency we bill in. Selecting USD or EUR shows an
+            approximate conversion at live rates
+            {updatedAt ? ` (updated ${new Date(updatedAt).toLocaleDateString(locale)})` : ""}; the
+            exact amount is confirmed at checkout.
           </p>
         </div>
 
@@ -192,7 +209,7 @@ function PricingSection() {
                   <span className="text-4xl font-bold text-[var(--text-primary)]">{p.amount}</span>{" "}
                   <span className="text-sm text-[var(--text-secondary)]">{p.suffix}</span>
                 </div>
-                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote}</p>
+                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote(fmt)}</p>
                 <ul className="mb-8 space-y-3 text-sm text-[var(--text-secondary)]">
                   {plan.features.map((f) => (
                     <li key={f}>• {f}</li>
@@ -259,28 +276,9 @@ function TrustPill({ icon, label }: { icon: string; label: string }) {
   );
 }
 
-/* ── Review card (empty state) ── */
-function ReviewCardPlaceholder() {
-  return (
-    <div className="card flex flex-col items-center gap-4 py-10 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] text-2xl">
-        ⭐
-      </div>
-      <p className="text-lg font-semibold text-[var(--text-primary)]">Be the first to review us!</p>
-      <p className="max-w-xs text-sm text-[var(--text-secondary)]">
-        Your feedback helps other learners find the right Spanish coaching. We'd love to hear from you.
-      </p>
-      <a
-        href="https://g.page/r/placeholder" /* replace with real Google Business Profile URL */
-        target="_blank"
-        rel="noopener noreferrer"
-        className="btn-primary mt-2"
-      >
-        Leave a Google Review
-      </a>
-    </div>
-  );
-}
+/* The reviews section (empty state, verified cards, verification rules) now
+   lives in src/components/VerifiedReviews.tsx and reads src/lib/reviews.ts —
+   publishing a review is an edit to that data file, nothing else. */
 
 /* ── Review card (filled – ready for real reviews; exported so the
    designer's upcoming testimonials work can import it) ── */
@@ -373,30 +371,31 @@ function Home() {
               What Our Students Say
             </h2>
             <p className="mt-3 text-[var(--text-secondary)]">
-              Real reviews from real learners. No fabrication — ever.
+              Verified student reviews only — each one traced to a real purchase or booking. No
+              fabrication, ever.
             </p>
           </div>
 
-          {/* ── Review cards grid ── */}
+          {/* ── Review cards grid ──
+              Renders every review in src/lib/reviews.ts with its verification
+              badge, or the honest "no reviews published yet" state while that
+              list is empty. No placeholder testimonials, ever. */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* ── Placeholder — first review slot ── */}
-            <ReviewCardPlaceholder />
-
-            {/* ── Ready review cards (empty until real reviews come in) ── */}
-            {/* When real reviews are collected, uncomment and populate:
-            <ReviewCard name="María G." location="Barcelona, Spain" rating={5} text="FluentPath helped me master Castilian before my relocation. The AI teacher was available whenever I needed practice." />
-            <ReviewCard name="James K." location="London, UK" rating={5} text="Finally a platform that teaches the Spanish I actually need for work. The dialect coaching is a game-changer." />
-            */}
+            <VerifiedReviews />
           </div>
 
-          {/* ── Google Reviews badge ── */}
+          {/* ── How we verify ── */}
+          <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-relaxed text-[var(--text-tertiary)]">
+            Each review here is traced to a real purchase, booking or Google review, and published
+            only with the student&apos;s permission. If we cannot verify it, we do not publish it.
+          </p>
+
+          {/* ── Google Reviews badge ──
+              Rendered as a non-interactive card: there is no Google Business
+              Profile yet, so there is no honest URL to send anyone to. Swap this
+              for an <a> the day the profile (and its review link) exists. */}
           <div className="mt-12 text-center">
-            <a
-              href="https://g.page/r/placeholder"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-6 py-4 transition hover:border-[var(--border-strong)]"
-            >
+            <div className="inline-flex items-center gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-6 py-4">
               <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -405,10 +404,11 @@ function Home() {
               </svg>
               <div className="text-left">
                 <p className="text-sm font-semibold text-[var(--text-primary)]">Review us on Google</p>
-                <p className="text-xs text-[var(--text-tertiary)]">Share your experience</p>
+                <p className="text-xs text-[var(--text-tertiary)]">
+                  Profile being set up — no public link yet
+                </p>
               </div>
-              <span className="text-[var(--text-secondary)]">→</span>
-            </a>
+            </div>
           </div>
         </div>
       </section>
