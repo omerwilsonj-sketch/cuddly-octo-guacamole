@@ -1,0 +1,7 @@
+# FluentPath Spanish — https://www.fluentpathspanish.com
+# Everything public is crawlable, including the short-form video page and the
+# caption kit file it links to.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.fluentpathspanish.com/sitemap.xml
