@@ -9,9 +9,17 @@ import {
   saveCurrency,
 } from "~/lib/currency";
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
+import { SITE_URL, seoHead } from "~/lib/seo";
 import { VerifiedReviews } from "~/components/VerifiedReviews";
 
 export const Route = createFileRoute("/")({
+  head: () =>
+    seoHead({
+      title: "FluentPath Spanish — Dialect Coaching with Native Teachers",
+      description:
+        "Live Spanish tutoring for intermediate and advanced learners: dialect-specific coaching from native teachers — Castilian, Mexican, Argentinian, Chilean and more. Start with a free session.",
+      path: "/",
+    }),
   component: Home,
 });
 
