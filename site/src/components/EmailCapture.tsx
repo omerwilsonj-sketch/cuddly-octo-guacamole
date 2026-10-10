@@ -103,7 +103,8 @@ export function EmailCapture() {
               The cheat-sheet is being finished — it goes live here shortly.
             </p>
             <p className="mt-2 text-xs text-[var(--text-tertiary)]">
-              We are not collecting email addresses for it until the download actually works.
+              No sign-up form yet — we would rather not collect your email before the download
+              works.
             </p>
           </div>
         ) : null}

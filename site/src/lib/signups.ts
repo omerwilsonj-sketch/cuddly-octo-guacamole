@@ -44,19 +44,46 @@ async function signupsFile(): Promise<string> {
   return join(process.cwd(), "data", "signups.jsonl");
 }
 
+/**
+ * The PDF is served from the site's static root, which is `<app>/public` while
+ * developing and `<app>/dist/client` once built. The app directory is normally
+ * the working directory, but the live host is free to start the server from a
+ * different one, so we also walk up from this module's own location. A hit means
+ * the file really is servable — that is what the UI is allowed to promise.
+ */
 async function cheatsheetExists(): Promise<boolean> {
-  const { join } = await import("node:path");
+  const { join, dirname, resolve } = await import("node:path");
   const { access } = await import("node:fs/promises");
-  const candidates = [
-    join(process.cwd(), "public", CHEATSHEET_PATH),
-    join(process.cwd(), "dist", "client", CHEATSHEET_PATH),
-  ];
-  for (const candidate of candidates) {
-    try {
-      await access(candidate);
-      return true;
-    } catch {
-      /* try the next location */
+
+  const roots: string[] = [];
+  let cwd = process.cwd();
+  for (let i = 0; i < 3; i += 1) {
+    roots.push(cwd);
+    cwd = dirname(cwd);
+  }
+  try {
+    const here = dirname(new URL(import.meta.url).pathname);
+    let dir = here;
+    for (let i = 0; i < 4; i += 1) {
+      roots.push(dir);
+      dir = dirname(dir);
+    }
+  } catch {
+    /* no module URL (unlikely) — the cwd walk above still applies */
+  }
+
+  const seen = new Set<string>();
+  for (const root of roots) {
+    for (const sub of ["public", "dist/client"]) {
+      const candidate = resolve(join(root, sub, CHEATSHEET_PATH));
+      if (seen.has(candidate)) continue;
+      seen.add(candidate);
+      try {
+        await access(candidate);
+        return true;
+      } catch {
+        /* try the next location */
+      }
     }
   }
   return false;
