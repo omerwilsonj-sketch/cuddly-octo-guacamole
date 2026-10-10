@@ -15,6 +15,10 @@
     --text-tertiary: #5C5C6A;
     --border-subtle: #1F2130;
     --border-strong: #2A2D3C;
+    --success: #34D399;
+    --success-bg: rgba(52, 211, 153, 0.12);
+    --error: #F87171;
+    --error-bg: rgba(248, 113, 113, 0.12);
   }
 
   /* Light mode — white/cream background, dark text, same gold accent */
@@ -32,6 +36,10 @@
     --text-tertiary: #77736A;
     --border-subtle: #E2DBCE;
     --border-strong: #C9C0AE;
+    --success: #059669;
+    --success-bg: rgba(5, 150, 105, 0.10);
+    --error: #DC2626;
+    --error-bg: rgba(220, 38, 38, 0.10);
   }
 
   html,
