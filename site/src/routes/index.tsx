@@ -10,6 +10,7 @@ import {
 } from "~/lib/currency";
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
 import { VerifiedReviews } from "~/components/VerifiedReviews";
+import { EmailCapture } from "~/components/EmailCapture";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -359,6 +360,11 @@ function Home() {
           <TrustPill icon="🔒" label="No Fake Reviews" />
         </div>
       </section>
+
+      {/* ── Free cheat-sheet email capture ──
+          The form only renders once the PDF is actually on disk, so the offer is
+          never a promise we cannot keep. Storage only — no emails are sent. */}
+      <EmailCapture />
 
       {/* ── Pricing (display-only currency conversion; Stripe stays GBP) ── */}
       <PricingSection />
