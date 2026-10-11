@@ -7,13 +7,27 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#0D0D12" },
+      // Site-wide defaults. Each route sets its own title, description,
+      // canonical and og:title/description/url via src/lib/seo.ts; these entries
+      // are the fallback for that route-level head.
       { title: "FluentPath Spanish — Dialect Coaching with Native Teachers" },
       {
         name: "description",
         content:
           "Spanish teachers available 24/7 with dialect-specific coaching — Mexican, Castilian, Argentinian, Chilean and more. Conversational fluency for professionals, expats and learners.",
       },
+      { property: "og:site_name", content: "FluentPath Spanish" },
+      { property: "og:locale", content: "en_GB" },
+      { property: "og:image", content: "https://www.fluentpathspanish.com/og/og-default.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
+    // No canonical here on purpose: link tags are not deduplicated the way meta
+    // tags are, so a root-level canonical would render alongside each route's
+    // own one and give every page two conflicting canonicals. Routes set theirs
+    // through seoHead() in src/lib/seo.ts.
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   notFoundComponent: () => <div>Page not found</div>,
@@ -85,10 +99,24 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--bg-base)]">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-            <a href="/" className="font-['Montserrat'] text-lg font-bold text-[var(--text-primary)]">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+            <a href="/" className="font-['Montserrat'] text-base font-bold text-[var(--text-primary)] sm:text-lg">
               FluentPath <span className="text-[var(--accent)]">Spanish</span>
             </a>
+            <nav className="flex items-center gap-2 text-[0.8125rem] font-medium sm:gap-3 sm:text-sm">
+              <a
+                href="/quiz/dialect"
+                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              >
+                Dialect Quiz
+              </a>
+              <a
+                href="/quiz/false-friends"
+                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              >
+                False Friends
+              </a>
+            </nav>
             <ThemeToggle />
           </div>
         </header>
