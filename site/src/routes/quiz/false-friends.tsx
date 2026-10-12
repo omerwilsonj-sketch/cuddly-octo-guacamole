@@ -1,7 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Quiz, type QuizQuestion } from "~/components/Quiz";
+import { seoHead } from "~/lib/seo";
 
 export const Route = createFileRoute("/quiz/false-friends")({
+  // Unique title/description/canonical for this route; the OpenGraph card
+  // defaults (site name, locale, image) are inherited from the root head.
+  head: () =>
+    seoHead({
+      title: "Spanish False Friends Quiz | FluentPath Spanish",
+      description:
+        "Do you know what “embarazada” really means? A short interactive quiz on Spanish false friends — the words English speakers most often get wrong — explained answer by answer.",
+      path: "/quiz/false-friends",
+    }),
   component: FalseFriendsQuiz,
 });
 

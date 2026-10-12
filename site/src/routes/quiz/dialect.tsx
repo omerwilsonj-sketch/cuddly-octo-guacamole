@@ -1,7 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Quiz, type QuizQuestion } from "~/components/Quiz";
+import { seoHead } from "~/lib/seo";
 
 export const Route = createFileRoute("/quiz/dialect")({
+  // Unique title/description/canonical for this route; the OpenGraph card
+  // defaults (site name, locale, image) are inherited from the root head.
+  head: () =>
+    seoHead({
+      title: "Dialect Quiz: Which Country Says It? | FluentPath Spanish",
+      description:
+        "Which Spanish-speaking country actually says it? A short interactive quiz on dialect words — guay, chido, copado and more — with a plain-English explanation after each answer.",
+      path: "/quiz/dialect",
+    }),
   component: DialectQuiz,
 });
 

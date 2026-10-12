@@ -25,12 +25,41 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     // No canonical here on purpose: link tags are not deduplicated the way meta
-    // tags are, so a root-level canonical would render alongside each route's
+    // tags are, so a root-level canonical would render *alongside* each route's
     // own one and give every page two conflicting canonicals. Routes set theirs
     // through seoHead() in src/lib/seo.ts.
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      // Icons: the site declared none, so browsers fell back to /favicon.ico,
+      // which 404'd. These are the brand mark at the sizes browsers ask for.
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/favicon.png" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+    ],
   }),
-  notFoundComponent: () => <div>Page not found</div>,
+  // A bare "Page not found" stranded visitors with no way back. Kept deliberately
+  // plain: honest copy, no invented reassurance, plus the two routes that exist.
+  notFoundComponent: () => (
+    <main className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-center justify-center px-6 py-20 text-center">
+      <p className="font-['Montserrat'] text-sm font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
+        404
+      </p>
+      <h1 className="mt-3 font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)]">
+        We can&apos;t find that page
+      </h1>
+      <p className="mt-3 text-[var(--text-secondary)]">
+        The link may be old or mistyped. Everything we publish starts from the pages below.
+      </p>
+      <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/" className="btn-primary">
+          Back to the homepage
+        </a>
+        <a href="/quiz/dialect" className="btn-secondary">
+          Try the dialect quiz
+        </a>
+      </div>
+    </main>
+  ),
   component: RootComponent,
 });
 
