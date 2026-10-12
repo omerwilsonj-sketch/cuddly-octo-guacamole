@@ -330,7 +330,7 @@ function Home() {
             "@type": "LocalBusiness",
             name: "FluentPath Spanish",
             description: "Dialect-specific Spanish tutoring with native teachers for professionals.",
-            url: "https://fluentpathspanish.ctonew.app",
+            url: "https://www.fluentpathspanish.com",
           }),
         }}
       />
@@ -424,7 +424,7 @@ function Home() {
       {/* ── Footer ── */}
       <footer className="border-t border-[var(--border-subtle)] py-12 text-center text-xs text-[var(--text-tertiary)]">
         <p>FluentPath Spanish — dialect-specific fluency coaching with native teachers.</p>
-        <p className="mt-1">fluentpathspanish.ctonew.app</p>
+        <p className="mt-1">www.fluentpathspanish.com</p>
       </footer>
     </main>
   );
