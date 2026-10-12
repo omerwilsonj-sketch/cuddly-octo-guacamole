@@ -9,10 +9,18 @@ import {
   saveCurrency,
 } from "~/lib/currency";
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
+import { seoHead } from "~/lib/seo";
 import { VerifiedReviews } from "~/components/VerifiedReviews";
 import { EmailCapture } from "~/components/EmailCapture";
 
 export const Route = createFileRoute("/")({
+  head: () =>
+    seoHead({
+      title: "FluentPath Spanish — Dialect Coaching with Native Teachers",
+      description:
+        "Live Spanish tutoring for intermediate and advanced learners: dialect-specific coaching from native teachers — Castilian, Mexican, Argentinian, Chilean and more. Start with a free session.",
+      path: "/",
+    }),
   component: Home,
 });
 
@@ -323,7 +331,7 @@ function Home() {
             "@type": "LocalBusiness",
             name: "FluentPath Spanish",
             description: "Dialect-specific Spanish tutoring with native teachers for professionals.",
-            url: "https://fluentpathspanish.ctonew.app",
+            url: "https://www.fluentpathspanish.com",
           }),
         }}
       />
@@ -366,7 +374,7 @@ function Home() {
 
       {/* ── Free cheat-sheet email capture ──
           Below pricing: readers who are not ready to buy still get something
-          genuinely useful. The form only renders once the PDF is actually on
+          genuinely useful. The form renders only once the PDF is actually on
           disk, so the offer is never a promise we cannot keep. Storage only —
           this feature sends no email. */}
       <EmailCapture />
@@ -424,7 +432,7 @@ function Home() {
       {/* ── Footer ── */}
       <footer className="border-t border-[var(--border-subtle)] py-12 text-center text-xs text-[var(--text-tertiary)]">
         <p>FluentPath Spanish — dialect-specific fluency coaching with native teachers.</p>
-        <p className="mt-1">fluentpathspanish.ctonew.app</p>
+        <p className="mt-1">www.fluentpathspanish.com</p>
       </footer>
     </main>
   );

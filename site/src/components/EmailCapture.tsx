@@ -155,6 +155,10 @@ export function EmailCapture() {
                 {CONSENT_TEXT}
               </span>
             </label>
+            <p className="mt-2 text-xs leading-relaxed text-[var(--text-tertiary)]">
+              Where it is stored: in our own subscriber list, on our own servers — never sold,
+              never passed to a third party.
+            </p>
 
             {error ? (
               <p className="mt-3 text-sm font-semibold text-[var(--accent)]" role="alert">
