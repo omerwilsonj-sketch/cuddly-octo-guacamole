@@ -128,10 +128,24 @@ function RootDocument({ children }: { children: ReactNode }) {
       </head>
       <body>
         <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--bg-base)]">
-          <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-            <a href="/" className="font-['Montserrat'] text-lg font-bold text-[var(--text-primary)]">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+            <a href="/" className="font-['Montserrat'] text-base font-bold text-[var(--text-primary)] sm:text-lg">
               FluentPath <span className="text-[var(--accent)]">Spanish</span>
             </a>
+            <nav className="flex items-center gap-2 text-[0.8125rem] font-medium sm:gap-3 sm:text-sm">
+              <a
+                href="/quiz/dialect"
+                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              >
+                Dialect Quiz
+              </a>
+              <a
+                href="/quiz/false-friends"
+                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              >
+                False Friends
+              </a>
+            </nav>
             <ThemeToggle />
           </div>
         </header>

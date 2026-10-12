@@ -9,7 +9,7 @@ import {
   saveCurrency,
 } from "~/lib/currency";
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
-import { SITE_URL, seoHead } from "~/lib/seo";
+import { seoHead } from "~/lib/seo";
 import { VerifiedReviews } from "~/components/VerifiedReviews";
 
 export const Route = createFileRoute("/")({
