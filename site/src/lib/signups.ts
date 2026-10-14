@@ -52,6 +52,17 @@ function databaseUrl(): string | null {
   return url && url.trim() ? url.trim() : null;
 }
 
+let warnedNoDatabase = false;
+
+/** Server-side breadcrumb, once per process, so the gap is visible in the logs and not just the UI. */
+function warnOnceNoDatabase(): void {
+  if (warnedNoDatabase) return;
+  warnedNoDatabase = true;
+  console.warn(
+    "[signups] DATABASE_URL is not set — the cheat-sheet form stays hidden so no address is collected that cannot be stored.",
+  );
+}
+
 /**
  * One short-lived connection per call: the site is low-traffic and this cannot
  * leak a pool across serverless invocations or a hot reload.
@@ -141,12 +152,16 @@ export type CheatsheetStatus = {
 
 /** Tells the page what it may promise: the download, and whether sign-ups can be stored. */
 export const getCheatsheetStatus = createServerFn({ method: "GET" }).handler(
-  async (): Promise<CheatsheetStatus> => ({
-    ready: await cheatsheetExists(),
-    storage: databaseUrl() !== null,
-    path: CHEATSHEET_PATH,
-    name: CHEATSHEET_NAME,
-  }),
+  async (): Promise<CheatsheetStatus> => {
+    const storage = databaseUrl() !== null;
+    if (!storage) warnOnceNoDatabase();
+    return {
+      ready: await cheatsheetExists(),
+      storage,
+      path: CHEATSHEET_PATH,
+      name: CHEATSHEET_NAME,
+    };
+  },
 );
 
 export type SignupInput = {
@@ -196,6 +211,20 @@ export const subscribeToCheatsheet = createServerFn({ method: "POST" })
       };
     }
     const firstName = cleanName(data.name);
+
+    // A submit can still arrive from a page that was open before the database went away.
+    // Say so, log it, and hand over the download without pretending anything was saved.
+    if (databaseUrl() === null) {
+      warnOnceNoDatabase();
+      console.warn("[signups] signup received while DATABASE_URL is unset — nothing was stored.");
+      return {
+        ...base,
+        ok: false,
+        status: "stored",
+        error:
+          "Our subscriber list is not connected yet, so nothing was saved — your cheat-sheet is ready below.",
+      };
+    }
 
     try {
       const status = await withSql(async (sql) => {
