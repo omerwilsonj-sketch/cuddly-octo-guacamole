@@ -1,20 +1,24 @@
 import { createServerFn } from "@tanstack/react-start";
 
 /**
- * Cheat-sheet signups — storage only.
+ * Cheat-sheet signups — storage only, in Postgres.
  *
  * There is deliberately NO email sending in this module: the visitor gets the
- * cheat-sheet as an instant download and a JSONL row is appended so the team can
- * (later, with the owner's go-ahead and an unsubscribe mechanism) send updates.
- * Nothing here contacts anyone.
+ * cheat-sheet as an instant download and their address is stored so the team can
+ * write to them later. Nothing here contacts anyone.
  *
- * Storage: one JSON object per line at `$SIGNUPS_FILE`, or `<app dir>/data/signups.jsonl`.
- * The file is created on first signup. An existing email is not appended twice —
- * the row already on file wins, and the caller is told it was already there.
+ * Storage is the owner's Postgres (`DATABASE_URL`), so consented leads survive
+ * publishes and redeploys — host disk does not. It uses postgres.js (a standard
+ * Postgres driver), so any Postgres URL works: Tiger Cloud, Neon, Supabase, RDS.
+ * The table is created on first use and duplicates are skipped in SQL, so
+ * concurrent signups cannot corrupt or duplicate the list.
  *
- * NOTE: `node:fs`/`node:path` are imported lazily inside the handlers so this
- * module stays importable from client code (createServerFn replaces the handler
- * with an RPC stub, but a top-level `node:` import would still break the bundle).
+ * If `DATABASE_URL` is not set, nothing is claimed: the status reports
+ * `storage: false` and the form is replaced by a plain download, so we never tell
+ * a visitor they are on a list we cannot write to.
+ *
+ * NOTE: `postgres` is imported lazily inside the handler so the client bundle
+ * never sees a database driver.
  */
 
 export const CHEATSHEET_PATH = "/assets/cheatsheet/dialect-cheatsheet.pdf";
@@ -24,6 +28,12 @@ const MAX_EMAIL = 254;
 const MAX_NAME = 60;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+
+/** Minimal shape of the postgres.js client we use — keeps TS happy without its generics. */
+type SqlClient = {
+  (strings: TemplateStringsArray, ...values: unknown[]): Promise<Record<string, unknown>[]>;
+  end: (options?: { timeout?: number }) => Promise<void>;
+};
 
 function cleanEmail(raw: unknown): string | null {
   if (typeof raw !== "string") return null;
@@ -37,12 +47,43 @@ function cleanName(raw: unknown): string {
   return raw.replace(/\s+/g, " ").trim().slice(0, MAX_NAME);
 }
 
-async function signupsFile(): Promise<string> {
-  const { join } = await import("node:path");
-  const override = process.env.SIGNUPS_FILE;
-  if (override && override.trim()) return override.trim();
-  return join(process.cwd(), "data", "signups.jsonl");
+function databaseUrl(): string | null {
+  const url = process.env.DATABASE_URL;
+  return url && url.trim() ? url.trim() : null;
 }
+
+/**
+ * One short-lived connection per call: the site is low-traffic and this cannot
+ * leak a pool across serverless invocations or a hot reload.
+ */
+async function withSql<T>(run: (sql: SqlClient) => Promise<T>): Promise<T> {
+  const url = databaseUrl();
+  if (!url) throw new Error("DATABASE_URL is not set");
+  const { default: postgres } = await import("postgres");
+  const sql = postgres(url, {
+    max: 1,
+    idle_timeout: 2,
+    connect_timeout: 10,
+    // Managed Postgres (Tiger Cloud, Neon, Supabase…) needs TLS.
+    ssl: url.includes("sslmode=disable") || url.includes("localhost") ? false : "prefer",
+  }) as unknown as SqlClient;
+  try {
+    return await run(sql);
+  } finally {
+    await sql.end({ timeout: 5 }).catch(() => {});
+  }
+}
+
+/** Idempotent — safe to run on every signup, creates nothing if the table exists. */
+const ensureTable = (sql: SqlClient) => sql`
+  create table if not exists signups (
+    id serial,
+    email text unique,
+    first_name text,
+    source text,
+    consent_at timestamptz default now()
+  )
+`;
 
 /**
  * The PDF is served from the site's static root, which is `<app>/public` while
@@ -92,14 +133,17 @@ async function cheatsheetExists(): Promise<boolean> {
 export type CheatsheetStatus = {
   /** True when the PDF is actually on disk — the UI must not promise a download before this. */
   ready: boolean;
+  /** True when a database is configured — without it we cannot honestly claim to save anyone. */
+  storage: boolean;
   path: string;
   name: string;
 };
 
-/** Tells the page whether the cheat-sheet file is live yet, so no promise is made too early. */
+/** Tells the page what it may promise: the download, and whether sign-ups can be stored. */
 export const getCheatsheetStatus = createServerFn({ method: "GET" }).handler(
   async (): Promise<CheatsheetStatus> => ({
     ready: await cheatsheetExists(),
+    storage: databaseUrl() !== null,
     path: CHEATSHEET_PATH,
     name: CHEATSHEET_NAME,
   }),
@@ -113,7 +157,7 @@ export type SignupInput = {
 
 export type SignupResult = {
   ok: boolean;
-  /** "stored" = appended now, "already" = this email was already on the list. */
+  /** "stored" = added now, "already" = this email was already on the list. */
   status: "stored" | "already";
   downloadPath: string;
   downloadName: string;
@@ -132,7 +176,7 @@ export const subscribeToCheatsheet = createServerFn({ method: "POST" })
   })
   .handler(async ({ data }): Promise<SignupResult> => {
     const downloadReady = await cheatsheetExists();
-    const base: Omit<SignupResult, "status" | "ok" | "error"> = {
+    const base = {
       downloadPath: CHEATSHEET_PATH,
       downloadName: CHEATSHEET_NAME,
       downloadReady,
@@ -151,69 +195,30 @@ export const subscribeToCheatsheet = createServerFn({ method: "POST" })
         error: "Please tick the consent box so we can keep you posted.",
       };
     }
-    const name = cleanName(data.name);
+    const firstName = cleanName(data.name);
 
-    const { readFile, writeFile, mkdir, appendFile } = await import("node:fs/promises");
-    const { dirname } = await import("node:path");
-    const file = await signupsFile();
-
-    let existing = "";
     try {
-      existing = await readFile(file, "utf8");
-    } catch {
-      existing = ""; // first signup — the file does not exist yet
-    }
-
-    const already = existing
-      .split("\n")
-      .filter(Boolean)
-      .some((line) => {
-        try {
-          return (JSON.parse(line) as { email?: string }).email === email;
-        } catch {
-          return false;
-        }
+      const status = await withSql(async (sql) => {
+        await ensureTable(sql);
+        const rows = await sql`
+          insert into signups (email, first_name, source)
+          values (${email}, ${firstName}, ${"homepage"})
+          on conflict (email) do nothing
+          returning id
+        `;
+        return rows.length > 0 ? ("stored" as const) : ("already" as const);
       });
-
-    if (already) {
-      return { ...base, ok: true, status: "already" };
-    }
-
-    const row = {
-      email,
-      name,
-      timestamp: new Date().toISOString(),
-      source: "homepage",
-      consent: true,
-      consent_text:
-        "Email me the cheat-sheet and occasional FluentPath updates — unsubscribe anytime",
-      deliverable: CHEATSHEET_PATH,
-    };
-
-    try {
-      await mkdir(dirname(file), { recursive: true });
-      // JSONL append: one row per signup, never rewritten, so nothing can be lost
-      // by a concurrent write. Create-with-flag only for the very first row.
-      if (existing === "") {
-        await writeFile(file, JSON.stringify(row) + "\n", { encoding: "utf8", flag: "wx" }).catch(
-          async () => {
-            await appendFile(file, JSON.stringify(row) + "\n", "utf8");
-          },
-        );
-      } else {
-        await appendFile(file, JSON.stringify(row) + "\n", "utf8");
-      }
+      return { ...base, ok: true, status };
     } catch (error) {
       // Honest failure: the cheat-sheet is still delivered, but we say the signup
-      // did not stick rather than pretending it did.
-      console.error("[signups] could not append signup:", error);
+      // did not stick rather than telling someone they are on a list we cannot write to.
+      console.error("[signups] could not store signup:", error);
       return {
         ...base,
         ok: false,
         status: "stored",
-        error: "We could not save your details just now — but your cheat-sheet is ready below.",
+        error:
+          "We could not save your details just now — your cheat-sheet is ready below, and nothing was stored.",
       };
     }
-
-    return { ...base, ok: true, status: "stored" };
   });

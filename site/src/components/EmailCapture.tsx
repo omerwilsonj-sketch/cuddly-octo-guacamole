@@ -4,16 +4,15 @@ import { getCheatsheetStatus, subscribeToCheatsheet } from "~/lib/signups";
 /**
  * Homepage email capture for the free dialect cheat-sheet.
  *
- * Two honest states, decided by whether the PDF is actually on disk:
- *  - PDF present  -> the form is live and the download is handed over immediately
- *                    after signup (the promise is fulfilled on the spot).
- *  - PDF missing  -> no form is shown at all, because asking for an email in
- *                    exchange for a file we cannot hand over yet would be a
- *                    promise we cannot keep. It flips to the live form by itself
- *                    the moment the file lands and the site is published.
+ * The state is decided by what is actually true, never by what would convert best:
+ *  - no PDF yet        -> say the cheat-sheet is being finished; no form.
+ *  - PDF, no database  -> hand the file over as a plain download and show no form,
+ *                         because an address we cannot store is not worth asking for.
+ *  - PDF + a database  -> the form is live, and it says plainly where the address goes.
+ * The download is always the thing promised, never a newsletter someone will not get.
  */
 
-type View = "checking" | "form" | "done" | "unavailable";
+type View = "checking" | "form" | "download" | "done" | "unavailable";
 
 const CONSENT_TEXT =
   "Email me the cheat-sheet and occasional FluentPath updates — unsubscribe anytime";
@@ -36,7 +35,9 @@ export function EmailCapture() {
         if (!alive) return;
         setDownloadPath(status.path);
         setDownloadReady(status.ready);
-        setView(status.ready ? "form" : "unavailable");
+        // No PDF -> say so. PDF but no database -> hand the file over and skip the
+        // form entirely, because we will not ask for an address we cannot store.
+        setView(!status.ready ? "unavailable" : status.storage ? "form" : "download");
       })
       .catch(() => {
         if (!alive) return;
@@ -105,6 +106,26 @@ export function EmailCapture() {
             <p className="mt-2 text-xs text-[var(--text-tertiary)]">
               No sign-up form yet — we would rather not collect your email before the download
               works.
+            </p>
+          </div>
+        ) : null}
+
+        {view === "download" ? (
+          <div className="card mx-auto mt-8 max-w-xl text-center">
+            <p className="text-sm font-semibold text-[var(--text-primary)]">
+              The cheat-sheet is ready — download it now.
+            </p>
+            <a
+              href={downloadPath}
+              download
+              className="btn-primary mt-5 inline-block"
+              data-testid="cheatsheet-download"
+            >
+              Download the cheat-sheet (PDF)
+            </a>
+            <p className="mt-3 text-xs text-[var(--text-tertiary)]">
+              No sign-up form here: our subscriber list is not connected yet, and we will not ask
+              for your email until we can actually store it.
             </p>
           </div>
         ) : null}
