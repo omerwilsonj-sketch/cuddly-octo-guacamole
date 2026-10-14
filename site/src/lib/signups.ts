@@ -166,7 +166,7 @@ export type SignupResult = {
 };
 
 export const subscribeToCheatsheet = createServerFn({ method: "POST" })
-  .inputValidator((input: unknown): SignupInput => {
+  .validator((input: unknown): SignupInput => {
     const raw = (input ?? {}) as Record<string, unknown>;
     return {
       email: typeof raw.email === "string" ? raw.email : "",
