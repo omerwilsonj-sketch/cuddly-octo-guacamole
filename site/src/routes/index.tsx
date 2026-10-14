@@ -11,6 +11,7 @@ import {
 import { STRIPE_LINKS } from "~/lib/paymentLinks";
 import { seoHead } from "~/lib/seo";
 import { VerifiedReviews } from "~/components/VerifiedReviews";
+import { EmailCapture } from "~/components/EmailCapture";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -370,6 +371,13 @@ function Home() {
 
       {/* ── Pricing (display-only currency conversion; Stripe stays GBP) ── */}
       <PricingSection />
+
+      {/* ── Free cheat-sheet email capture ──
+          Below pricing: readers who are not ready to buy still get something
+          genuinely useful. The form renders only once the PDF is actually on
+          disk, so the offer is never a promise we cannot keep. Storage only —
+          this feature sends no email. */}
+      <EmailCapture />
 
       {/* ── Testimonials Section ── */}
       <section id="reviews" className="border-t border-[var(--border-subtle)] py-20">
