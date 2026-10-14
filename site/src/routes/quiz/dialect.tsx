@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Quiz, type QuizQuestion } from "~/components/Quiz";
 import { seoHead } from "~/lib/seo";
 
@@ -104,12 +104,12 @@ function DialectQuiz() {
       style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}
     >
       <div className="mx-auto max-w-xl">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="text-sm text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
         >
           ← Back to FluentPath Spanish
-        </a>
+        </Link>
 
         <div className="mt-6 text-center">
           <h1 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">
@@ -130,12 +130,12 @@ function DialectQuiz() {
 
         <p className="mt-8 text-center text-sm text-[var(--text-tertiary)]">
           Want more? Try the{" "}
-          <a
-            href="/quiz/false-friends"
+          <Link
+            to="/quiz/false-friends"
             className="text-[var(--accent)] transition hover:underline"
           >
             False Friends quiz
-          </a>
+          </Link>
           .
         </p>
       </div>

@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   BASE_CURRENCY,
   SUPPORTED_CURRENCIES,
@@ -23,6 +23,40 @@ export const Route = createFileRoute("/")({
     }),
   component: Home,
 });
+
+/* ── Icons ── */
+function IconGraduation() {
+  return (
+    <svg className="h-5 w-5 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479L12 21l-6.825-3.943a12.083 12.083 0 01.665-6.479L12 14z" />
+    </svg>
+  );
+}
+
+function IconMap() {
+  return (
+    <svg className="h-5 w-5 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+    </svg>
+  );
+}
+
+function IconX() {
+  return (
+    <svg className="h-5 w-5 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  );
+}
+
+function IconLock() {
+  return (
+    <svg className="h-5 w-5 text-[var(--accent)]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+    </svg>
+  );
+}
 
 /* ── Pricing plans (GBP base — display-only conversion, Stripe stays GBP) ── */
 interface PricePoint {
@@ -114,48 +148,31 @@ const PACKS = [
 ];
 
 /* ── Pricing section with real-time local currency conversion ── */
-function PricingSection() {
-  const locale = useMemo(
-    () => (typeof navigator !== "undefined" ? navigator.language : "en-GB"),
-    [],
-  );
-  const [currency, setCurrency] = useState<string>(BASE_CURRENCY);
-  const [rates, setRates] = useState<Record<string, number>>({ GBP: 1 });
-  const [live, setLive] = useState(false);
-  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+interface PricingSectionProps {
+  fmt: PriceFormatter;
+  currency: string;
+  rates: Record<string, number>;
+  live: boolean;
+  loading: boolean;
+  updatedAt: string | null;
+  locale: string;
+  setCurrency: (code: string) => void;
+}
 
-  // GBP is the billing currency, so it is what everyone sees by default (the
-  // target market is USA + UK). An explicit earlier choice is honoured; we no
-  // longer switch the display behind the visitor's back from their locale.
-  useEffect(() => {
-    const saved = loadSavedCurrency();
-    if (saved && saved !== BASE_CURRENCY) setCurrency(saved);
-  }, []);
-
-  // Fetch live rates once on mount.
-  useEffect(() => {
-    let cancelled = false;
-    getRates().then((result) => {
-      if (cancelled) return;
-      setRates(result.rates);
-      setLive(result.live);
-      setUpdatedAt(result.updatedAt);
-      setLoading(false);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
+function PricingSection({
+  fmt,
+  currency,
+  rates,
+  live,
+  loading,
+  updatedAt,
+  locale,
+  setCurrency,
+}: PricingSectionProps) {
   const handleChange = (code: string) => {
     setCurrency(code);
     saveCurrency(code);
   };
-
-  // Every GBP amount in the pricing section — headline prices *and* the notes
-  // beneath them — goes through this one formatter.
-  const fmt: PriceFormatter = (gbp) => formatPrice(gbp, currency, rates, locale);
 
   const price = (key: string): { amount: string; suffix: string } => {
     const point = PRICE_POINTS_BY_KEY.get(key);
@@ -164,13 +181,13 @@ function PricingSection() {
   };
 
   return (
-    <section id="pricing" className="border-t border-[var(--border-subtle)] py-20">
+    <section id="pricing" className="scroll-mt-20 border-t border-[var(--border-subtle)] py-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mb-10 text-center">
-          <h2 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)]">
+          <h2 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">
             Investment in Your Fluency
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-[var(--text-secondary)]">
+          <p className="mx-auto mt-3 max-w-2xl text-base text-[var(--text-secondary)] sm:text-lg">
             Choose the path that fits your goals, schedule, and budget.
           </p>
           <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-2 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-3 py-2">
@@ -212,16 +229,19 @@ function PricingSection() {
                     Most Popular
                   </div>
                 )}
-                <h3 className="text-lg font-bold text-[var(--text-primary)]">{plan.name}</h3>
-                <p className="mt-1 text-sm text-[var(--text-tertiary)]">{plan.tagline}</p>
+                <h3 className="text-xl font-bold text-[var(--text-primary)]">{plan.name}</h3>
+                <p className="mt-1 text-base text-[var(--text-tertiary)]">{plan.tagline}</p>
                 <div className="mb-1 mt-5">
                   <span className="text-4xl font-bold text-[var(--text-primary)]">{p.amount}</span>{" "}
                   <span className="text-sm text-[var(--text-secondary)]">{p.suffix}</span>
                 </div>
-                <p className="mb-6 text-xs text-[var(--text-tertiary)]">{plan.priceNote(fmt)}</p>
-                <ul className="mb-8 space-y-3 text-sm text-[var(--text-secondary)]">
+                <p className="mb-6 text-sm text-[var(--text-tertiary)]">{plan.priceNote(fmt)}</p>
+                <ul className="mb-8 space-y-3 text-base text-[var(--text-secondary)]">
                   {plan.features.map((f) => (
-                    <li key={f}>• {f}</li>
+                    <li key={f} className="flex items-start gap-2">
+                      <span className="text-[var(--accent)]">•</span>
+                      <span>{f}</span>
+                    </li>
                   ))}
                 </ul>
                 <a href={plan.link} target="_blank" rel="noopener noreferrer" className={`${plan.popular ? "btn-primary" : "btn-secondary"} mt-auto w-full`}>
@@ -237,16 +257,18 @@ function PricingSection() {
             const p = price(item.key);
             return (
               <div key={item.key} className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-5 py-4 text-center">
-                <span className="text-sm text-[var(--text-secondary)]">{item.label}: </span>
-                <span className="text-lg font-bold text-[var(--accent)]">{p.amount}</span>{" "}
-                <span className="text-sm text-[var(--text-tertiary)]">{p.suffix}</span>
+                <div className="mb-3">
+                  <p className="text-sm font-semibold text-[var(--text-tertiary)] uppercase tracking-wider">{item.label}</p>
+                  <p className="mt-1 text-2xl font-bold text-[var(--accent)]">{p.amount}</p>
+                  <p className="text-xs text-[var(--text-tertiary)]">{p.suffix}</p>
+                </div>
                 <a
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary mt-3 block w-full text-center"
+                  className="btn-secondary block w-full text-center"
                 >
-                  Buy
+                  Buy Pack
                 </a>
               </div>
             );
@@ -321,7 +343,7 @@ export function ReviewCard({
 
 function Home() {
   return (
-    <main className="min-h-dvh" style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}>
+    <main className="min-h-dvh overflow-x-hidden" style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}>
       {/* ── Structured Data (schema.org) ── */}
       <script
         type="application/ld+json"
@@ -339,38 +361,47 @@ function Home() {
       {/* ── Hero ── */}
       <section className="relative flex flex-col items-center justify-center px-6 py-28 text-center">
         <h1 className="font-['Montserrat'] text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl">
-          Real-world Spanish,
+          The Spanish
           <br />
-          Engineered for Professionals.
+          Locals Actually Speak.
         </h1>
-        <p className="mt-5 max-w-xl text-lg text-[var(--text-secondary)]">
+        <p className="mt-5 max-w-xl text-lg text-[var(--text-secondary)] sm:text-xl">
           Dialect fluency coaching with native teachers. Available 24/7. Precision training for serious learners.
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="#pricing" className="btn-primary">
-            Start Free Trial
-          </a>
-          <a href="#pricing" className="btn-secondary">
+          <Link to="/" hash="pricing" className="btn-primary w-full sm:w-auto">
+            Book Free First Session
+          </Link>
+          <Link to="/" hash="pricing" className="btn-secondary w-full sm:w-auto">
             See Pricing
-          </a>
+          </Link>
         </div>
         <div className="mt-8 text-xs text-[var(--text-tertiary)]">
-          CEFR B1-C2 · 6 Dialects · Native Teachers
+          CEFR B1-C2 · 6 Dialects · Native Teachers · Start for free
         </div>
       </section>
 
       {/* ── Trust Signals ── */}
       <section className="border-t border-[var(--border-subtle)] py-16">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-4 px-6">
-          <TrustPill icon="🎓" label="Teachers Available 24/7" />
-          <TrustPill icon="🗺️" label="Dialect-Specialized" />
-          <TrustPill icon="❌" label="Cancel Anytime" />
-          <TrustPill icon="🔒" label="No Fake Reviews" />
+        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-4 px-6">
+          <TrustPill icon={<IconGraduation />} label="Teachers Available 24/7" />
+          <TrustPill icon={<IconMap />} label="Dialect-Specialized" />
+          <TrustPill icon={<IconX />} label="Cancel Anytime" />
+          <TrustPill icon={<IconLock />} label="No Fake Reviews" />
         </div>
       </section>
 
       {/* ── Pricing (display-only currency conversion; Stripe stays GBP) ── */}
-      <PricingSection />
+      <PricingSection
+        fmt={fmt}
+        currency={currency}
+        rates={rates}
+        live={live}
+        loading={loading}
+        updatedAt={updatedAt}
+        locale={locale}
+        setCurrency={setCurrency}
+      />
 
       {/* ── Free cheat-sheet email capture ──
           Below pricing: readers who are not ready to buy still get something
@@ -397,7 +428,7 @@ function Home() {
               badge, or the honest "no reviews published yet" state while that
               list is empty. No placeholder testimonials, ever. */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <VerifiedReviews />
+            <VerifiedReviews fmt={fmt} />
           </div>
 
           {/* ── How we verify ── */}
