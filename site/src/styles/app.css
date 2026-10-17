@@ -102,8 +102,13 @@
     background: var(--bg-layer-1);
     border: 1px solid var(--border-subtle);
     border-radius: 12px;
-    padding: 28px;
+    padding: 20px;
     transition: border-color 0.2s ease;
+  }
+  @media (min-width: 640px) {
+    .card {
+      padding: 28px;
+    }
   }
   .card:hover {
     border-color: var(--border-strong);

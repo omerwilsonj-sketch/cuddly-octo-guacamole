@@ -342,6 +342,43 @@ export function ReviewCard({
 }
 
 function Home() {
+  const locale = useMemo(
+    () => (typeof navigator !== "undefined" ? navigator.language : "en-GB"),
+    [],
+  );
+  const [currency, setCurrency] = useState<string>(BASE_CURRENCY);
+  const [rates, setRates] = useState<Record<string, number>>({ GBP: 1 });
+  const [live, setLive] = useState(false);
+  const [updatedAt, setUpdatedAt] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // GBP is the billing currency, so it is what everyone sees by default (the
+  // target market is USA + UK). An explicit earlier choice is honoured; we no
+  // longer switch the display behind the visitor's back from their locale.
+  useEffect(() => {
+    const saved = loadSavedCurrency();
+    if (saved && saved !== BASE_CURRENCY) setCurrency(saved);
+  }, []);
+
+  // Fetch live rates once on mount.
+  useEffect(() => {
+    let cancelled = false;
+    getRates().then((result) => {
+      if (cancelled) return;
+      setRates(result.rates);
+      setLive(result.live);
+      setUpdatedAt(result.updatedAt);
+      setLoading(false);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Every GBP amount on the page — headline prices, notes, and empty-state
+  // labels — goes through this one formatter.
+  const fmt: PriceFormatter = (gbp) => formatPrice(gbp, currency, rates, locale);
+
   return (
     <main className="min-h-dvh overflow-x-hidden" style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}>
       {/* ── Structured Data (schema.org) ── */}
@@ -384,10 +421,10 @@ function Home() {
       {/* ── Trust Signals ── */}
       <section className="border-t border-[var(--border-subtle)] py-16">
         <div className="mx-auto grid max-w-5xl grid-cols-2 gap-3 px-6 lg:flex lg:flex-wrap lg:justify-center lg:gap-4">
-          <TrustPill icon={<IconGraduation />} label="Teachers Available 24/7" />
-          <TrustPill icon={<IconMap />} label="Dialect-Specialized" />
+          <TrustPill icon={<IconGraduation />} label="Native Teachers" />
+          <TrustPill icon={<IconMap />} label="Dialect Coaching" />
           <TrustPill icon={<IconX />} label="Cancel Anytime" />
-          <TrustPill icon={<IconLock />} label="No Fake Reviews" />
+          <TrustPill icon={<IconLock />} label="Honest Reviews" />
         </div>
       </section>
 
