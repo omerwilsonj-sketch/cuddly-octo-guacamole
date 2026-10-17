@@ -177,8 +177,7 @@ export function EmailCapture() {
               </span>
             </label>
             <p className="mt-2 text-xs leading-relaxed text-[var(--text-tertiary)]">
-              Where it is stored: in our own subscriber list, on our own servers — never sold,
-              never passed to a third party.
+              Where it is stored: in our own private database — never sold or shared.
             </p>
 
             {error ? (
