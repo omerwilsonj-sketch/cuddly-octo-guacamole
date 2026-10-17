@@ -1,4 +1,4 @@
-import { HeadContent, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
+import { HeadContent, Link, Outlet, Scripts, createRootRoute } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import appCss from "~/styles/app.css?url";
 
@@ -51,12 +51,12 @@ export const Route = createRootRoute({
         The link may be old or mistyped. Everything we publish starts from the pages below.
       </p>
       <div className="mt-8 flex flex-wrap justify-center gap-3">
-        <a href="/" className="btn-primary">
+        <Link to="/" className="btn-primary">
           Back to the homepage
-        </a>
-        <a href="/quiz/dialect" className="btn-secondary">
+        </Link>
+        <Link to="/quiz/dialect" className="btn-secondary">
           Try the dialect quiz
-        </a>
+        </Link>
       </div>
     </main>
   ),
@@ -97,7 +97,7 @@ function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-      className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-strong)] text-[var(--text-primary)] transition hover:border-[var(--text-secondary)]"
+      className="flex h-11 w-11 items-center justify-center rounded-lg border border-[var(--border-strong)] text-[var(--text-primary)] transition hover:border-[var(--text-secondary)]"
     >
       {theme === "dark" ? (
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -129,22 +129,25 @@ function RootDocument({ children }: { children: ReactNode }) {
       <body>
         <header className="sticky top-0 z-50 border-b border-[var(--border-subtle)] bg-[var(--bg-base)]">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-            <a href="/" className="font-['Montserrat'] text-base font-bold text-[var(--text-primary)] sm:text-lg">
+            <Link to="/" className="font-['Montserrat'] text-base font-bold text-[var(--text-primary)] sm:text-lg">
               FluentPath <span className="text-[var(--accent)]">Spanish</span>
-            </a>
+            </Link>
             <nav className="flex items-center gap-2 text-[0.8125rem] font-medium sm:gap-3 sm:text-sm">
-              <a
-                href="/quiz/dialect"
-                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              <Link
+                to="/quiz/dialect"
+                className="hidden text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] md:block"
               >
                 Dialect Quiz
-              </a>
-              <a
-                href="/quiz/false-friends"
-                className="text-[var(--text-secondary)] transition hover:text-[var(--text-primary)]"
+              </Link>
+              <Link
+                to="/quiz/false-friends"
+                className="hidden text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] md:block"
               >
                 False Friends
-              </a>
+              </Link>
+              <Link to="/" hash="pricing" className="btn-primary px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm">
+                Book a session
+              </Link>
             </nav>
             <ThemeToggle />
           </div>

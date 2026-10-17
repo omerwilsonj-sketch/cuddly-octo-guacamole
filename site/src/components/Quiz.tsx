@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 /* ── Shared interactive quiz component ──
    Renders a single-question-at-a-time, fully client-side quiz that matches the
@@ -57,9 +58,9 @@ function Results({
         <button type="button" onClick={onRestart} className="btn-secondary flex-1">
           Try again
         </button>
-        <a href={otherQuiz.href} className="btn-primary flex-1">
+        <Link to={otherQuiz.href} className="btn-primary flex-1">
           {otherQuiz.label}
-        </a>
+        </Link>
       </div>
     </div>
   );
@@ -169,12 +170,12 @@ export function Quiz({
                 onClick={() => handleSelect(i)}
                 disabled={answered}
                 aria-pressed={answered ? isSelected : false}
-                className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm text-[var(--text-primary)] transition ${cls} ${
+                className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left text-base text-[var(--text-primary)] transition ${cls} ${
                   answered ? "cursor-default" : "cursor-pointer"
                 }`}
               >
                 <span
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-xs font-semibold ${
+                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-sm font-semibold ${
                     answered && isCorrect
                       ? "border-[var(--success)] text-[var(--success)]"
                       : answered && isSelected
