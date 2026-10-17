@@ -1,0 +1,28 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fonts -->
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&amp;display=swap');
+      .text-fluent { font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 700; fill: #1A5F7A; }
+      .text-spanish { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 600; fill: #C45B28; letter-spacing: 6px; }
+    </style>
+  </defs>
+  
+  <!-- Logo Mark -->
+  <g transform="translate(150, 10)">
+    <!-- Main Bubble (Teal) -->
+    <path d="M 50 0 C 22.4 0 0 20.1 0 45 C 0 58.7 6.9 70.8 17.6 78.8 L 10 100 L 35 90 C 39.8 91.5 44.8 92.3 50 92.3 C 77.6 92.3 100 72.2 100 47.3 C 100 22.4 77.6 0 50 0 Z" fill="#1A5F7A" />
+    
+    <!-- Path (Terracotta) -->
+    <path d="M 20 80 Q 40 75 50 60 Q 60 45 40 35 Q 20 25 50 20 L 80 15 L 85 40 Q 60 45 45 60 Q 30 75 50 85 Z" fill="#C45B28" opacity="0.9" />
+    
+    <!-- Sun/Accent (Gold) -->
+    <circle cx="75" cy="25" r="8" fill="#F2BE22" />
+  </g>
+  
+  <!-- Logo Text -->
+  <g transform="translate(200, 150)" text-anchor="middle">
+    <text y="0" class="text-fluent">FluentPath</text>
+    <text y="35" class="text-spanish">SPANISH</text>
+  </g>
+</svg>

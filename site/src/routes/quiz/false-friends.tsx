@@ -105,14 +105,16 @@ const QUESTIONS: QuizQuestion[] = [
 function FalseFriendsQuiz() {
   return (
     <main
-      className="min-h-dvh px-4 py-10 sm:px-6"
+      className="min-h-dvh overflow-x-hidden px-4 py-10 sm:px-6"
       style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}
     >
       <div className="mx-auto max-w-xl">
         <Link
           to="/"
           className="text-sm text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
-        ></Link>
+        >
+          ← Back to FluentPath Spanish
+        </Link>
 
         <div className="mt-6 text-center">
           <h1 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">

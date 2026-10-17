@@ -100,7 +100,7 @@ const QUESTIONS: QuizQuestion[] = [
 function DialectQuiz() {
   return (
     <main
-      className="min-h-dvh px-4 py-10 sm:px-6"
+      className="min-h-dvh overflow-x-hidden px-4 py-10 sm:px-6"
       style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}
     >
       <div className="mx-auto max-w-xl">

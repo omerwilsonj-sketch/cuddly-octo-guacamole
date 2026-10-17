@@ -43,7 +43,7 @@ const REELS: { src: string; title: string; dialect: string }[] = [
 function ReelBankPage() {
   return (
     <main
-      className="min-h-dvh"
+      className="min-h-dvh overflow-x-hidden"
       style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}
     >
       <section className="mx-auto max-w-4xl px-6 py-20">

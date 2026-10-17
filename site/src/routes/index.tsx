@@ -298,11 +298,11 @@ function Stars({ rating = 5 }: { rating?: number }) {
 }
 
 /* ── Trust signal pill ── */
-function TrustPill({ icon, label }: { icon: string; label: string }) {
+function TrustPill({ icon, label }: { icon: ReactNode; label: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-4 py-2 text-sm text-[var(--text-secondary)]">
-      <span className="text-base">{icon}</span>
-      <span>{label}</span>
+    <div className="flex items-center gap-3 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-1)] px-4 py-2 text-sm text-[var(--text-secondary)]">
+      <div className="flex-shrink-0">{icon}</div>
+      <span className="leading-tight">{label}</span>
     </div>
   );
 }
@@ -383,7 +383,7 @@ function Home() {
 
       {/* ── Trust Signals ── */}
       <section className="border-t border-[var(--border-subtle)] py-16">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-4 px-6">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-3 px-6 lg:flex lg:flex-wrap lg:justify-center lg:gap-4">
           <TrustPill icon={<IconGraduation />} label="Teachers Available 24/7" />
           <TrustPill icon={<IconMap />} label="Dialect-Specialized" />
           <TrustPill icon={<IconX />} label="Cancel Anytime" />

@@ -53,10 +53,10 @@ export const Route = createRootRoute({
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <Link to="/" className="btn-primary">
           Back to the homepage
-        </a>
-        <a href="/quiz/dialect" className="btn-secondary">
+        </Link>
+        <Link to="/quiz/dialect" className="btn-secondary">
           Try the dialect quiz
-        </a>
+        </Link>
       </div>
     </main>
   ),
@@ -131,7 +131,7 @@ function RootDocument({ children }: { children: ReactNode }) {
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
             <Link to="/" className="font-['Montserrat'] text-base font-bold text-[var(--text-primary)] sm:text-lg">
               FluentPath <span className="text-[var(--accent)]">Spanish</span>
-            </a>
+            </Link>
             <nav className="flex items-center gap-2 text-[0.8125rem] font-medium sm:gap-3 sm:text-sm">
               <Link
                 to="/quiz/dialect"
@@ -141,7 +141,7 @@ function RootDocument({ children }: { children: ReactNode }) {
               </Link>
               <Link
                 to="/quiz/false-friends"
-                className="hidden text-[var(--text-secondary)] transition hover:text(--text-primary)] md:block"
+                className="hidden text-[var(--text-secondary)] transition hover:text-[var(--text-primary)] md:block"
               >
                 False Friends
               </Link>
