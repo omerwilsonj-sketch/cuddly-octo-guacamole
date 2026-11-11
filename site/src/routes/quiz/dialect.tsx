@@ -1,15 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Quiz, type QuizQuestion } from "~/components/Quiz";
 import { seoHead } from "~/lib/seo";
 
 export const Route = createFileRoute("/quiz/dialect")({
-  // Unique title/description/canonical for this route; the OpenGraph card
-  // defaults (site name, locale, image) are inherited from the root head.
+  // Head only — the quiz page body belongs to the quiz work.
   head: () =>
     seoHead({
-      title: "Dialect Quiz: Which Country Says It? | FluentPath Spanish",
+      title: "Spanish Dialect Quiz — Which Country Says It? | FluentPath Spanish",
       description:
-        "Which Spanish-speaking country actually says it? A short interactive quiz on dialect words — guay, chido, copado and more — with a plain-English explanation after each answer.",
+        "Ten questions on Spanish that changes from country to country: “guay”, “chido”, “guita” and more. Pick the country each word belongs to and see the explanation after every answer.",
       path: "/quiz/dialect",
     }),
   component: DialectQuiz,
@@ -100,22 +99,22 @@ const QUESTIONS: QuizQuestion[] = [
 function DialectQuiz() {
   return (
     <main
-      className="min-h-dvh px-4 py-10 sm:px-6"
+      className="min-h-dvh overflow-x-hidden px-4 py-10 sm:px-6"
       style={{ background: "var(--bg-base)", color: "var(--text-primary)" }}
     >
       <div className="mx-auto max-w-xl">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="text-sm text-[var(--text-tertiary)] transition hover:text-[var(--text-primary)]"
         >
           ← Back to FluentPath Spanish
-        </a>
+        </Link>
 
         <div className="mt-6 text-center">
           <h1 className="font-['Montserrat'] text-3xl font-bold text-[var(--text-primary)] sm:text-4xl">
             Which dialect is it?
           </h1>
-          <p className="mx-auto mt-3 max-w-md text-[var(--text-secondary)]">
+          <p className="mx-auto mt-3 max-w-md text-base text-[var(--text-secondary)]">
             Ten words and phrases straight from our reels. Can you place each one?
           </p>
         </div>
@@ -130,12 +129,12 @@ function DialectQuiz() {
 
         <p className="mt-8 text-center text-sm text-[var(--text-tertiary)]">
           Want more? Try the{" "}
-          <a
-            href="/quiz/false-friends"
+          <Link
+            to="/quiz/false-friends"
             className="text-[var(--accent)] transition hover:underline"
           >
             False Friends quiz
-          </a>
+          </Link>
           .
         </p>
       </div>
