@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   REVIEW_SOURCE_LABELS,
   VERIFIED_REVIEWS,
@@ -65,36 +66,38 @@ export function VerifiedReviewCard({ review }: { review: VerifiedReview }) {
 /* ── Honest empty state ──
    Shown while no verified review exists. It says exactly that, and explains the
    rule — rather than dressing up a slot with invented social proof. */
-export function VerifiedReviewsEmptyState() {
+export function VerifiedReviewsEmptyState({ fmt }: { fmt: (gbp: number) => string }) {
   return (
     <div className="card flex flex-col items-center gap-4 py-12 text-center md:col-span-2 lg:col-span-3">
       <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)] px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wide text-[var(--accent)]">
         Founding students
       </span>
-      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)] text-2xl">
-        ⭐
+      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-[var(--bg-layer-2)]">
+        <svg className="h-7 w-7 text-[var(--accent)]" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
       </div>
-      <p className="text-lg font-semibold text-[var(--text-primary)]">Be the first to review us</p>
-      <p className="max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">
+      <p className="text-xl font-bold text-[var(--text-primary)]">Be the first to review us</p>
+      <p className="max-w-md text-base leading-relaxed text-[var(--text-secondary)]">
         We only publish reviews we can verify — a real student, with the purchase or booking on
         record. We&apos;re just getting started, so this section stays empty until a real student
         has something honest to say. No invented ratings, no borrowed quotes, no stock
         testimonials.
       </p>
-      <p className="max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">
+      <p className="max-w-md text-base leading-relaxed text-[var(--text-secondary)]">
         Be one of our first students and your honest feedback — good or bad — becomes the first
-        review here. Your first session is free, and a subscription is £19/month.
+        review here. Plans start at {fmt(19)}/month, and the dialect quiz is free to try.
       </p>
-      <a href="#pricing" className="btn-primary mt-2">
-        Start with a free session
-      </a>
+      <Link to="/" hash="pricing" className="btn-primary mt-2">
+        See plans &amp; pricing
+      </Link>
     </div>
   );
 }
 
 /* ── The reviews grid: real verified reviews, or the honest empty state ── */
-export function VerifiedReviews() {
-  if (!hasVerifiedReviews) return <VerifiedReviewsEmptyState />;
+export function VerifiedReviews({ fmt }: { fmt: (gbp: number) => string }) {
+  if (!hasVerifiedReviews) return <VerifiedReviewsEmptyState fmt={fmt} />;
   return (
     <>
       {VERIFIED_REVIEWS.map((review) => (

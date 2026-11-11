@@ -15,10 +15,10 @@
     --text-tertiary: #5C5C6A;
     --border-subtle: #1F2130;
     --border-strong: #2A2D3C;
-    --success: #34D399;
-    --success-bg: rgba(52, 211, 153, 0.12);
-    --error: #F87171;
-    --error-bg: rgba(248, 113, 113, 0.12);
+    --success: #3A6B3A;
+    --success-bg: rgba(58, 107, 58, 0.12);
+    --error: #8B3A3A;
+    --error-bg: rgba(139, 58, 58, 0.12);
   }
 
   /* Light mode — white/cream background, dark text, same gold accent */
@@ -36,10 +36,10 @@
     --text-tertiary: #77736A;
     --border-subtle: #E2DBCE;
     --border-strong: #C9C0AE;
-    --success: #059669;
-    --success-bg: rgba(5, 150, 105, 0.10);
-    --error: #DC2626;
-    --error-bg: rgba(220, 38, 38, 0.10);
+    --success: #3A6B3A;
+    --success-bg: rgba(58, 107, 58, 0.10);
+    --error: #8B3A3A;
+    --error-bg: rgba(139, 58, 58, 0.10);
   }
 
   html,
@@ -62,13 +62,14 @@
     color: var(--on-accent);
     font-family: 'Montserrat', 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 0.9375rem;
-    padding: 12px 28px;
+    font-size: 1rem;
+    padding: 14px 28px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s ease;
     text-decoration: none;
+    min-height: 44px;
   }
   .btn-primary:hover {
     background: var(--accent-hover);
@@ -83,13 +84,14 @@
     color: var(--text-primary);
     font-family: 'Montserrat', 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 0.9375rem;
-    padding: 11px 28px;
+    font-size: 1rem;
+    padding: 13px 28px;
     border: 1px solid var(--border-strong);
     border-radius: 8px;
     cursor: pointer;
     transition: border-color 0.2s ease, color 0.2s ease;
     text-decoration: none;
+    min-height: 44px;
   }
   .btn-secondary:hover {
     border-color: var(--text-secondary);
